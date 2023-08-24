@@ -1,5 +1,8 @@
 package engine;
 
+import engine.graph.Render;
+import engine.scene.Scene;
+
 public class Engine {
 
     public static final int TARGET_UPS = 30;

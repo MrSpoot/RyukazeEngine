@@ -1,5 +1,6 @@
-package engine;
+package engine.graph;
 
+import engine.Utils;
 import org.lwjgl.opengl.GL30;
 
 import java.util.*;
