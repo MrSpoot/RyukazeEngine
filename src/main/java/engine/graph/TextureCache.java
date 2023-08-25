@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class TextureCache {
 
-    public static final String DEFAULT_TEXTURE = "C:\\Users\\Betterfly\\Documents\\GitHub\\GameEngine\\src\\main\\resources\\models\\default\\default_texture.png";
+    public static final String DEFAULT_TEXTURE = "resources/models/default/default_texture.png";
 
     private Map<String, Texture> textureMap;
 

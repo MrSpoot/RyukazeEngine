@@ -22,7 +22,7 @@ public class Engine {
         targetFps = opts.fps;
         targetUps = opts.ups;
         this.appLogic = appLogic;
-        render = new Render();
+        render = new Render(window);
         scene = new Scene(window.getWidth(), window.getHeight());
         appLogic.init(window, scene, render);
         running = true;
@@ -36,7 +36,10 @@ public class Engine {
     }
 
     private void resize() {
-        scene.resize(window.getWidth(), window.getHeight());
+        int width = window.getWidth();
+        int height = window.getHeight();
+        scene.resize(width, height);
+        render.resize(width, height);
     }
 
     private void run() {
@@ -46,7 +49,13 @@ public class Engine {
         float deltaUpdate = 0;
         float deltaFps = 0;
 
+        float fps = 0;
+
         long updateTime = initialTime;
+        long fpsTime = initialTime;
+        long secondTime = initialTime;
+
+        IGuiInstance iGuiInstance = scene.getGuiInstance();
         while (running && !window.windowShouldClose()) {
             window.pollEvents();
 
@@ -55,7 +64,9 @@ public class Engine {
             deltaFps += (now - initialTime) / timeR;
 
             if (targetFps <= 0 || deltaFps >= 1) {
-                appLogic.input(window, scene, now - initialTime);
+                window.getMouseInput().input();
+                boolean inputConsumed = iGuiInstance != null && iGuiInstance.handleGuiInput(scene,window);
+                appLogic.input(window, scene, now - initialTime, inputConsumed);
             }
 
             if (deltaUpdate >= 1) {
@@ -65,14 +76,23 @@ public class Engine {
                 deltaUpdate--;
             }
 
+            if(now - secondTime > 200){
+                window.updateFps(fps);
+                secondTime = now;
+            }
+
             if (targetFps <= 0 || deltaFps >= 1) {
                 render.render(window, scene);
+                long time = now - fpsTime;
+                if(time > 0){
+                    fps = 1000.0f/time;
+                }
+                fpsTime = now;
                 deltaFps--;
                 window.update();
             }
             initialTime = now;
         }
-
         cleanup();
     }
 

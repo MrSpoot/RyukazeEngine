@@ -16,10 +16,13 @@ public class Window {
     private final long windowHandle;
     private int height;
     private int width;
+    private String title;
+    private MouseInput mouseInput;
     private Callable<Void> resizeFunc;
 
     public Window(String title, WindowOptions opts, Callable<Void> resizeFunc) {
         this.resizeFunc = resizeFunc;
+        this.title = title;
         if (!glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
@@ -71,6 +74,7 @@ public class Window {
         glfwGetFramebufferSize(windowHandle, arrWidth, arrHeight);
         width = arrWidth[0];
         height = arrHeight[0];
+        mouseInput = new MouseInput(windowHandle);
     }
 
     public void keyCallBack(int key, int action) {
@@ -101,6 +105,10 @@ public class Window {
         return windowHandle;
     }
 
+    public MouseInput getMouseInput() {
+        return mouseInput;
+    }
+
     public boolean isKeyPressed(int keyCode) {
         return glfwGetKey(windowHandle, keyCode) == GLFW_PRESS;
     }
@@ -123,6 +131,10 @@ public class Window {
         glfwSwapBuffers(windowHandle);
     }
 
+    public void updateFps(float fps){
+        glfwSetWindowTitle(windowHandle, (title + " | FPS : "+String.format("%.1f",fps)));
+    }
+
     public boolean windowShouldClose() {
         return glfwWindowShouldClose(windowHandle);
     }
@@ -135,5 +147,15 @@ public class Window {
         public int width;
         public int ups = Engine.TARGET_UPS;
 
+        public WindowOptions() {
+        }
+
+        public WindowOptions(boolean compatibleProfile, int fps, int height, int width, int ups) {
+            this.compatibleProfile = compatibleProfile;
+            this.fps = fps;
+            this.height = height;
+            this.width = width;
+            this.ups = ups;
+        }
     }
 }

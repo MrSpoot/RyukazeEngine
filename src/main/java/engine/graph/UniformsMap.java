@@ -1,10 +1,13 @@
 package engine.graph;
 
 import org.joml.Matrix4f;
+import org.joml.Vector2f;
+import org.joml.Vector4f;
 import org.lwjgl.system.MemoryStack;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import static org.lwjgl.opengl.GL20.*;
 
@@ -46,6 +49,14 @@ public class UniformsMap {
             }
             glUniformMatrix4fv(location.intValue(), false, value.get(stack.mallocFloat(16)));
         }
+    }
+
+    public void setUniform(String uniformName, Vector4f value){
+        glUniform4f(getUniformLocation(uniformName),value.x,value.y,value.z,value.w);
+    }
+
+    public void setUniform(String uniformName, Vector2f value){
+        glUniform2f(getUniformLocation(uniformName),value.x,value.y);
     }
 
 }
