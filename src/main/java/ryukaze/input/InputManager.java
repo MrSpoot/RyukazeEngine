@@ -1,8 +1,7 @@
-package input;
+package ryukaze.input;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import shaders.ShaderProgram;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;

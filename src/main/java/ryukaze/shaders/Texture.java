@@ -1,8 +1,7 @@
-package shaders;
+package ryukaze.shaders;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;
-import utils.ImageReader;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;

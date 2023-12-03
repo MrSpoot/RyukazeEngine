@@ -1,8 +1,8 @@
-package shaders;
+package ryukaze.shaders;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.FileReader;
+import ryukaze.utils.FileReader;
 
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL20.glDeleteShader;
@@ -50,7 +50,7 @@ public class ShaderProgram {
     private void checkShaderProgramLinking(int shaderProgram) {
         int linked = glGetProgrami(shaderProgram, GL_LINK_STATUS);
         if (linked != GL_TRUE) {
-            LOGGER.warn("Erreur de liaison du programme de shaders : "+glGetProgramInfoLog(shaderProgram));
+            LOGGER.warn("Erreur de liaison du programme de ryukaze.shaders : "+glGetProgramInfoLog(shaderProgram));
         }
     }
 
