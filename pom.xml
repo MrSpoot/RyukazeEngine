@@ -67,11 +67,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.tinylog</groupId>
-            <artifactId>tinylog</artifactId>
-            <version>1.3.6</version>
-        </dependency>
-        <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>
         </dependency>
@@ -131,15 +126,9 @@
             <version>${joml.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.github.spair</groupId>
-            <artifactId>imgui-java-binding</artifactId>
-            <version>${imgui-java.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.spair</groupId>
-            <artifactId>imgui-java-${native.target}</artifactId>
-            <version>${imgui-java.version}</version>
-            <scope>runtime</scope>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.14</version>
         </dependency>
     </dependencies>
 
