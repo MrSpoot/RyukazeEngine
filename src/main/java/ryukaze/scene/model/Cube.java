@@ -7,6 +7,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
+import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 public class Cube {
@@ -58,16 +59,12 @@ public class Cube {
     private final Texture texture;
 
     public Cube(Texture texture) {
-            this.texture = texture;
+        this.texture = texture;
     }
 
     public void render(){
 
-        glBindVertexArray(StateManager.getGlobalVAO());
-        glDrawArrays(GL_TRIANGLES,0,36);
 
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture.getTexture());
 
     }
 }
