@@ -11,6 +11,8 @@ public class InputManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(InputManager.class);
     private static int mode = GL_FILL;
 
+
+
     public static void processInput(long window){
 
         if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){

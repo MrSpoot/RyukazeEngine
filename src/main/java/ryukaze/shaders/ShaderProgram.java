@@ -18,8 +18,18 @@ public class ShaderProgram {
         vertex = glCreateShader(GL_VERTEX_SHADER);
         fragment = glCreateShader(GL_FRAGMENT_SHADER);
         program = glCreateProgram();
-        compileShader(vertex, FileReader.readFile("src/main/resources/shader/vertex.vert"));
-        compileShader(fragment,FileReader.readFile("src/main/resources/shader/fragment.frag"));
+        compileShader(vertex, FileReader.readFile("src/main/resources/shader/vertex.vert.old"));
+        compileShader(fragment,FileReader.readFile("src/main/resources/shader/fragment.frag.old"));
+        compileProgram(program);
+
+    }
+
+    public ShaderProgram(String vertexPath, String fragmentPath){
+        vertex = glCreateShader(GL_VERTEX_SHADER);
+        fragment = glCreateShader(GL_FRAGMENT_SHADER);
+        program = glCreateProgram();
+        compileShader(vertex, FileReader.readFile(vertexPath));
+        compileShader(fragment,FileReader.readFile(fragmentPath));
         compileProgram(program);
 
     }
