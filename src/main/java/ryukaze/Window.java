@@ -3,20 +3,14 @@ package ryukaze;
 import lombok.Getter;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
-import ryukaze.core.RenderLoop;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ryukaze.core.StateManager;
 import ryukaze.graphics.Camera;
 import ryukaze.input.InputManager;
-import ryukaze.scene.model.Cube;
 import ryukaze.shaders.ShaderProgram;
-import ryukaze.shaders.Texture;
-import ryukaze.shaders.UniformsMap;
 
-import static java.lang.Math.cos;
 import static org.joml.Math.sin;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -81,7 +75,7 @@ public class Window {
 
     public Window(String title, int width, int height) {
 
-        if (glfwInit()) {
+        /*if (glfwInit()) {
             LOGGER.info("GLFW is initialized");
         } else {
             LOGGER.error("GLFW is not initialized");
@@ -140,7 +134,7 @@ public class Window {
         /*glVertexAttribPointer(2, 2, GL_FLOAT, false, 32, 24);
         glEnableVertexAttribArray(2);*/
 
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        /*glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
 
 
@@ -199,7 +193,7 @@ public class Window {
             glBindTexture(GL_TEXTURE_2D, texture2.getTexture());*/
 
 
-            glBindVertexArray(vao);
+            /*glBindVertexArray(vao);
             //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
             //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -233,7 +227,7 @@ public class Window {
 
         }
 
-        glfwTerminate();
+        glfwTerminate();*/
 
     }
 

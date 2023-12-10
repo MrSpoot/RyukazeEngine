@@ -1,9 +1,10 @@
 package ryukaze.core;
 
+import ryukaze.scene.Scene;
+
 public class StateManager {
 
-    static long window;
-    static int globalVAO;
-    static int globalVBO;
+    public static Window window;
+    public static Scene scene;
 
 }

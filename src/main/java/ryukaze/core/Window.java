@@ -1,32 +1,36 @@
 package ryukaze.core;
 
 import lombok.Data;
+import lombok.Setter;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ryukaze.scene.SceneManager;
 
 import java.util.concurrent.Callable;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 @Data
 public class Window {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Window.class);
-
     private final long windowHandle;
     private int height;
     private int width;
     private String title;
-    private Callable<Void> resizeFunc;
     private RenderLoop renderLoop;
+    private SceneManager sceneManager;
+    private int fps = 0;
 
-    public Window(String title, WindowOptions opts, Callable<Void> resizeFunc) {
-        this.resizeFunc = resizeFunc;
+    public Window(String title, WindowOptions opts) {
         this.title = title;
+        this.sceneManager = new SceneManager();
         if (!glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
@@ -53,7 +57,7 @@ public class Window {
         if (windowHandle == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }else{
-            StateManager.window = windowHandle;
+            StateManager.window = this;
         }
 
         glfwSetFramebufferSizeCallback(windowHandle, (window, w, h) -> resized(w, h));
@@ -67,6 +71,9 @@ public class Window {
         });
 
         glfwMakeContextCurrent(windowHandle);
+        GL.createCapabilities();
+
+        glViewport(0,0,width,height);
 
         if (opts.fps > 0) {
             glfwSwapInterval(0);
@@ -101,26 +108,18 @@ public class Window {
         }
     }
 
+    public void run(){
+        this.renderLoop.loop();
+    }
+
     protected void resized(int width, int height) {
         this.width = width;
         this.height = height;
         try {
-            resizeFunc.call();
+            glViewport(0, 0, width, height);
         } catch (Exception e) {
             LOGGER.error("Error calling resize callback", e);
         }
-    }
-
-    public void update() {
-        glfwSwapBuffers(windowHandle);
-    }
-
-    public void updateFps(float fps){
-        glfwSetWindowTitle(windowHandle, (title + " | FPS : "+String.format("%.1f",fps)));
-    }
-
-    public boolean windowShouldClose() {
-        return glfwWindowShouldClose(windowHandle);
     }
 
     public static class WindowOptions {
@@ -132,6 +131,8 @@ public class Window {
         public int ups = 20;
 
         public WindowOptions() {
+            this.width = 1280;
+            this.height = 720;
         }
 
         public WindowOptions(boolean compatibleProfile, int fps, int height, int width, int ups) {
