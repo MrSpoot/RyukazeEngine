@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MAJOR;
-import static org.lwjgl.opengl.GL11.glViewport;
+import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 @Data
@@ -45,7 +45,7 @@ public class Window {
             height = vidMode.height();
         }
 
-        windowHandle = glfwCreateWindow(width, height, "", NULL, NULL);
+        windowHandle = glfwCreateWindow(width, height, "DEBUG", NULL, NULL);
         if (windowHandle == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
@@ -57,16 +57,21 @@ public class Window {
         );
         glfwMakeContextCurrent(windowHandle);
         GL.createCapabilities();
-
         if (options.fps > 0) {
             glfwSwapInterval(0);
         } else {
             glfwSwapInterval(1);
         }
+
+        glViewport(0,0,width,height);
+
+        glEnable(GL_DEPTH_TEST);
+
+        glfwShowWindow(windowHandle);
     }
 
-    public void run(){
-        glfwShowWindow(windowHandle);
+    public void setWindowTitle(String title){
+        glfwSetWindowTitle(windowHandle,title);
     }
 
     private void resize(long windowHandle, int width, int height){

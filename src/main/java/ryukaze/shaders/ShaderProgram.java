@@ -24,7 +24,7 @@ public class ShaderProgram {
     private final Map<String, Integer> uniforms;
 
     public ShaderProgram(){
-        this("src/main/resources/shader/vertex.vert.old","src/main/resources/shader/fragment.frag.old");
+        this("src/main/resources/shader/default.scene.vert.old","src/main/resources/shader/default.scene.frag.old");
     }
 
     public ShaderProgram(String vertexPath, String fragmentPath){

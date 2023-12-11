@@ -99,8 +99,8 @@ public class Window {
 
         glViewport(0, 0, width, height);
 
-        ShaderProgram program = new ShaderProgram("src/main/resources/shader/vertex.vert","src/main/resources/shader/fragment.frag");
-        ShaderProgram light = new ShaderProgram("src/main/resources/shader/vertex.vert","src/main/resources/shader/light.frag");
+        ShaderProgram program = new ShaderProgram("src/main/resources/shader/default.scene.vert","src/main/resources/shader/default.scene.frag");
+        ShaderProgram light = new ShaderProgram("src/main/resources/shader/default.scene.vert","src/main/resources/shader/light.frag");
 
         int vao = glGenVertexArrays();
         int vbo = glGenBuffers();

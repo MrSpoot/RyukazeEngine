@@ -20,7 +20,7 @@ public class Scene {
 
     public Scene(){
         Window window = StateManager.window;
-        this.shaderProgram = new ShaderProgram("src/main/resources/shader/vertex.vert","src/main/resources/shader/fragment.frag");
+        this.shaderProgram = new ShaderProgram("src/main/resources/shader/default.scene.vert","src/main/resources/shader/default.scene.frag");
 
         this.camera = new Camera(75, (float) window.getWidth() / window.getHeight(),0.1f,1000.0f,new Vector3f(0.0f,0.0f,-3.0f));
 
