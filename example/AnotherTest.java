@@ -5,6 +5,8 @@ import ryukazev2.graphics.Camera;
 import ryukazev2.input.InputTouch;
 import ryukazev2.objects.GameObject;
 import ryukazev2.objects.model.Cube;
+import ryukazev2.objects.model.Sphere;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class AnotherTest {
@@ -22,32 +24,38 @@ public class AnotherTest {
         Engine.getInputManager().addNewInputTouch(esc);
 
         GameObject camera = new Camera(75,0.1f,100f);
-        camera.setPosition(new Vector3f(0.0f,-4.0f,-30f));
+        camera.getTransform().setPosition(new Vector3f(0.0f,-4.0f,-30f));
         scene.subscribe(camera);
 
-        GameObject cube1 = new Cube();
-        cube1.setPosition(new Vector3f(0f,0f,-5f));
+        GameObject sphere = new Sphere();
+        sphere.getTransform().setPosition(new Vector3f(0f,-2f,0f));
+        scene.subscribe(sphere);
+
+        /*GameObject cube1 = new Cube();
+        cube1.getTransform().setPosition(new Vector3f(0f,0f,-5f));
         scene.subscribe(cube1);
 
         GameObject cube7 = new Cube();
-        cube7.setPosition(new Vector3f(5f,-1f,5f));
+        cube7.getTransform().setPosition(new Vector3f(5f,-1f,5f));
         scene.subscribe(cube7);
 
         GameObject cube8 = new Cube();
-        cube8.setPosition(new Vector3f(-5f,-1f,5f));
+        cube8.getTransform().setPosition(new Vector3f(-5f,-1f,5f));
         scene.subscribe(cube8);
 
         GameObject cube2 = new Cube();
-        cube2.setPosition(new Vector3f(0f,0f,5f));
+        cube2.getTransform().setPosition(new Vector3f(0f,0f,5f));
         scene.subscribe(cube2);
 
         GameObject cube3 = new Cube();
-        cube3.setPosition(new Vector3f(5f,0f,0f));
+        cube3.getTransform().setPosition(new Vector3f(-2f,-1f,0f));
         scene.subscribe(cube3);
 
         GameObject cube4 = new Cube();
-        cube4.setPosition(new Vector3f(-5f,0f,0f));
-        scene.subscribe(cube4);
+        cube4.getTransform().setPosition(new Vector3f(2f,-1f,0f));
+
+        cube3.addChildren(cube4);*/
+
         Engine.run();
 
     }

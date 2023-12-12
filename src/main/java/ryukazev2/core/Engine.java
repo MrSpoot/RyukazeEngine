@@ -9,7 +9,6 @@ import ryukazev2.input.InputManager;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 
 public class Engine {
 
@@ -23,7 +22,7 @@ public class Engine {
 
     public static void init() {
         LOGGER.info("Init Engine");
-        window = new Window(new Window.WindowOptions(true, 60, 720, 1280, 20));
+        window = new Window(new Window.WindowOptions(true, 60, 720, 1280, 60));
         inputManager = new InputManager();
     }
 

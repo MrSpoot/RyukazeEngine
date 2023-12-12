@@ -34,12 +34,11 @@ public class Scene {
 
 
     public void render() {
-
         shader.useProgram();
-        objects.forEach(GameObject::render);
+        objects.forEach(GameObject::_render);
     }
 
     public void update() {
-        objects.forEach(GameObject::update);
+        objects.forEach(GameObject::_update);
     }
 }
