@@ -20,10 +20,6 @@ public class AnotherTest {
 
         Engine.setScene(scene);
 
-        InputTouch esc = new InputTouch("esc",GLFW_PRESS,GLFW_KEY_ESCAPE);
-
-        Engine.getInputManager().addNewInputTouch(esc);
-
         GameObject light = new AmbientLight();
         light.getTransform().setPosition(new Vector3f(-2f,-3f,0f));
 

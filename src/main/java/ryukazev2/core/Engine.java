@@ -13,11 +13,11 @@ import static org.lwjgl.opengl.GL11.*;
 public class Engine {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Engine.class);
-    @Getter @Setter
+    @Getter
     private static Window window;
     @Getter @Setter
     private static Scene scene;
-    @Getter @Setter
+    @Getter
     private static InputManager inputManager;
 
     public static void init() {
