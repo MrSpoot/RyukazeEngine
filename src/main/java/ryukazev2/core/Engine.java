@@ -1,11 +1,11 @@
 package ryukazev2.core;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ryukazev2.input.InputManager;
+import ryukazev2.input.InputTouch;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;

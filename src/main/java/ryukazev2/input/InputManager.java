@@ -1,6 +1,10 @@
 package ryukazev2.input;
 
+import lombok.Getter;
+
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -47,9 +51,10 @@ public class InputManager {
         inputTouchList.add(inputTouch);
     }
 
-    public InputTouch isPressed(InputTouch touch){
-        if(pressedTouch.stream().anyMatch((input) -> input == touch)){
-            return pressedTouch.stream().filter((input) -> input == touch).findFirst().get();
+    public InputTouch isPressed(String inputName){
+
+        if(pressedTouch.get(inputName) != null){
+            return pressedTouch.get(inputName);
         }else{
             return null;
         }
