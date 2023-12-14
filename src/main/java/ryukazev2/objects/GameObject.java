@@ -19,18 +19,21 @@ public abstract class GameObject  {
     protected GameObject parent;
     protected HashMap<String,GameObject> children;
 
-    public GameObject(Transform transform, Mesh mesh, GameObject parent, HashMap<String, GameObject> children) {
+    public GameObject(Transform transform, Mesh mesh, GameObject parent) {
         this.transform = transform;
         this.mesh = mesh;
         this.parent = parent;
-        this.children = children;
+        this.children = new HashMap<>();
+        if(parent == null){
+            Engine.getScene().subscribe(this);
+        }
     }
 
     public final void _render(){
         children.values().forEach(GameObject::_render);
         Engine.getScene().getShader().setUniform("model",new Matrix4f().translate(getGlobalTransform().getPosition()));
         if(mesh != null){
-            mesh.render();
+            mesh._render();
         }
         render();
     }

@@ -18,7 +18,7 @@ public class Camera extends GameObject {
     private Vector3f up;
 
     public Camera(float fov, float zNear, float zFar){
-        super(new Transform(),null,null, new HashMap<>());
+        super(new Transform(),null,null);
         this.projection = new Matrix4f().perspective(fov,  (float)Engine.getWindow().getWidth() / (float)Engine.getWindow().getHeight(),zNear,zFar);
         this.front = new Vector3f(0.0f,0.0f,-1.0f);
         this.up = new Vector3f(0.0f,1.0f,0.0f);

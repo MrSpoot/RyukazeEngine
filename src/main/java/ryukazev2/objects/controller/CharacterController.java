@@ -8,6 +8,6 @@ import java.util.HashMap;
 public class CharacterController extends GameObject {
 
     public CharacterController() {
-        super(new Transform(),null,null, new HashMap<>());
+        super(new Transform(),null,null);
     }
 }
