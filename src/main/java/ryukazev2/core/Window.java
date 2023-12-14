@@ -56,6 +56,7 @@ public class Window {
                 LOGGER.error("Error code [{}], msg [{}]", errorCode, MemoryUtil.memUTF8(msgPtr))
         );
         glfwMakeContextCurrent(windowHandle);
+        glfwSetInputMode(windowHandle,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
         GL.createCapabilities();
         if (options.fps > 0) {
             glfwSwapInterval(0);
@@ -86,7 +87,7 @@ public class Window {
         public int width;
         public int ups = 20;
 
-        public WindowOptions(boolean compatibleProfile, int fps, int height, int width, int ups) {
+        public WindowOptions(boolean compatibleProfile, int fps, int width, int height , int ups) {
             this.compatibleProfile = compatibleProfile;
             this.fps = fps;
             this.height = height;

@@ -26,7 +26,7 @@ public class Camera extends GameObject {
     }
 
     public Matrix4f getLookAt(){
-        return new Matrix4f().lookAt(transform.position,new Vector3f(transform.position).sub(front),up);
+        return new Matrix4f().lookAt(this.getGlobalTransform().position,new Vector3f(this.getGlobalTransform().position).sub(front),up);
     }
 
     @Override

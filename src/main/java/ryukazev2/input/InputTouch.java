@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(exclude = "deltaTime")
+@EqualsAndHashCode(exclude = {"deltaTime"})
 public class InputTouch {
 
     private String name;

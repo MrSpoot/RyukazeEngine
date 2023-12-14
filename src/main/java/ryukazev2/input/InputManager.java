@@ -8,7 +8,9 @@ import static org.lwjgl.glfw.GLFW.*;
 public class InputManager {
 
     private final List<InputTouch> inputTouchList = new CopyOnWriteArrayList<>();
-    private final List<InputTouch> pressedTouch = new CopyOnWriteArrayList<>();
+    private final Map<String,InputTouch> pressedTouch = new Hashtable<>();
+    @Getter
+    private final MouseInput mouseInput = new MouseInput(0f,0f);
 
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
@@ -20,13 +22,25 @@ public class InputManager {
 
         inputTouchList.forEach((input) -> {
             if(glfwGetKey(windowHandle,input.getTouch()) == input.getAction()){
-                input.setDeltaTime(deltaTime);
-                pressedTouch.add(input);
+                if(isPressed(input.getName()) != null){
+                    pressedTouch.get(input.getName()).setDeltaTime(deltaTime);
+                }else{
+                    input.setDeltaTime(deltaTime);
+                    pressedTouch.put(input.getName(),input);
+                }
             }else{
-                pressedTouch.remove(input);
+                pressedTouch.remove(input.getName());
             }
         });
 
+        if(isPressed("esc") != null){
+            glfwSetWindowShouldClose(windowHandle,true);
+        }
+    }
+
+    public final void processMouseInput(float xPos, float yPos){
+        this.mouseInput.setXPos(xPos);
+        this.mouseInput.setYPos(yPos);
     }
 
     public void addNewInputTouch(InputTouch inputTouch){

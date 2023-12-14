@@ -22,8 +22,10 @@ public class Engine {
 
     public static void init() {
         LOGGER.info("Init Engine");
-        window = new Window(new Window.WindowOptions(true, 60, 720, 1280, 60));
+        window = new Window(new Window.WindowOptions(true, 60, 1280,720 , 60));
         inputManager = new InputManager();
+        glfwSetCursorPosCallback(window.getWindowHandle(),(w,x,y) -> inputManager.processMouseInput((float)x,(float)y));
+        inputManager.addNewInputTouch(new InputTouch("esc", GLFW_PRESS, GLFW_KEY_ESCAPE));
     }
 
     public static void run() {
