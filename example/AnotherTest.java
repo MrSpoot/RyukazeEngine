@@ -31,11 +31,19 @@ public class AnotherTest {
         sphere.getTransform().setPosition(new Vector3f(0f,-2f,0f));
         scene.subscribe(sphere);
 
-        /*GameObject cube1 = new Cube();
-        cube1.getTransform().setPosition(new Vector3f(0f,0f,-5f));
+        GameObject sphere1 = new Sphere();
+        sphere1.getTransform().setPosition(new Vector3f(1f,-3f,0f));
+        scene.subscribe(sphere1);
+
+        GameObject cube1 = new Cube();
+        cube1.getTransform().setPosition(new Vector3f(0f,-4f,0f));
         scene.subscribe(cube1);
 
-        GameObject cube7 = new Cube();
+        GameObject cube2 = new Cube();
+        cube2.getTransform().setPosition(new Vector3f(1f,-5f,0f));
+        scene.subscribe(cube2);
+
+        /*GameObject cube7 = new Cube();
         cube7.getTransform().setPosition(new Vector3f(5f,-1f,5f));
         scene.subscribe(cube7);
 

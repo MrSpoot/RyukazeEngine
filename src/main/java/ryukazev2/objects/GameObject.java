@@ -30,7 +30,6 @@ public abstract class GameObject  {
         children.values().forEach(GameObject::_render);
         Engine.getScene().getShader().setUniform("model",new Matrix4f().translate(getGlobalTransform().getPosition()));
         if(mesh != null){
-
             mesh.render();
         }
         render();

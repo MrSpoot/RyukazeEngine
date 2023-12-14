@@ -9,6 +9,6 @@ import java.util.HashMap;
 public class Sphere extends GameObject {
 
     public Sphere() {
-        super(new Transform(),new SphereMesh(6),null, new HashMap<>());
+        super(new Transform(),new SphereMesh(15),null, new HashMap<>());
     }
 }

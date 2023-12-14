@@ -6,12 +6,13 @@ import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
+import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class SphereMesh implements Mesh {
 
+    private int vao;
     private int vbo;
     private int ibo;
-    private int vertexCount;
     private int indexCount;
 
     public SphereMesh(int precision) {
@@ -21,7 +22,7 @@ public class SphereMesh implements Mesh {
     private void generateSphere(int stacks, int slices) {
         float stackAngleStep = (float) Math.PI / stacks;
         float sliceAngleStep = 2.0f * (float) Math.PI / slices;
-        vertexCount = (stacks + 1) * (slices + 1);
+        int vertexCount = (stacks + 1) * (slices + 1);
         indexCount = stacks * slices * 6;
         float[] vertices = new float[vertexCount * 3];
         int[] indices = new int[indexCount];
@@ -34,9 +35,9 @@ public class SphereMesh implements Mesh {
                 float xPos = (float) (Math.sin(phi) * Math.cos(theta));
                 float yPos = (float) Math.cos(phi);
                 float zPos = (float) (Math.sin(phi) * Math.sin(theta));
-                vertices[vertexPointer++] = xPos;
-                vertices[vertexPointer++] = yPos;
-                vertices[vertexPointer++] = zPos;
+                vertices[vertexPointer++] = xPos / 2;
+                vertices[vertexPointer++] = yPos / 2;
+                vertices[vertexPointer++] = zPos / 2;
             }
         }
 
@@ -55,7 +56,9 @@ public class SphereMesh implements Mesh {
             }
         }
 
+        vao = glGenVertexArrays();
         vbo = glGenBuffers();
+        glBindVertexArray(vao);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
@@ -71,6 +74,8 @@ public class SphereMesh implements Mesh {
 
     @Override
     public void render() {
+        glBindVertexArray(vao);
+        glBindBuffer(GL_ARRAY_BUFFER,vbo);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
         glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
