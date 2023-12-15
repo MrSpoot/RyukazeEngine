@@ -12,7 +12,7 @@ public class Loop {
     private static int fps = 0;
     private static int RENDER_TICKS_PER_SECOND = 60;
     private static double RENDER_TIME = 1.0 / RENDER_TICKS_PER_SECOND;
-    private static int GAME_TICKS_PER_SECOND = 20;
+    private static int GAME_TICKS_PER_SECOND = 60;
     private static double GAME_TIME = 1.0 / GAME_TICKS_PER_SECOND;
 
     //Without Getter
@@ -20,6 +20,11 @@ public class Loop {
     private static double lastSecondTime = 0.0;
     private static long lastRenderTime = System.nanoTime();
     private static long lastGameUpdateTime = System.nanoTime();
+
+    public static void setOptions(Options options){
+        setFps(options.fps);
+        setUps(options.ups);
+    }
 
     public static void run(){
         while (!glfwWindowShouldClose(Engine.getWindow().getWindowHandle())) {

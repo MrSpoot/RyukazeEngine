@@ -1,6 +1,7 @@
 package ryukazev2.input;
 
 import lombok.Getter;
+import ryukazev2.core.Engine;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -13,51 +14,35 @@ public class InputManager {
 
     private final List<InputTouch> inputTouchList = new CopyOnWriteArrayList<>();
     private final Map<String,InputTouch> pressedTouch = new Hashtable<>();
-    @Getter
-    private final MouseInput mouseInput = new MouseInput(0f,0f);
-
-    float deltaTime = 0.0f;
-    float lastFrame = 0.0f;
 
     public void process(long windowHandle){
-        float currentFrame = (float)glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-
         inputTouchList.forEach((input) -> {
             if(glfwGetKey(windowHandle,input.getTouch()) == input.getAction()){
-                if(isPressed(input.getName()) != null){
-                    pressedTouch.get(input.getName()).setDeltaTime(deltaTime);
-                }else{
-                    input.setDeltaTime(deltaTime);
+                if(!isPressed(input.getName())){
                     pressedTouch.put(input.getName(),input);
                 }
             }else{
-                pressedTouch.remove(input.getName());
+                if(isPressed(input.getName())){
+                    pressedTouch.remove(input.getName());
+                }
             }
         });
 
-        if(isPressed("esc") != null){
+        if(isPressed("esc")){
             glfwSetWindowShouldClose(windowHandle,true);
         }
-    }
-
-    public final void processMouseInput(float xPos, float yPos){
-        this.mouseInput.setXPos(xPos);
-        this.mouseInput.setYPos(yPos);
     }
 
     public void addNewInputTouch(InputTouch inputTouch){
         inputTouchList.add(inputTouch);
     }
 
-    public InputTouch isPressed(String inputName){
+    public InputTouch getPressedTouch(String inputName){
+        return pressedTouch.get(inputName);
+    }
 
-        if(pressedTouch.get(inputName) != null){
-            return pressedTouch.get(inputName);
-        }else{
-            return null;
-        }
+    public boolean isPressed(String inputName){
+        return pressedTouch.get(inputName) != null;
     }
 
 }

@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ryukazev2.input.InputManager;
 import ryukazev2.input.InputTouch;
-
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -20,12 +19,12 @@ public class Engine {
     @Getter
     private static InputManager inputManager;
 
-    public static void init() {
+    public static void init(Options options) {
         LOGGER.info("Init Engine");
-        window = new Window(new Window.WindowOptions(true, 60, 1280,720 , 60));
+        window = new Window(options);
         inputManager = new InputManager();
-        glfwSetCursorPosCallback(window.getWindowHandle(),(w,x,y) -> inputManager.processMouseInput((float)x,(float)y));
         inputManager.addNewInputTouch(new InputTouch("esc", GLFW_PRESS, GLFW_KEY_ESCAPE));
+        Loop.setOptions(options);
     }
 
     public static void run() {
@@ -53,6 +52,5 @@ public class Engine {
             scene.update();
         }
     }
-
 
 }

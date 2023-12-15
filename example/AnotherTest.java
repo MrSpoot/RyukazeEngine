@@ -1,6 +1,8 @@
 import org.joml.Vector3f;
 import ryukazev2.core.Engine;
+import ryukazev2.core.Options;
 import ryukazev2.core.Scene;
+import ryukazev2.core.Window;
 import ryukazev2.graphics.Camera;
 import ryukazev2.input.InputTouch;
 import ryukazev2.objects.GameObject;
@@ -14,7 +16,7 @@ public class AnotherTest {
 
     public static void main(String[] args) {
 
-        Engine.init();
+        Engine.init(new Options(true, 2, 1280,720 , 2));
 
         Scene scene = new Scene();
 

@@ -3,7 +3,6 @@ package SimpleTest;
 import org.joml.Math;
 import org.joml.Vector3f;
 import ryukazev2.core.Engine;
-import ryukazev2.core.Transform;
 import ryukazev2.input.InputManager;
 import ryukazev2.input.InputTouch;
 import ryukazev2.objects.controller.CharacterController;
@@ -15,6 +14,11 @@ import static org.lwjgl.glfw.GLFW.*;
 public class MyController extends CharacterController {
 
     private final InputManager inputManager = Engine.getInputManager();
+    private float lastFrame = 0.0f;
+    private float lastX = (float) Engine.getWindow().getWidth() /2;
+    private float lastY = (float) Engine.getWindow().getHeight() /2;
+    private float yaw = 0f;
+    private float pitch = 0f;
 
     public MyController() {
         Engine.getInputManager().addNewInputTouch(new InputTouch("forward", GLFW_PRESS, GLFW_KEY_W));
@@ -26,30 +30,59 @@ public class MyController extends CharacterController {
 
     public void processInput(){
 
-        Transform _transform = new Transform(this.transform);
+        float currentFrame = (float)glfwGetTime();
+        float deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
 
-        float cameraSpeed = 2.5f;
-        if (inputManager.isPressed("shift") != null) {
-            cameraSpeed = 10.0f;
+        Vector3f velocity = new Vector3f(0f);
+
+        float cameraSpeed = 2.5f * deltaTime;
+        if (inputManager.isPressed("shift")) {
+            cameraSpeed = 10.0f * deltaTime;
         }
-        if (inputManager.isPressed("forward") != null) {
-            cameraSpeed *= inputManager.isPressed("forward").getDeltaTime();
-            _transform.position.add(new Vector3f(0f, 0f, 1f).mul(cameraSpeed));
+        if (inputManager.isPressed("forward")) {
+            velocity.sub(new Vector3f(this.getGlobalTransform().rotation));
         }
-        if (inputManager.isPressed("back") != null) {
-            cameraSpeed *= inputManager.isPressed("back").getDeltaTime();
-            _transform.position.sub(new Vector3f(0f, 0f, 1f).mul(cameraSpeed));
+        if (inputManager.isPressed("back")) {
+            velocity.add(new Vector3f(this.getGlobalTransform().rotation));
         }
-        if (inputManager.isPressed("right") != null) {
-            cameraSpeed *= inputManager.isPressed("right").getDeltaTime();
-            _transform.position.add(new Vector3f(new Vector3f(0f, 0f, -1f).cross(new Vector3f(0f, 1f, 0f))).normalize().mul(cameraSpeed));
+        if (inputManager.isPressed("right")) {
+            velocity.add(new Vector3f(new Vector3f(this.getGlobalTransform().rotation).cross(new Vector3f(0f, 1f, 0f))).normalize());
         }
-        if (inputManager.isPressed("left") != null) {
-            cameraSpeed *= inputManager.isPressed("left").getDeltaTime();
-            _transform.position.sub(new Vector3f(new Vector3f(0f, 0f, -1f).cross(new Vector3f(0f, 1f, 0f))).normalize().mul(cameraSpeed));
+        if (inputManager.isPressed("left")) {
+            velocity.sub(new Vector3f(new Vector3f(this.getGlobalTransform().rotation).cross(new Vector3f(0f, 1f, 0f))).normalize());
         }
 
-        this.transform = _transform;
+        velocity.mul(cameraSpeed);
+
+        this.transform.position.add(velocity);
+    }
+
+    @Override
+    public void processMouseInput(float x, float y){
+
+        float xOffset = x - lastX;
+        float yOffset = lastY - y;
+        lastX = x;
+        lastY = y;
+
+        float sensitivity = 0.1f;
+        xOffset *= sensitivity;
+        yOffset *= sensitivity;
+
+        yaw   -= xOffset;
+        pitch += yOffset;
+
+        if(pitch > 89.0f)
+            pitch = 89.0f;
+        if(pitch < -89.0f)
+            pitch = -89.0f;
+
+        this.transform.rotation.x = cos(Math.toRadians(yaw)) * cos(Math.toRadians(pitch));//pitch yaw
+        this.transform.rotation.y = sin(Math.toRadians(pitch));//pitch
+        this.transform.rotation.z = sin(Math.toRadians(yaw)) * cos(Math.toRadians(pitch));//pitch yaw
+
+        this.transform.rotation.normalize();
     }
 
     @Override
