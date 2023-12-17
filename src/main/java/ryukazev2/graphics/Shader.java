@@ -9,8 +9,12 @@ import org.lwjgl.system.MemoryStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ryukaze.utils.FileReader;
+import ryukazev2.objects.material.Material;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -150,13 +154,40 @@ public class Shader {
     }
 
     private void extractUniforms(String shaderCode) {
-        Pattern pattern = Pattern.compile("\\buniform\\s+\\w+\\s+(\\w+)\\s*;");
+        // Pattern pour les structures
+        Pattern structPattern = Pattern.compile("struct\\s+(\\w+)\\s*\\{([^}]+)\\};");
+        Matcher structMatcher = structPattern.matcher(shaderCode);
 
-        Matcher matcher = pattern.matcher(shaderCode);
+        while (structMatcher.find()) {
+            String structName = structMatcher.group(1);
+            String structBody = structMatcher.group(2);
 
-        while (matcher.find()) {
-            String uniformName = matcher.group(1);
-            LOGGER.info("Create uniform ["+uniformName+"] for shader ["+program+"]");
+            // Extraire les champs de la structure
+            Pattern fieldPattern = Pattern.compile("\\w+\\s+(\\w+)\\s*;");
+            Matcher fieldMatcher = fieldPattern.matcher(structBody);
+
+            while (fieldMatcher.find()) {
+                String fieldName = fieldMatcher.group(1);
+
+                // Trouver les instances de la structure déclarées comme uniforms
+                Pattern instancePattern = Pattern.compile("\\buniform\\s+" + structName + "\\s+(\\w+)\\s*;");
+                Matcher instanceMatcher = instancePattern.matcher(shaderCode);
+
+                while (instanceMatcher.find()) {
+                    String instanceName = instanceMatcher.group(1);
+                    String uniformName = instanceName + "." + fieldName;
+                    LOGGER.info("Create uniform [" + uniformName + "] for shader [" + program + "]");
+                    createUniform(uniformName);
+                }
+            }
+        }
+
+        Pattern uniformPattern = Pattern.compile("\\buniform\\s+\\w+\\s+(\\w+)\\s*;");
+        Matcher uniformMatcher = uniformPattern.matcher(shaderCode);
+
+        while (uniformMatcher.find()) {
+            String uniformName = uniformMatcher.group(1);
+            LOGGER.info("Create uniform [" + uniformName + "] for shader [" + program + "]");
             createUniform(uniformName);
         }
     }

@@ -26,6 +26,8 @@ public class MyController extends CharacterController {
         Engine.getInputManager().addNewInputTouch(new InputTouch("right", GLFW_PRESS, GLFW_KEY_D));
         Engine.getInputManager().addNewInputTouch(new InputTouch("left", GLFW_PRESS, GLFW_KEY_A));
         Engine.getInputManager().addNewInputTouch(new InputTouch("shift", GLFW_PRESS, GLFW_KEY_LEFT_SHIFT));
+        Engine.getInputManager().addNewInputTouch(new InputTouch("jump", GLFW_PRESS, GLFW_KEY_SPACE));
+        Engine.getInputManager().addNewInputTouch(new InputTouch("down", GLFW_PRESS, GLFW_KEY_LEFT_CONTROL));
     }
 
     public void processInput(){
@@ -36,9 +38,9 @@ public class MyController extends CharacterController {
 
         Vector3f velocity = new Vector3f(0f);
 
-        float cameraSpeed = 2.5f * deltaTime;
+        float cameraSpeed = 5f * deltaTime;
         if (inputManager.isPressed("shift")) {
-            cameraSpeed = 10.0f * deltaTime;
+            cameraSpeed *= 3f;
         }
         if (inputManager.isPressed("forward")) {
             velocity.sub(new Vector3f(this.getGlobalTransform().rotation));
@@ -52,6 +54,13 @@ public class MyController extends CharacterController {
         if (inputManager.isPressed("left")) {
             velocity.sub(new Vector3f(new Vector3f(this.getGlobalTransform().rotation).cross(new Vector3f(0f, 1f, 0f))).normalize());
         }
+        if(inputManager.isPressed("jump")){
+            velocity.sub(new Vector3f(0f,1f,0f).mul(cameraSpeed * 2f));
+        }
+        if(inputManager.isPressed("down")){
+            velocity.add(new Vector3f(0f,1f,0f).mul(cameraSpeed * 2f));
+        }
+
 
         velocity.mul(cameraSpeed);
 

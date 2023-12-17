@@ -3,6 +3,7 @@ package ryukazev2.objects.light;
 import lombok.Getter;
 import lombok.Setter;
 import org.joml.Vector3f;
+import ryukazev2.core.Engine;
 import ryukazev2.core.Transform;
 import ryukazev2.objects.GameObject;
 
@@ -10,15 +11,21 @@ import ryukazev2.objects.GameObject;
 public class Light extends GameObject {
 
     @Setter
-    private Vector3f lightColor;
+    private Vector3f ambient;
+    @Setter
+    private Vector3f specular;
+    @Setter
+    private Vector3f diffuse;
 
     public Light() {
-        super(new Transform(), null, null);
-        this.lightColor = new Vector3f(1.0f);
+        this(null);
     }
 
     public Light(GameObject parent) {
         super(new Transform(), null, parent);
-        this.lightColor = new Vector3f(1.0f);
+        this.ambient = new Vector3f(0.5f);
+        this.specular = new Vector3f(1.0f);
+        this.diffuse = new Vector3f(1.0f);
     }
+
 }

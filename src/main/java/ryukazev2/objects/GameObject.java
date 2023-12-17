@@ -1,12 +1,13 @@
 package ryukazev2.objects;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import ryukazev2.core.Engine;
 import ryukazev2.core.Transform;
 import ryukazev2.objects.mesh.Mesh;
+import ryukazev2.physics.body.PhysicBody;
 
 import java.util.HashMap;
 
@@ -18,6 +19,7 @@ public abstract class GameObject  {
     protected Mesh mesh;
     protected GameObject parent;
     protected HashMap<String,GameObject> children;
+    protected PhysicBody physicBody;
 
     public GameObject(Transform transform, Mesh mesh, GameObject parent) {
         this.transform = transform;
@@ -33,6 +35,7 @@ public abstract class GameObject  {
         children.values().forEach(GameObject::_render);
         Engine.getScene().getShader().setUniform("model",new Matrix4f()
                 .translate(getGlobalTransform().getPosition())
+                .rotateXYZ(getGlobalTransform().getRotation())
                 .scale(getGlobalTransform().getScale()));
         if(mesh != null){
             mesh._render();
@@ -41,6 +44,9 @@ public abstract class GameObject  {
     }
 
     public final void _update(){
+        if(physicBody != null){
+            physicBody._update(this);
+        }
         children.values().forEach(GameObject::_update);
         update();
     }

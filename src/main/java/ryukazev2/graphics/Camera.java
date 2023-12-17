@@ -31,5 +31,6 @@ public class Camera extends GameObject {
     public void render(){
         Engine.getScene().getShader().setUniform("projection",projection);
         Engine.getScene().getShader().setUniform("view",getLookAt());
+        Engine.getScene().getShader().setUniform("viewPos", this.getGlobalTransform().position);
     }
 }

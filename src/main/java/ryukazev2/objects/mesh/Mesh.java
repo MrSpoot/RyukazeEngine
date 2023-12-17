@@ -17,7 +17,9 @@ public abstract class Mesh {
     }
 
     public final void _render(){
-        Engine.getScene().getShader().setUniform("objectColor",this.material.getColor());
+        if(material != null){
+            material.render();
+        }
         render();
     }
 

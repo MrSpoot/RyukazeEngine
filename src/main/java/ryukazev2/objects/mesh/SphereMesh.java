@@ -39,7 +39,7 @@ public class SphereMesh extends Mesh {
                 verticesAndNormals[vertexPointer++] = yPos / 2;
                 verticesAndNormals[vertexPointer++] = zPos / 2;
 
-                verticesAndNormals[vertexPointer++] = xPos; // Multiplié par 2 pour normaliser
+                verticesAndNormals[vertexPointer++] = xPos;
                 verticesAndNormals[vertexPointer++] = yPos;
                 verticesAndNormals[vertexPointer++] = zPos;
             }
