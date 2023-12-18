@@ -1,10 +1,7 @@
 package ryukazev2.graphics;
 
 import lombok.Getter;
-import org.joml.Matrix4f;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
+import org.joml.*;
 import org.lwjgl.system.MemoryStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,6 +106,15 @@ public class Shader {
         if(getUniformLocation(uniformName) != null){
             try (MemoryStack stack = MemoryStack.stackPush()) {
                 glUniformMatrix4fv(getUniformLocation(uniformName), false, value.get(stack.mallocFloat(16)));
+            }
+        }
+    }
+
+    public void setUniform(String uniformName, Matrix3f value) {
+        useProgram();
+        if(getUniformLocation(uniformName) != null){
+            try (MemoryStack stack = MemoryStack.stackPush()) {
+                glUniformMatrix3fv(getUniformLocation(uniformName), false, value.get(stack.mallocFloat(16)));
             }
         }
     }

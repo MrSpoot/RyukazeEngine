@@ -55,10 +55,10 @@ public class MyController extends CharacterController {
             velocity.sub(new Vector3f(new Vector3f(this.getGlobalTransform().rotation).cross(new Vector3f(0f, 1f, 0f))).normalize());
         }
         if(inputManager.isPressed("jump")){
-            velocity.sub(new Vector3f(0f,1f,0f).mul(cameraSpeed * 2f));
+            velocity.add(new Vector3f(0f,1f,0f).mul(cameraSpeed * 2f));
         }
         if(inputManager.isPressed("down")){
-            velocity.add(new Vector3f(0f,1f,0f).mul(cameraSpeed * 2f));
+            velocity.sub(new Vector3f(0f,1f,0f).mul(cameraSpeed * 2f));
         }
 
 
@@ -80,7 +80,7 @@ public class MyController extends CharacterController {
         yOffset *= sensitivity;
 
         yaw   -= xOffset;
-        pitch += yOffset;
+        pitch -= yOffset;
 
         if(pitch > 89.0f)
             pitch = 89.0f;

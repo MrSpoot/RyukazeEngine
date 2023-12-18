@@ -1,13 +1,12 @@
 package ryukazev2.objects.mesh;
 
-import org.joml.Vector3f;
+import org.lwjgl.assimp.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.*;
@@ -29,7 +28,8 @@ public class CustomMesh extends Mesh{
 
     public CustomMesh(String path){
         try{
-            loadOBJModel(path);
+
+            loadModel(path);
 
             vao = glGenVertexArrays();
             glBindVertexArray(vao);
@@ -37,8 +37,11 @@ public class CustomMesh extends Mesh{
             vbo = glGenBuffers();
             glBindBuffer(GL_ARRAY_BUFFER, vbo);
             glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
-            glVertexAttribPointer(0, 3, GL_FLOAT, false, 12, 0);
+            glVertexAttribPointer(0, 3, GL_FLOAT, false, 24, 0);
             glEnableVertexAttribArray(0);
+
+            glVertexAttribPointer(1, 3, GL_FLOAT, false, 24, 12);
+            glEnableVertexAttribArray(1);
 
             ibo = glGenBuffers();
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
@@ -52,73 +55,79 @@ public class CustomMesh extends Mesh{
         }
     }
 
-    private void loadOBJModel(String filePath) throws Exception {
+    public void loadModel(String path) {
+        AIScene scene = Assimp.aiImportFile(path,
+                Assimp.aiProcess_JoinIdenticalVertices | Assimp.aiProcess_Triangulate);
 
-        List<Vector3f> vertices = new ArrayList<>();
+        if (scene == null) {
+            throw new RuntimeException("Failed to load model: " + path);
+        }
+
+        processNode(Objects.requireNonNull(scene.mRootNode()), scene);
+        Assimp.aiReleaseImport(scene);
+    }
+
+    private void processNode(AINode node, AIScene scene) {
+        for (int i = 0; i < node.mNumMeshes(); i++) {
+            AIMesh mesh = AIMesh.create(Objects.requireNonNull(scene.mMeshes()).get(Objects.requireNonNull(node.mMeshes()).get(i)));
+            processMesh(mesh, scene);
+        }
+
+        for (int i = 0; i < node.mNumChildren(); i++) {
+            processNode(AINode.create(Objects.requireNonNull(node.mChildren()).get(i)), scene);
+        }
+    }
+
+    private void processMesh(AIMesh mesh, AIScene scene) {
+
+        List<Float> interleavedData = new ArrayList<>();
         List<Integer> indices = new ArrayList<>();
-        List<Vector3f> verticesNormal = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println("ALLOOO");
-                String[] tokens = line.split(" ");
-                switch (tokens[0]) {
-                    case "v":
-                        // Lecture des sommets
-                        Vector3f vertex = new Vector3f(
-                                Float.parseFloat(tokens[1]),
-                                Float.parseFloat(tokens[2]),
-                                Float.parseFloat(tokens[3]));
-                        vertices.add(vertex);
-                        break;
-                    case "f":
-                        // Lecture des faces (indices)
-                        String[] vertexIndices = tokens[1].split("/");
-                        indices.add(Integer.parseInt(vertexIndices[0]) - 1);
-                        vertexIndices = tokens[2].split("/");
-                        indices.add(Integer.parseInt(vertexIndices[0]) - 1);
-                        vertexIndices = tokens[3].split("/");
-                        indices.add(Integer.parseInt(vertexIndices[0]) - 1);
-                        break;
-                    case "vn":
-                        Vector3f normal = new Vector3f(
-                                Float.parseFloat(tokens[1]),
-                                Float.parseFloat(tokens[2]),
-                                Float.parseFloat(tokens[3]));
-                        verticesNormal.add(normal);
-                        break;
+        AIVector3D.Buffer vertices = mesh.mVertices();
+        AIVector3D.Buffer normals = mesh.mNormals();
 
-                }
-            }
-            this.vertices = new float[vertices.size() * 6];
-            this.indices = new int[indices.size()];
+        while (vertices.remaining() > 0){
+            AIVector3D vertex = vertices.get();
+            AIVector3D normal = normals.get();
 
-            int verticesIndex = 0;
+            // Ajouter les données de vertex
+            interleavedData.add(vertex.x());
+            interleavedData.add(vertex.y());
+            interleavedData.add(vertex.z());
 
-            for(Vector3f v : vertices){
-                this.vertices[verticesIndex] = v.x;
-                verticesIndex++;
-                this.vertices[verticesIndex] = v.y;
-                verticesIndex++;
-                this.vertices[verticesIndex] = v.z;
-                verticesIndex++;
-            }
-
-            int indicesIndex = 0;
-
-            for(Integer i : indices){
-                this.indices[indicesIndex] = i;
-                indicesIndex++;
-            }
+            // Ajouter les données de normale
+            interleavedData.add(normal.x());
+            interleavedData.add(normal.y());
+            interleavedData.add(normal.z());
 
         }
+
+        // Indices
+        for (int i = 0; i < mesh.mNumFaces(); i++) {
+            AIFace face = mesh.mFaces().get(i);
+            IntBuffer indicesBuffer = face.mIndices();
+            while (indicesBuffer.remaining() > 0) {
+                int index = indicesBuffer.get();
+                indices.add(index);
+            }
+        }
+
+        this.vertices = new float[interleavedData.size()];
+        for (int i = 0; i < this.vertices.length; i++) {
+            this.vertices[i] = interleavedData.get(i);
+        }
+
+        this.indices = new int[indices.size()];
+        for(int i =0; i< this.indices.length; i++){
+            this.indices[i] = indices.get(i);
+        }
+
     }
 
     @Override
     public void render() {
         glBindVertexArray(vao);
-        glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, this.indices.length, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
 

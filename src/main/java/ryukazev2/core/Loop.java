@@ -32,14 +32,14 @@ public class Loop {
             double deltaTimeRender = (currentTime - lastRenderTime) / 1e9;
             double deltaTimeGame = (currentTime - lastGameUpdateTime) / 1e9;
 
-            if (deltaTimeRender >= RENDER_TIME) {
+            if (RENDER_TICKS_PER_SECOND <= 0 || deltaTimeRender >= RENDER_TIME) {
                 //RENDER
                 Engine.render();
                 lastRenderTime = currentTime;
                 framesRendered++;
             }
 
-            if (deltaTimeGame >= GAME_TIME) {
+            if (GAME_TICKS_PER_SECOND <= 0 || deltaTimeGame >= GAME_TIME) {
                 //UPDATE
                 Engine.update();
                 lastGameUpdateTime = currentTime;
