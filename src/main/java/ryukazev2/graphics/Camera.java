@@ -22,6 +22,7 @@ public class Camera extends GameObject {
         this.projection.m11(projection.m11() * -1); //Invert Y axis
         this.up = new Vector3f(0.0f,1.0f,0.0f);
         this.transform.position = new Vector3f(0f,-1f,-15f);
+        Engine.getScene().setMainCamera(this);
     }
 
     public Matrix4f getLookAt(){
