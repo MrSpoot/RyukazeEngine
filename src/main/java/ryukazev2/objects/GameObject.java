@@ -7,11 +7,14 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import ryukazev2.core.Engine;
 import ryukazev2.core.Transform;
+import ryukazev2.core.interfaces.IScript;
 import ryukazev2.objects.mesh.Mesh;
 import ryukazev2.physics.body.PhysicBody;
 import ryukazev2.utils.UniqueIdGenerator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @EqualsAndHashCode
 @Data
@@ -23,6 +26,7 @@ public abstract class GameObject  {
     protected GameObject parent;
     protected HashMap<String,GameObject> children;
     protected PhysicBody physicBody;
+    protected List<IScript> scripts;
 
     public GameObject(Transform transform, Mesh mesh, GameObject parent) {
         this.id = UniqueIdGenerator.generateUniqueID(15);
@@ -30,6 +34,7 @@ public abstract class GameObject  {
         this.mesh = mesh;
         this.parent = parent;
         this.children = new HashMap<>();
+        this.scripts = new ArrayList<>();
         if(parent == null){
             Engine.getScene().subscribe(this);
         }
@@ -37,6 +42,7 @@ public abstract class GameObject  {
 
     public final void _render(){
         children.values().forEach(GameObject::_render);
+        scripts.forEach(IScript::render);
         Matrix4f modelMatrix = new Matrix4f()
                 .translate(getGlobalTransform().getPosition())
                 .rotateXYZ(getGlobalTransform().getRotation())
@@ -54,6 +60,7 @@ public abstract class GameObject  {
             physicBody._update(this);
         }
         children.values().forEach(GameObject::_update);
+        scripts.forEach(IScript::update);
         update();
     }
 
@@ -65,9 +72,13 @@ public abstract class GameObject  {
 
     }
 
+    public final void addScript(IScript script){
+        this.scripts.add(script);
+    }
+
     public final void addChildren(GameObject object){
         object.setParent(this);
-        this.children.put("test",object);
+        this.children.put(object.id,object);
     }
 
     public final Transform getGlobalTransform(){

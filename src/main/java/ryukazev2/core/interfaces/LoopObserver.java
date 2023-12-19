@@ -1,4 +1,4 @@
-package ryukazev2.core.utils;
+package ryukazev2.core.interfaces;
 
 public interface LoopObserver {
 
