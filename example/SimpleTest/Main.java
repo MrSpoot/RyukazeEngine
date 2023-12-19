@@ -24,10 +24,13 @@ public class Main {
         Engine.setScene(scene);
 
         Light light = new AmbientLight();
-        light.getTransform().setPosition(new Vector3f(0f,6f,10f));
+        light.getTransform().setPosition(new Vector3f(0f,50000f,0f));
         light.getTransform().setScale(new Vector3f(2f));
         Mesh sphereMesh = new SphereMesh(15);
         light.setMesh(sphereMesh);
+
+        Axis axis = new Axis();
+        axis.getTransform().setScale(new Vector3f(0.2f));
 
         GameObject camera = new Camera(75,0.1f,1000f);
         //camera.getTransform().setPosition(new Vector3f(0f,4.0f,-15f));
@@ -36,12 +39,12 @@ public class Main {
         controller.addChildren(camera);
 
         GameObject custom = new CustomModel("src/main/resources/model/bunny.obj");
-        //custom.getTransform().setPosition(new Vector3f(0f,3f,6f));
+        custom.getTransform().setPosition(new Vector3f(0f,3f,6f));
         //custom.getTransform().setScale(new Vector3f(1f));
 
         GameObject plane = new Plane();
         plane.getTransform().setPosition(new Vector3f(0f,-5,0f));
-        plane.getTransform().setScale(new Vector3f(50f,0.5f,50f));
+        plane.getTransform().setScale(new Vector3f(50f,1f,50f));
 
         GameObject sphere = new Sphere();
         sphere.getTransform().setPosition(new Vector3f(5f,3f,0f));
