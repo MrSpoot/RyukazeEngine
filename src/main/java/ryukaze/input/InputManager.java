@@ -1,32 +1,45 @@
 package ryukaze.input;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
 
 public class InputManager {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(InputManager.class);
-    private static int mode = GL_FILL;
+    private final List<InputTouch> inputTouchList = new CopyOnWriteArrayList<>();
+    private final Map<String,InputTouch> pressedTouch = new Hashtable<>();
 
-    public static void processInput(long window){
-
-        if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
-            glfwSetWindowShouldClose(window,true);
-        }
-        if(glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS){
-            if(mode == GL_FILL){
-                glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-                mode = GL_LINE;
+    public void process(long windowHandle){
+        inputTouchList.forEach((input) -> {
+            if(glfwGetKey(windowHandle,input.getTouch()) == input.getAction()){
+                if(!isPressed(input.getName())){
+                    pressedTouch.put(input.getName(),input);
+                }
             }else{
-                glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-                mode = GL_FILL;
+                if(isPressed(input.getName())){
+                    pressedTouch.remove(input.getName());
+                }
             }
+        });
 
+        if(isPressed("esc")){
+            glfwSetWindowShouldClose(windowHandle,true);
         }
+    }
 
+    public void addNewInputTouch(InputTouch inputTouch){
+        inputTouchList.add(inputTouch);
+    }
+
+    public InputTouch getPressedTouch(String inputName){
+        return pressedTouch.get(inputName);
+    }
+
+    public boolean isPressed(String inputName){
+        return pressedTouch.get(inputName) != null;
     }
 
 }

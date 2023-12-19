@@ -1,18 +1,17 @@
 package SimpleTest;
 
 import org.joml.Vector3f;
-import ryukazev2.core.Engine;
-import ryukazev2.core.Options;
-import ryukazev2.core.Scene;
-import ryukazev2.graphics.Camera;
-import ryukazev2.objects.GameObject;
-import ryukazev2.objects.light.AmbientLight;
-import ryukazev2.objects.light.Light;
-import ryukazev2.objects.material.Material;
-import ryukazev2.objects.mesh.Mesh;
-import ryukazev2.objects.mesh.SphereMesh;
-import ryukazev2.objects.model.*;
-import ryukazev2.physics.body.PhysicBody3D;
+import ryukaze.core.Engine;
+import ryukaze.core.Options;
+import ryukaze.core.Scene;
+import ryukaze.graphics.Camera;
+import ryukaze.objects.GameObject;
+import ryukaze.objects.light.AmbientLight;
+import ryukaze.objects.light.Light;
+import ryukaze.objects.material.Material;
+import ryukaze.objects.mesh.Mesh;
+import ryukaze.objects.mesh.SphereMesh;
+import ryukaze.objects.model.*;
 
 public class Main {
 
@@ -48,7 +47,6 @@ public class Main {
 
         GameObject sphere = new Sphere();
         sphere.getTransform().setPosition(new Vector3f(5f,3f,0f));
-        sphere.getTransform().setRotation(new Vector3f(0f,(float)Math.toRadians(180),0f));
 
         GameObject cube = new Cube();
         cube.getTransform().setPosition(new Vector3f(0f,3f,0f));

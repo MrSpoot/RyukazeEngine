@@ -1,11 +1,10 @@
 package SimpleTest;
 
 import org.joml.Vector3f;
-import ryukazev2.core.Transform;
-import ryukazev2.objects.GameObject;
-import ryukazev2.objects.material.Material;
-import ryukazev2.objects.mesh.Mesh;
-import ryukazev2.objects.model.Cube;
+import ryukaze.core.Transform;
+import ryukaze.objects.GameObject;
+import ryukaze.objects.material.Material;
+import ryukaze.objects.model.Cube;
 
 public class Axis extends GameObject{
 
