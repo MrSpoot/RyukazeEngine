@@ -77,6 +77,7 @@ public abstract class GameObject  {
 
     public final void addChildren(GameObject object){
         object.setParent(this);
+        Engine.getScene().unsubscribe(object);
         this.children.put(object.id,object);
     }
 

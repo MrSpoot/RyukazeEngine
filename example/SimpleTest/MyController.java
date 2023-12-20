@@ -6,6 +6,7 @@ import ryukaze.core.Engine;
 import ryukaze.input.InputManager;
 import ryukaze.input.InputTouch;
 import ryukaze.objects.controller.CharacterController;
+import ryukaze.objects.mesh.CubeMesh;
 
 import static org.joml.Math.cos;
 import static org.joml.Math.sin;

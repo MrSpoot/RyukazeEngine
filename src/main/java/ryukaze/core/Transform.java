@@ -23,9 +23,9 @@ public class Transform {
     public Transform combine(Transform otherTransform){
         Transform transform = new Transform(new Vector3f(position),new Vector3f(rotation),new Vector3f(scale));
 
-        transform.setPosition(transform.getPosition().add(otherTransform.getPosition()));
+        transform.setPosition(transform.getPosition().mul(otherTransform.getScale()).add(otherTransform.getPosition()));
         transform.setRotation(transform.getRotation().add(otherTransform.getRotation()));
-        transform.setScale(transform.getScale().add(otherTransform.getScale()));
+        transform.setScale(transform.getScale().mul(otherTransform.getScale()));
 
         return transform;
     }
