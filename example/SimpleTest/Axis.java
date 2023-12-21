@@ -9,7 +9,7 @@ import ryukaze.objects.model.Cube;
 public class Axis extends GameObject{
 
     public Axis() {
-        super(new Transform(), null, null);
+        super(new Transform(), null, null,null);
 
         Cube x = new Cube(this);
         Material mx = new Material();

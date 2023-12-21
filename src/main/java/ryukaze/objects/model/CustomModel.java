@@ -6,10 +6,10 @@ import ryukaze.objects.mesh.CustomMesh;
 
 public class CustomModel extends GameObject {
     public CustomModel(String path) {
-        super(new Transform(),new CustomMesh(path),null);
+        super(new Transform(),new CustomMesh(path),null,null);
     }
 
     public CustomModel(String path,GameObject parent){
-        super(new Transform(),new CustomMesh(path),parent);
+        super(new Transform(),new CustomMesh(path),null,parent);
     }
 }

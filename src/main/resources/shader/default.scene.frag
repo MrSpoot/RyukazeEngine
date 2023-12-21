@@ -8,7 +8,7 @@ struct Material {
 };
 
 struct Light {
-    vec3 position;
+    vec4 vector;
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -26,10 +26,17 @@ out vec4 FragColor;
 
 void main()
 {
+
     vec3 ambient = material.ambient * light.ambient;
 
     vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(light.position - FragPos);
+
+    vec3 lightDir = vec3(0.0);
+
+    if(light.vector.w == 0.0)
+        lightDir = normalize(-light.vector.xyz);
+    else if(light.vector.w == 1.0)
+        lightDir = normalize(light.vector.xyz - FragPos);
 
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = (diff * material.diffuse) * light.diffuse;

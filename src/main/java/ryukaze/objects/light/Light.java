@@ -21,7 +21,7 @@ public class Light extends GameObject {
     }
 
     public Light(GameObject parent) {
-        super(new Transform(), null, parent);
+        super(new Transform(), null,null, parent);
         this.ambient = new Vector3f(0.5f);
         this.specular = new Vector3f(1.0f);
         this.diffuse = new Vector3f(1.0f);

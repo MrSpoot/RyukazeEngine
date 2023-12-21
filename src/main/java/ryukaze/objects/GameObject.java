@@ -9,6 +9,7 @@ import ryukaze.core.Transform;
 import ryukaze.core.interfaces.IScript;
 import ryukaze.objects.mesh.Mesh;
 import ryukaze.physics.body.PhysicBody;
+import ryukaze.physics.collider.Collider;
 import ryukaze.utils.UniqueIdGenerator;
 
 import java.util.ArrayList;
@@ -24,16 +25,17 @@ public abstract class GameObject  {
     protected Mesh mesh;
     protected GameObject parent;
     protected HashMap<String,GameObject> children;
-    protected PhysicBody physicBody;
+    protected Collider collider;
     protected List<IScript> scripts;
 
-    public GameObject(Transform transform, Mesh mesh, GameObject parent) {
+    public GameObject(Transform transform, Mesh mesh,Collider collider,  GameObject parent) {
         this.id = UniqueIdGenerator.generateUniqueID(15);
         this.transform = transform;
         this.mesh = mesh;
         this.parent = parent;
         this.children = new HashMap<>();
         this.scripts = new ArrayList<>();
+        this.collider = collider;
         if(parent == null){
             Engine.getScene().subscribe(this);
         }
@@ -55,9 +57,6 @@ public abstract class GameObject  {
     }
 
     public final void _update(){
-        if(physicBody != null){
-            physicBody._update(this);
-        }
         children.values().forEach(GameObject::_update);
         scripts.forEach(IScript::update);
         update();

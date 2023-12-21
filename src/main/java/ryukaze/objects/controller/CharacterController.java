@@ -7,7 +7,7 @@ import ryukaze.objects.GameObject;
 public class CharacterController extends GameObject implements Controller {
 
     public CharacterController() {
-        super(new Transform(),null,null);
+        super(new Transform(),null,null,null);
         Engine.getScene().subscribeController(this);
     }
 

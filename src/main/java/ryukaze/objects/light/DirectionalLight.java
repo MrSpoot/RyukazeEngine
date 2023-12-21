@@ -4,13 +4,13 @@ import org.joml.Vector4f;
 import ryukaze.core.Engine;
 import ryukaze.objects.GameObject;
 
-public class AmbientLight extends Light{
+public class DirectionalLight extends Light{
 
-    public AmbientLight() {
+    public DirectionalLight() {
         super(null);
     }
 
-    public AmbientLight(GameObject parent) {
+    public DirectionalLight(GameObject parent) {
         super(parent);
     }
 
@@ -19,6 +19,9 @@ public class AmbientLight extends Light{
         Engine.getScene().getShader().setUniform("light.ambient", this.getAmbient());
         Engine.getScene().getShader().setUniform("light.diffuse", this.getDiffuse() );
         Engine.getScene().getShader().setUniform("light.specular", this.getSpecular());
-        Engine.getScene().getShader().setUniform("light.vector",new Vector4f(this.getGlobalTransform().position,1.0f));
+
+        Vector4f direction = new Vector4f(this.getGlobalTransform().rotation,0.0f);
+
+        Engine.getScene().getShader().setUniform("light.vector",direction);
     }
 }

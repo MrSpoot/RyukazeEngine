@@ -7,10 +7,10 @@ import ryukaze.objects.mesh.CubeMesh;
 public class Cube extends GameObject {
 
     public Cube() {
-        super(new Transform(),new CubeMesh(),null);
+        super(new Transform(),new CubeMesh(),null,null);
     }
 
     public Cube(GameObject parent){
-        super(new Transform(),new CubeMesh(),parent);
+        super(new Transform(),new CubeMesh(),null,parent);
     }
 }

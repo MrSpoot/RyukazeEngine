@@ -7,11 +7,11 @@ import ryukaze.objects.mesh.PlaneMesh;
 public class Plane extends GameObject {
 
     public Plane() {
-        super(new Transform(),new PlaneMesh(),null);
+        super(new Transform(),new PlaneMesh(),null,null);
     }
 
     public Plane(GameObject parent){
-        super(new Transform(),new PlaneMesh(),parent);
+        super(new Transform(),new PlaneMesh(),null,parent);
     }
 
 }

@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ryukaze.input.InputManager;
 import ryukaze.input.InputTouch;
+import ryukaze.physics.PhysicsEngine;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -18,11 +20,14 @@ public class Engine {
     private static Scene scene;
     @Getter
     private static InputManager inputManager;
+    @Getter
+    private static PhysicsEngine physicsEngine;
 
     public static void init(Options options) {
         LOGGER.info("Init Engine");
         window = new Window(options);
         inputManager = new InputManager();
+        physicsEngine = new PhysicsEngine();
         inputManager.addNewInputTouch(new InputTouch("esc", GLFW_PRESS, GLFW_KEY_ESCAPE));
         Loop.setOptions(options);
     }
@@ -50,6 +55,9 @@ public class Engine {
     public static void update() {
         if(scene != null){
             scene.update();
+        }
+        if(physicsEngine != null){
+            physicsEngine.update();
         }
     }
 
