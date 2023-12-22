@@ -1,9 +1,14 @@
 package ryukaze.objects.light;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Setter;
 import org.joml.Vector3f;
 import ryukaze.core.Engine;
 import ryukaze.objects.GameObject;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class SpotLight extends PointLight{
 
     private float cutOff;
@@ -22,10 +27,10 @@ public class SpotLight extends PointLight{
 
     @Override
     public void render(){
-
         Engine.getScene().getShader().setUniform("spotLight.ambient", this.getAmbient());
         Engine.getScene().getShader().setUniform("spotLight.diffuse", this.getDiffuse());
         Engine.getScene().getShader().setUniform("spotLight.specular", this.getSpecular());
+        Engine.getScene().getShader().setUniform("spotLight.intensity", this.getIntensity());
 
         Engine.getScene().getShader().setUniform("spotLight.cutOff",this.cutOff);
         Engine.getScene().getShader().setUniform("spotLight.outerCutOff",this.outCutOff);

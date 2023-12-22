@@ -18,9 +18,10 @@ public class DirectionalLight extends Light{
 
     @Override
     public void render(){
-        Engine.getScene().getShader().setUniform("directionalLight.ambient", this.getAmbient().mul(this.getBrightness()));
-        Engine.getScene().getShader().setUniform("directionalLight.diffuse", this.getDiffuse().mul(this.getBrightness()));
-        Engine.getScene().getShader().setUniform("directionalLight.specular", this.getSpecular().mul(this.getBrightness()));
+        Engine.getScene().getShader().setUniform("directionalLight.intensity", this.getIntensity());
+        Engine.getScene().getShader().setUniform("directionalLight.ambient", this.getAmbient());
+        Engine.getScene().getShader().setUniform("directionalLight.diffuse", this.getDiffuse());
+        Engine.getScene().getShader().setUniform("directionalLight.specular", this.getSpecular());
         Engine.getScene().getShader().setUniform("directionalLight.direction",this.getGlobalTransform().rotation);
     }
 }

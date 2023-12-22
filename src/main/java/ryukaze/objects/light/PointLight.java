@@ -27,9 +27,10 @@ public class PointLight extends Light{
 
     @Override
     public void render(){
-        Engine.getScene().getShader().setUniform("pointLight.ambient", this.getAmbient().mul(this.getBrightness()));
-        Engine.getScene().getShader().setUniform("pointLight.diffuse", this.getDiffuse().mul(this.getBrightness()));
-        Engine.getScene().getShader().setUniform("pointLight.specular", this.getSpecular().mul(this.getBrightness()));
+        Engine.getScene().getShader().setUniform("pointLight.intensity", this.getIntensity());
+        Engine.getScene().getShader().setUniform("pointLight.ambient", this.getAmbient());
+        Engine.getScene().getShader().setUniform("pointLight.diffuse", this.getDiffuse());
+        Engine.getScene().getShader().setUniform("pointLight.specular", this.getSpecular());
         Engine.getScene().getShader().setUniform("pointLight.position",this.getGlobalTransform().position);
         Engine.getScene().getShader().setUniform("pointLight.constant",this.constant);
         Engine.getScene().getShader().setUniform("pointLight.linear",this.linear);

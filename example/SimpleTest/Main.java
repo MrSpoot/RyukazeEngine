@@ -22,11 +22,13 @@ public class Main {
         Scene scene = new Scene();
         Engine.setScene(scene);
 
-        /*Light light = new DirectionalLight();
-        light.getTransform().setRotation(new Vector3f(0f,-1f,0f));*/
+        DirectionalLight directionalLight = new DirectionalLight();
+        directionalLight.getTransform().setRotation(new Vector3f(0f,-1f,0f));
+        directionalLight.setIntensity(0f);
 
         SpotLight spotLight = new SpotLight();
-        spotLight.getTransform().setPosition(new Vector3f(0f,2f,0f));
+        spotLight.getTransform().setPosition(new Vector3f(0f,5f,0f));
+        spotLight.setIntensity(0f);
 
         Sphere sphereLight = new Sphere();
         sphereLight.getTransform().setScale(new Vector3f(0.2f));
