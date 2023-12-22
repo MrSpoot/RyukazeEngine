@@ -157,17 +157,19 @@ public class Shader {
             Matcher fieldMatcher = fieldPattern.matcher(structBody);
 
             while (fieldMatcher.find()) {
-                String fieldName = fieldMatcher.group(1);
+                if(!fieldMatcher.group(0).contains("sampler2D")){
+                    String fieldName = fieldMatcher.group(1);
 
-                // Trouver les instances de la structure déclarées comme uniforms
-                Pattern instancePattern = Pattern.compile("\\buniform\\s+" + structName + "\\s+(\\w+)\\s*;");
-                Matcher instanceMatcher = instancePattern.matcher(shaderCode);
+                    // Trouver les instances de la structure déclarées comme uniforms
+                    Pattern instancePattern = Pattern.compile("\\buniform\\s+" + structName + "\\s+(\\w+)\\s*;");
+                    Matcher instanceMatcher = instancePattern.matcher(shaderCode);
 
-                while (instanceMatcher.find()) {
-                    String instanceName = instanceMatcher.group(1);
-                    String uniformName = instanceName + "." + fieldName;
-                    LOGGER.info("Create uniform [" + uniformName + "] for shader [" + program + "]");
-                    createUniform(uniformName);
+                    while (instanceMatcher.find()) {
+                        String instanceName = instanceMatcher.group(1);
+                        String uniformName = instanceName + "." + fieldName;
+                        LOGGER.info("Create uniform [" + uniformName + "] for shader [" + program + "]");
+                        createUniform(uniformName);
+                    }
                 }
             }
         }

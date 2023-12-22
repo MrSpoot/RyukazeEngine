@@ -3,11 +3,16 @@ package ryukaze.objects.material;
 
 import lombok.Data;
 import org.joml.Vector3f;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ryukaze.core.Engine;
+
+import java.sql.SQLOutput;
 
 @Data
 public class Material {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Material.class);
     private Texture texture;
     private Vector3f ambient;
     private Vector3f diffuse;
@@ -31,11 +36,11 @@ public class Material {
     public void render(){
         if(texture != null){
             texture.render();
+            Engine.getScene().getShader().setUniform("material.diffuse",  texture.getTexture());
+            Engine.getScene().getShader().setUniform("material.specular", texture.getTexture());
         }
-        Engine.getScene().getShader().setUniform("material.ambient", this.getAmbient());
-        Engine.getScene().getShader().setUniform("material.diffuse",  this.getDiffuse());
-        Engine.getScene().getShader().setUniform("material.specular", this.getSpecular());
         Engine.getScene().getShader().setUniform("material.shininess", this.getShininess());
+
     }
 
 }

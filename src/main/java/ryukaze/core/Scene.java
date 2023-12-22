@@ -54,7 +54,7 @@ public class Scene {
         if(this.sceneSkyBox != null){
             this.sceneSkyBox.render();
         }
-        shader.useProgram();
+        //shader.useProgram(); It works without this i don't know why wtf
         objects.forEach(GameObject::_render);
     }
 

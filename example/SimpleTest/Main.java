@@ -8,6 +8,7 @@ import ryukaze.graphics.Camera;
 import ryukaze.objects.GameObject;
 import ryukaze.objects.light.*;
 import ryukaze.objects.material.Material;
+import ryukaze.objects.material.Texture;
 import ryukaze.objects.mesh.Mesh;
 import ryukaze.objects.mesh.SphereMesh;
 import ryukaze.objects.model.*;
@@ -24,31 +25,26 @@ public class Main {
 
         DirectionalLight directionalLight = new DirectionalLight();
         directionalLight.getTransform().setRotation(new Vector3f(0f,-1f,0f));
-        directionalLight.setIntensity(0f);
+        directionalLight.setIntensity(1f);
 
         SpotLight spotLight = new SpotLight();
         spotLight.getTransform().setPosition(new Vector3f(0f,5f,0f));
         spotLight.setIntensity(0f);
 
-        Sphere sphereLight = new Sphere();
-        sphereLight.getTransform().setScale(new Vector3f(0.2f));
-
         PointLight pointlight = new PointLight();
         pointlight.setLinear(0.09f);
         pointlight.setQuadratic(0.032f);
         pointlight.getTransform().setPosition(new Vector3f(-10f,3f,0f));
-        pointlight.addChildren(sphereLight);
 
         /*Axis axis = new Axis();
         axis.getTransform().setScale(new Vector3f(0.5f));
         axis.getTransform().setPosition(new Vector3f(0f,1f,0f));*/
 
         GameObject camera = new Camera(100,0.1f,1000f);
-        camera.getTransform().setPosition(new Vector3f(0f,4.0f,-15f));
 
         MyController controller = new MyController();
         controller.addChildren(camera);
-        controller.getTransform().setPosition(new Vector3f(0f,5f,0f));
+        controller.getTransform().setPosition(new Vector3f(0f,2f,0f));
         controller.getTransform().setRotation(new Vector3f(0f,(float)Math.toRadians(180f),0f));
 
         /*for(int i = -5; i < 10; i++){
@@ -61,10 +57,13 @@ public class Main {
 
         GameObject bottom = new Plane();
         bottom.getTransform().setPosition(new Vector3f(0f,0f,0f));
-        bottom.getTransform().setScale(new Vector3f(50,1f,50));
+        //bottom.getTransform().setScale(new Vector3f(50,1f,50));
+        bottom.getMesh().getMaterial().setTexture(new Texture("src/main/resources/texture/container2.png",false));
 
-        Cube cube = new Cube();
-        cube.getTransform().setPosition(new Vector3f(-10f,1f,0f));
+
+        /*Cube cube = new Cube();
+        cube.getTransform().setPosition(new Vector3f(0f,1f,0f));
+        cube.getMesh().getMaterial().setTexture(new Texture("src/main/resources/texture/container2.png",false));*/
 
         Engine.run();
 
