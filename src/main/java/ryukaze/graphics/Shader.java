@@ -78,8 +78,6 @@ public class Shader {
         int uniformLocation = glGetUniformLocation(program, uniformName);
         if(uniformLocation >= 0){
             uniforms.put(uniformName,uniformLocation);
-        }else{
-            LOGGER.warn("Could not find uniform ["+uniformName+"] in shader program ["+program+"]");
         }
 
     }
@@ -92,8 +90,6 @@ public class Shader {
         useProgram();
         if(getUniformLocation(uniformName) != null){
             glUniform1i(getUniformLocation(uniformName),value);
-        }else{
-            LOGGER.warn("Could not find uniform ["+uniformName+"] in shader program ["+program+"]");
         }
     }
 
@@ -119,8 +115,6 @@ public class Shader {
         useProgram();
         if(getUniformLocation(uniformName) != null){
             glUniform4f(getUniformLocation(uniformName),value.x,value.y,value.z,value.w);
-        }else{
-            LOGGER.warn("Could not find uniform ["+uniformName+"] in shader program ["+program+"]");
         }
     }
 
@@ -128,8 +122,6 @@ public class Shader {
         useProgram();
         if(getUniformLocation(uniformName) != null){
             glUniform3f(getUniformLocation(uniformName),value.x,value.y,value.z);
-        }else{
-            LOGGER.warn("Could not find uniform ["+uniformName+"] in shader program ["+program+"]");
         }
     }
 
@@ -137,8 +129,6 @@ public class Shader {
         useProgram();
         if(getUniformLocation(uniformName) != null){
             glUniform2f(getUniformLocation(uniformName),value.x,value.y);
-        }else{
-            LOGGER.warn("Could not find uniform ["+uniformName+"] in shader program ["+program+"]");
         }
     }
 
@@ -146,8 +136,6 @@ public class Shader {
         useProgram();
         if(getUniformLocation(uniformName) != null){
             glUniform1f(getUniformLocation(uniformName),value);
-        }else{
-            LOGGER.warn("Could not find uniform ["+uniformName+"] in shader program ["+program+"]");
         }
     }
 

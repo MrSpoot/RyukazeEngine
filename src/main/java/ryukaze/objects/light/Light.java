@@ -15,6 +15,8 @@ public class Light extends GameObject {
     private Vector3f specular;
     @Setter
     private Vector3f diffuse;
+    @Setter @Getter
+    private float brightness;
 
     public Light() {
         this(null);
@@ -25,6 +27,7 @@ public class Light extends GameObject {
         this.ambient = new Vector3f(0.5f);
         this.specular = new Vector3f(1.0f);
         this.diffuse = new Vector3f(1.0f);
+        this.brightness = 1f;
     }
 
 }
