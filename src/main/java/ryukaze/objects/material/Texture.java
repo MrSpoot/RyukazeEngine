@@ -1,6 +1,7 @@
 package ryukaze.objects.material;
 
 import lombok.Getter;
+import org.joml.Vector4f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ryukaze.graphics.Image;
@@ -16,21 +17,25 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 public class Texture {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Texture.class);
-    private final int texture;
+    private int texture;
     private int width;
     private int height;
 
-    public Texture(String path, boolean flip) {
+    public Texture(Vector4f color) {
+        Image image = new Image(color);
+        loadTexture(image);
+    }
 
-        this.width = 0;
-        this.height = 0;
+    public Texture(String path ,boolean flip) {
+        Image image = FileReader.readImage(path, flip);
+        loadTexture(image);
+    }
 
+    private void loadTexture(Image image) {
         texture = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, texture);
 
-        Image image = FileReader.readImage(path, flip);
-
-        if(image != null){
+        if (image != null) {
             this.width = image.getWidth();
             this.height = image.getHeight();
 
@@ -41,14 +46,9 @@ public class Texture {
 
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getByteBuffer());
             glGenerateMipmap(GL_TEXTURE_2D);
-        }else{
+        } else {
             LOGGER.warn("Failed to load texture, Image is null");
         }
-        glBindTexture(GL_TEXTURE_2D,0);
-    }
-
-    public void render(){
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D,texture);
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 }

@@ -5,7 +5,6 @@ import org.lwjgl.stb.STBImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ryukaze.graphics.Image;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;

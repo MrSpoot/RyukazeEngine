@@ -71,8 +71,7 @@ void main()
     result += CalcPointLight(pointLight,norm,FragPos,viewDir);
     result += CalcSpotLight(spotLight,norm,FragPos,viewDir);
 
-    //FragColor = vec4(result, 1.0);
-    FragColor = texture(material.specular,TexCoords);
+    FragColor = vec4(result, 1.0);
 }
 
 vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir){

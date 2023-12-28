@@ -2,7 +2,12 @@ package ryukaze.graphics;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.joml.Vector4f;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.DataBufferInt;
 import java.nio.ByteBuffer;
 
 @Data
@@ -12,5 +17,42 @@ public class Image {
     private ByteBuffer byteBuffer;
     private int width;
     private int height;
+
+    public Image(Vector4f color){
+        this.width = 256;
+        this.height = 256;
+
+        int[] pixels = getPixels(color);
+
+        this.byteBuffer = ByteBuffer.allocateDirect(width * height * 4);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int pixel = pixels[y * width + x];
+                this.byteBuffer.put((byte) ((pixel >> 16) & 0xFF)); // Rouge
+                this.byteBuffer.put((byte) ((pixel >> 8) & 0xFF));  // Vert
+                this.byteBuffer.put((byte) (pixel & 0xFF));         // Bleu
+                this.byteBuffer.put((byte) ((pixel >> 24) & 0xFF)); // Alpha
+            }
+        }
+        this.byteBuffer.flip();
+    }
+
+    private int[] getPixels(Vector4f color) {
+        int r = (int) (color.x * 255);
+        int g = (int) (color.y * 255);
+        int b = (int) (color.z * 255);
+        int a = (int) (color.w * 255);
+
+        BufferedImage image = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setColor(new Color(r, g, b, a));
+        g2d.fillRect(0, 0, width, height);
+        g2d.dispose();
+
+        int[] pixels = new int[width * height];
+        image.getRGB(0, 0, width, height, pixels, 0, width);
+        return pixels;
+    }
 
 }
