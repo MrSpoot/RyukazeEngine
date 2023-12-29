@@ -26,7 +26,7 @@ public class Scene {
         this.shader = new Shader("src/main/resources/shader/default.scene.vert","src/main/resources/shader/default.scene.frag");
         this.objects = new ArrayList<>();
         this.controllers = new ArrayList<>();
-        //this.sceneSkyBox = new SkyBox();
+        this.sceneSkyBox = new SkyBox();
         glfwSetCursorPosCallback(Engine.getWindow().getWindowHandle(),(w,x,y) -> processMouseController((float)x,(float)y));
     }
 

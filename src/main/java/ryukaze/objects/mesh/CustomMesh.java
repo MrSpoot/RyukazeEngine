@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,37 +20,14 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 public class CustomMesh extends Mesh{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomMesh.class);
-    private int vao;
-    private int vbo;
-    private int ibo;
-
-    private float[] vertices;
-    private int[] indices;
+    private final List<CustomMeshData> meshes;
 
     public CustomMesh(String path){
+
+        this.meshes = new LinkedList<>();
+
         try{
-
             loadModel(path);
-
-            vao = glGenVertexArrays();
-            glBindVertexArray(vao);
-
-            vbo = glGenBuffers();
-            glBindBuffer(GL_ARRAY_BUFFER, vbo);
-            glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
-            glVertexAttribPointer(0, 3, GL_FLOAT, false, 24, 0);
-            glEnableVertexAttribArray(0);
-
-            glVertexAttribPointer(1, 3, GL_FLOAT, false, 24, 12);
-            glEnableVertexAttribArray(1);
-
-            ibo = glGenBuffers();
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
-
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            glBindVertexArray(0);
-
         }catch (Exception e){
             LOGGER.warn("Unable to load mesh model | Path : ["+path+"] | Exception : "+e);
         }
@@ -85,10 +63,12 @@ public class CustomMesh extends Mesh{
 
         AIVector3D.Buffer vertices = mesh.mVertices();
         AIVector3D.Buffer normals = mesh.mNormals();
+        AIVector3D.Buffer texCords = mesh.mTextureCoords(0);
 
         while (vertices.remaining() > 0){
             AIVector3D vertex = vertices.get();
             AIVector3D normal = normals.get();
+            AIVector3D texCoord = texCords.get();
 
             // Ajouter les données de vertex
             interleavedData.add(vertex.x());
@@ -99,6 +79,15 @@ public class CustomMesh extends Mesh{
             interleavedData.add(normal.x());
             interleavedData.add(normal.y());
             interleavedData.add(normal.z());
+
+            if(texCords != mesh.mTextureCoords(0)){
+                // Ajouter les données de texture
+                interleavedData.add(texCoord.x());
+                interleavedData.add(1 - texCoord.y());
+            }else{
+                interleavedData.add(0f);
+                interleavedData.add(0f);
+            }
 
         }
 
@@ -112,23 +101,64 @@ public class CustomMesh extends Mesh{
             }
         }
 
-        this.vertices = new float[interleavedData.size()];
-        for (int i = 0; i < this.vertices.length; i++) {
-            this.vertices[i] = interleavedData.get(i);
+        float[] _vertices = new float[interleavedData.size()];
+        for (int i = 0; i < _vertices.length; i++) {
+            _vertices[i] = interleavedData.get(i);
         }
 
-        this.indices = new int[indices.size()];
-        for(int i =0; i< this.indices.length; i++){
-            this.indices[i] = indices.get(i);
+        int[] _indices = new int[indices.size()];
+        for (int i = 0; i < _indices.length; i++) {
+            _indices[i] = indices.get(i);
         }
-
+        this.meshes.add(new CustomMeshData(_vertices,_indices));
     }
 
     @Override
     public void render() {
-        glBindVertexArray(vao);
-        glDrawElements(GL_TRIANGLES, this.indices.length, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
+        this.meshes.forEach(CustomMeshData::render);
+    }
+
+    public class CustomMeshData{
+
+        private int vao;
+        private int vbo;
+        private int ibo;
+        private float[] vertices;
+        private int[] indices;
+
+        public CustomMeshData(float[] vertices, int[] indices){
+            this.vertices = vertices;
+            this.indices = indices;
+
+            this.vao = glGenVertexArrays();
+            glBindVertexArray(this.vao);
+
+            this.vbo = glGenBuffers();
+            glBindBuffer(GL_ARRAY_BUFFER, this.vbo);
+            glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
+            glVertexAttribPointer(0, 3, GL_FLOAT, false, 32, 0);
+            glEnableVertexAttribArray(0);
+
+            glVertexAttribPointer(1, 3, GL_FLOAT, false, 32, 12);
+            glEnableVertexAttribArray(1);
+
+            glVertexAttribPointer(2, 2, GL_FLOAT, false, 32, 24);
+            glEnableVertexAttribArray(2);
+
+            this.ibo = glGenBuffers();
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this.ibo);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
+
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            glBindVertexArray(0);
+        }
+
+        public void render() {
+            glBindVertexArray(this.vao);
+            glDrawElements(GL_TRIANGLES, this.indices.length, GL_UNSIGNED_INT, 0);
+            glBindVertexArray(0);
+        }
+
     }
 
 }
