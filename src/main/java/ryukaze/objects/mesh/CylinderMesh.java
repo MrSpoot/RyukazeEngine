@@ -54,10 +54,10 @@ public class CylinderMesh extends Mesh {
         // Générer les sommets pour les centres des cercles supérieur et inférieur
         // Centre supérieur
         verticesAndNormals[pointer++] = 0;
-        verticesAndNormals[pointer++] = 1.0f / 2;
+        verticesAndNormals[pointer++] = 5.0f / 2;
         verticesAndNormals[pointer++] = 0;
         verticesAndNormals[pointer++] = 0; // Normale x
-        verticesAndNormals[pointer++] = 1; // Normale y
+        verticesAndNormals[pointer++] = -1; // Normale y
         verticesAndNormals[pointer++] = 0; // Normale z
 
         // Centre inférieur
@@ -65,7 +65,7 @@ public class CylinderMesh extends Mesh {
         verticesAndNormals[pointer++] = -1.0f / 2;
         verticesAndNormals[pointer++] = 0;
         verticesAndNormals[pointer++] = 0; // Normale x
-        verticesAndNormals[pointer++] = -1; // Normale y
+        verticesAndNormals[pointer++] = 1; // Normale y
         verticesAndNormals[pointer++] = 0; // Normale z
 
         // Générer les indices pour les côtés
@@ -90,7 +90,11 @@ public class CylinderMesh extends Mesh {
         int topCenterIndex = vertexCount - 2;
         int bottomCenterIndex = vertexCount - 1;
         for (int i = 0; i < precision ; i++) {
-            int topIndex = i * 2;
+
+            int bottomIndex = i * 2;
+            int nextBottomIndex = bottomIndex + 2;
+
+            int topIndex = bottomIndex + 1;
             int nextTopIndex = topIndex + 2;
 
             // Triangle supérieur
@@ -99,8 +103,7 @@ public class CylinderMesh extends Mesh {
             indices[indexPointer++] = topIndex;
 
             // Triangle inférieur
-            int bottomIndex = topIndex + 1;
-            int nextBottomIndex = bottomIndex + 2;
+
             indices[indexPointer++] = bottomCenterIndex;
             indices[indexPointer++] = bottomIndex;
             indices[indexPointer++] = nextBottomIndex;

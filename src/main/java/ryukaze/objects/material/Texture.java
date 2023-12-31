@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import ryukaze.graphics.Image;
 import ryukaze.utils.FileReader;
 
+import java.nio.ByteBuffer;
+
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
@@ -20,6 +22,14 @@ public class Texture {
     private int texture;
     private int width;
     private int height;
+    private boolean hasTransparency;
+
+    public Texture(int textureId){
+        this.texture = textureId;
+        this.width = 1280;
+        this.height = 720;
+        this.hasTransparency = false;
+    }
 
     public Texture(Vector4f color) {
         Image image = new Image(color);
@@ -36,6 +46,9 @@ public class Texture {
         glBindTexture(GL_TEXTURE_2D, texture);
 
         if (image != null) {
+
+            this.hasTransparency = hasTransparency(image.getByteBuffer());
+
             this.width = image.getWidth();
             this.height = image.getHeight();
 
@@ -50,5 +63,24 @@ public class Texture {
             LOGGER.warn("Failed to load texture, Image is null");
         }
         glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    private boolean hasTransparency(ByteBuffer imageData) {
+        int originalPosition = imageData.position();
+
+        while (imageData.hasRemaining()) {
+            imageData.position(imageData.position() + 3);
+
+            if (imageData.hasRemaining()) {
+                byte alpha = imageData.get();
+                if ((alpha & 0xFF) < 255) {
+                    imageData.position(originalPosition);
+                    return true;
+                }
+            }
+        }
+
+        imageData.position(originalPosition);
+        return false;
     }
 }

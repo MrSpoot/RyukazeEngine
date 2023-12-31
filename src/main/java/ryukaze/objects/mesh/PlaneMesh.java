@@ -22,13 +22,13 @@ public class PlaneMesh extends Mesh{
     private static float[] vertices = {
             // Premier Triangle
             -0.5f, 0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // Sommet 1
-            0.5f, 0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,// Sommet 2
-            -0.5f, 0.0f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,// Sommet 3
+            -0.5f, 0.0f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,// Sommet 2
+            0.5f, 0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,// Sommet 3
 
             // Deuxième Triangle
             0.5f, 0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Sommet 1
-            0.5f, 0.0f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,// Sommet 2
-            -0.5f, 0.0f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f // Sommet 3
+            -0.5f, 0.0f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,// Sommet 2
+            0.5f, 0.0f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f// Sommet 3
     };
 
     static {
@@ -54,9 +54,11 @@ public class PlaneMesh extends Mesh{
 
     @Override
     public void render() {
+        glDisable(GL_CULL_FACE);
         glBindVertexArray(vao);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glDrawArrays(GL_TRIANGLES,0,6);
+        glEnable(GL_CULL_FACE);
     }
 
 }

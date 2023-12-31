@@ -36,13 +36,10 @@ public abstract class GameObject  {
         this.children = new HashMap<>();
         this.scripts = new ArrayList<>();
         this.collider = collider;
-        if(parent == null){
-            Engine.getScene().subscribe(this);
-        }
+        Engine.getScene().subscribe(this);
     }
 
     public final void _render(){
-        children.values().forEach(GameObject::_render);
         scripts.forEach(IScript::render);
         Matrix4f modelMatrix = new Matrix4f()
                 .translate(getGlobalTransform().getPosition())
@@ -76,7 +73,6 @@ public abstract class GameObject  {
 
     public final void addChildren(GameObject object){
         object.setParent(this);
-        Engine.getScene().unsubscribe(object);
         this.children.put(object.id,object);
     }
 

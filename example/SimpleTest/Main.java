@@ -36,9 +36,9 @@ public class Main {
         spotLight.getTransform().setPosition(new Vector3f(0f,5f,0f));
         spotLight.setIntensity(0f);
 
-        /*Axis axis = new Axis();
+        Axis axis = new Axis();
         axis.getTransform().setScale(new Vector3f(0.5f));
-        axis.getTransform().setPosition(new Vector3f(0f,5f,0f));*/
+        axis.getTransform().setPosition(new Vector3f(0f,5f,0f));
 
         GameObject camera = new Camera(100,0.1f,1000f);
 
@@ -52,7 +52,7 @@ public class Main {
         pointlight.getTransform().setPosition(new Vector3f(1f,2.5f,0f));
 
         GameObject bottom = new Plane();
-        bottom.getTransform().setPosition(new Vector3f(0f,0f,0f));
+        bottom.getTransform().setPosition(new Vector3f(0f,-10f,0f));
         bottom.getTransform().setScale(new Vector3f(50,1f,50));
         bottom.getMesh().getMaterial().getTextures().replace("diffuse",new Texture(new Vector4f(0.2f,0.2f,0.2f,1f)));
 
@@ -71,6 +71,16 @@ public class Main {
         window.getTransform().setRotation(new Vector3f(Math.toRadians(90f),0f,Math.toRadians(90f)));
         window.getTransform().setPosition(new Vector3f(2f,0.5f,0f));
 
+        Plane window2 = new Plane();
+        window2.getMesh().getMaterial().getTextures().replace("diffuse",new Texture("src/main/resources/texture/blending_transparent_window.png",false));
+        window2.getTransform().setRotation(new Vector3f(Math.toRadians(90f),0f,Math.toRadians(90f)));
+        window2.getTransform().setPosition(new Vector3f(2.5f,0.5f,0f));
+
+        Sphere sphere = new Sphere();
+        sphere.getTransform().setPosition(new Vector3f(0f,-3f,0f));
+
+        Cylinder cylinder = new Cylinder();
+        cylinder.getTransform().setPosition(new Vector3f(0f,-3f,2f));
 
         Cube cube = new Cube();
         cube.getTransform().setPosition(new Vector3f(5f,0.5f,0f));
@@ -86,6 +96,11 @@ public class Main {
         customModel2.getTransform().setPosition(new Vector3f(-2f,0f,0f));
         customModel2.getTransform().setScale(new Vector3f(0.1f));
         customModel2.getMesh().getMaterial().getTextures().replace("diffuse",new Texture("src/main/resources/model/carText2.png",false));
+
+        Plane test = new Plane();
+        test.getMesh().getMaterial().getTextures().replace("diffuse",new Texture(Engine.getScene().getPostProcessingRenderer().getTexture()));
+        test.getTransform().setRotation(new Vector3f(Math.toRadians(90f),Math.toRadians(180f),Math.toRadians(90f)));
+        test.getTransform().setPosition(new Vector3f(3f,0.5f,0f));
 
         Engine.run();
 

@@ -90,6 +90,7 @@ public class SkyBox {
     }
 
     public void render() {
+        glDisable(GL_CULL_FACE);
         glDepthFunc(GL_LEQUAL);  // Change la fonction de profondeur
         shader.useProgram();
 
@@ -108,6 +109,7 @@ public class SkyBox {
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
         glDepthFunc(GL_LESS);
+        glEnable(GL_CULL_FACE);
     }
 
     private void loadCubemap(String[] faces) {

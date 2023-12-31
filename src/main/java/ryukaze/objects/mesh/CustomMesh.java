@@ -23,9 +23,7 @@ public class CustomMesh extends Mesh{
     private final List<CustomMeshData> meshes;
 
     public CustomMesh(String path){
-
         this.meshes = new LinkedList<>();
-
         try{
             loadModel(path);
         }catch (Exception e){
@@ -110,7 +108,7 @@ public class CustomMesh extends Mesh{
         for (int i = 0; i < _indices.length; i++) {
             _indices[i] = indices.get(i);
         }
-        this.meshes.add(new CustomMeshData(_vertices,_indices));
+        this.meshes.add(new CustomMeshData(_vertices, _indices));
     }
 
     @Override
@@ -118,9 +116,9 @@ public class CustomMesh extends Mesh{
         this.meshes.forEach(CustomMeshData::render);
     }
 
-    public class CustomMeshData{
+    public static class CustomMeshData{
 
-        private int vao;
+        private final int vao;
         private int vbo;
         private int ibo;
         private float[] vertices;
@@ -154,9 +152,11 @@ public class CustomMesh extends Mesh{
         }
 
         public void render() {
+            glDisable(GL_CULL_FACE);
             glBindVertexArray(this.vao);
             glDrawElements(GL_TRIANGLES, this.indices.length, GL_UNSIGNED_INT, 0);
             glBindVertexArray(0);
+            glEnable(GL_CULL_FACE);
         }
 
     }

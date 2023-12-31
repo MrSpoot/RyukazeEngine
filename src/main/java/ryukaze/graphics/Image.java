@@ -11,18 +11,25 @@ import java.awt.image.DataBufferInt;
 import java.nio.ByteBuffer;
 
 @Data
-@AllArgsConstructor
 public class Image {
 
     private ByteBuffer byteBuffer;
     private int width;
     private int height;
+    private boolean hasTransparency;
+
+    public Image(ByteBuffer byteBuffer, int width, int height) {
+        this.byteBuffer = byteBuffer;
+        this.width = width;
+        this.height = height;
+    }
 
     public Image(Vector4f color){
         this.width = 256;
         this.height = 256;
 
         int[] pixels = getPixels(color);
+        this.hasTransparency = false;
 
         this.byteBuffer = ByteBuffer.allocateDirect(width * height * 4);
 
@@ -32,9 +39,11 @@ public class Image {
                 this.byteBuffer.put((byte) ((pixel >> 16) & 0xFF)); // Rouge
                 this.byteBuffer.put((byte) ((pixel >> 8) & 0xFF));  // Vert
                 this.byteBuffer.put((byte) (pixel & 0xFF));         // Bleu
-                this.byteBuffer.put((byte) ((pixel >> 24) & 0xFF)); // Alpha
+                byte alpha = (byte) ((pixel >> 24) & 0xFF);
+                this.byteBuffer.put(alpha); // Alpha
             }
         }
+
         this.byteBuffer.flip();
     }
 
