@@ -9,15 +9,8 @@ import ryukaze.core.Scene;
 import ryukaze.graphics.Camera;
 import ryukaze.objects.GameObject;
 import ryukaze.objects.light.*;
-import ryukaze.objects.material.Material;
 import ryukaze.objects.material.Texture;
-import ryukaze.objects.mesh.Mesh;
-import ryukaze.objects.mesh.SphereMesh;
 import ryukaze.objects.model.*;
-import ryukaze.physics.collider.SphereCollider;
-
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
 
 public class Main {
 

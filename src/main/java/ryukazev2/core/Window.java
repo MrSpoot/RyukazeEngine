@@ -1,4 +1,4 @@
-package ryukaze.core;
+package ryukazev2.core;
 
 import lombok.Data;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -6,8 +6,10 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ryukazev2.Engine;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MAJOR;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -17,11 +19,37 @@ public class Window {
     private static final Logger LOGGER = LoggerFactory.getLogger(Window.class);
 
     private long windowHandle;
+    private String title;
     private int width;
     private int height;
+    private Engine engine;
 
-    public Window(Options options){
+    public Window(){
+        this.title = "";
+        this.width = 0;
+        this.height = 0;
+    }
 
+    public void setEngine(Engine engine){
+        this.engine = engine;
+    }
+
+    public Window setHeight(int height){
+        this.height = height;
+        return this;
+    }
+
+    public Window setWidth(int width){
+        this.width = width;
+        return this;
+    }
+
+    public Window setTitle(String title){
+        this.title = title;
+        return this;
+    }
+
+    public Window build(){
         if (!glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
@@ -33,9 +61,9 @@ public class Window {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 
-        if (options.width > 0 && options.height > 0) {
-            this.width = options.width;
-            this.height = options.height;
+        if (this.width > 0 && this.height > 0) {
+            this.width = this.width;
+            this.height = this.height;
         } else {
             glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
             GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -44,7 +72,7 @@ public class Window {
             height = vidMode.height();
         }
 
-        windowHandle = glfwCreateWindow(width, height, "DEBUG", NULL, NULL);
+        windowHandle = glfwCreateWindow(width, height, "", NULL, NULL);
         if (windowHandle == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
@@ -57,29 +85,36 @@ public class Window {
         glfwMakeContextCurrent(windowHandle);
         glfwSetInputMode(windowHandle,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
         GL.createCapabilities();
-        if (options.fps > 0) {
+        /*if (options.fps > 0) {
             glfwSwapInterval(0);
         } else {
             glfwSwapInterval(1);
-        }
+        }*/
 
         glViewport(0,0,width,height);
 
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_STENCIL_TEST);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glEnable(GL_CULL_FACE);
-
         glfwShowWindow(windowHandle);
+
+        glfwSetWindowTitle(windowHandle,this.title);
+
+        return this;
     }
 
-    public void setWindowTitle(String title){
-        glfwSetWindowTitle(windowHandle,title);
+    public void preRender(){
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    }
+
+    public void postRender(){
+        glfwSwapBuffers(this.windowHandle);
+        glfwPollEvents();
     }
 
     private void resize(long windowHandle, int width, int height){
         glViewport(0,0,width,height);
     }
 
+    public boolean shouldClose(){
+        return glfwWindowShouldClose(this.windowHandle);
+    }
 }

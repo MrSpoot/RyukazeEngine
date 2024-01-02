@@ -46,7 +46,7 @@ public class Engine {
             scene.render();
         }
 
-        window.setWindowTitle("DEBUG | FPS : " + Loop.getFps());
+        //window.setWindowTitle("DEBUG | FPS : " + Loop.getFps());
 
         glfwSwapBuffers(window.getWindowHandle());
         glfwPollEvents();
