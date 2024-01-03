@@ -1,6 +1,9 @@
 package ryukazev2.component;
 
-public class CameraComponent {
+import lombok.Getter;
+
+@Getter
+public class CameraComponent extends Component {
 
     private float fov;
     private float zNear;

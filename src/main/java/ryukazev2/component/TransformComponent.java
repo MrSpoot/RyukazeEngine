@@ -1,6 +1,7 @@
 package ryukazev2.component;
 
 import lombok.Getter;
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 @Getter
@@ -29,5 +30,12 @@ public class TransformComponent extends Component{
     public TransformComponent setScale(float x, float y, float z){
         this.scale = new Vector3f(x,y,z);
         return this;
+    }
+
+    public Matrix4f getModelMatrix(){
+        return new Matrix4f()
+                .translate(this.position)
+                .rotateXYZ(this.rotation)
+                .scale(this.scale);
     }
 }

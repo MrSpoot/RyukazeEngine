@@ -1,6 +1,8 @@
 package ryukazev2.component;
 
 import lombok.Getter;
+import ryukazev2.component.shape.IShape;
+import ryukazev2.graphics.Material;
 
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.*;
@@ -15,20 +17,38 @@ public class MeshComponent extends Component{
     private int vao;
     private int vbo;
     private int ibo;
-
     private float[] vertices;
-    @Getter
     private int[] indices;
+    @Getter
+    private Material material;
 
     public MeshComponent(){
         this.vao = 0;
         this.vbo = 0;
         this.ibo = 0;
         this.vertices = new float[0];
+        this.indices = new int[0];
+        this.material = new Material();
+    }
+
+    public MeshComponent applyShape(IShape shape){
+        this.vertices = shape.getVertices();
+        this.indices = shape.getIndices();
+        return this;
+    }
+
+    public MeshComponent setMaterial(Material material){
+        this.material = material;
+        return this;
     }
 
     public MeshComponent setVertices(float[] vertices){
         this.vertices = vertices;
+        return this;
+    }
+
+    public MeshComponent setIndices(int[] indices){
+        this.indices = indices;
         return this;
     }
 
@@ -60,6 +80,10 @@ public class MeshComponent extends Component{
         glBindVertexArray(0);
 
         return this;
+    }
+
+    public int getIndicesCount(){
+        return this.indices.length;
     }
 
 

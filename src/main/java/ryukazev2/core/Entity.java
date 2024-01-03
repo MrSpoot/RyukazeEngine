@@ -2,6 +2,8 @@ package ryukazev2.core;
 
 import lombok.Getter;
 import ryukazev2.component.Component;
+import ryukazev2.manager.EntityManager;
+import ryukazev2.utils.ServiceLocator;
 import ryukazev2.utils.UniqueIdGenerator;
 
 import java.util.HashMap;
@@ -16,13 +18,26 @@ public class Entity {
     public Entity() {
         this.id = UniqueIdGenerator.generateUniqueID(15);
         this.components = new HashMap<>();
+        ServiceLocator.getService(EntityManager.class).subscribe(this);
     }
 
-    public void linkComponent(Component component) {
+    public Entity linkComponent(Component component) {
+        component.linkEntity(this);
         components.put(component.getClass(), component);
+        return this;
     }
 
     public <T extends Component> T getComponent(Class<T> componentClass) {
         return componentClass.cast(components.get(componentClass));
+    }
+
+    @SafeVarargs
+    public final boolean hasAllComponents(Class<? extends Component>... componentClasses) {
+        for (Class<? extends Component> cls : componentClasses) {
+            if (!components.containsKey(cls)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

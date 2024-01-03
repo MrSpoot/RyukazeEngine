@@ -47,7 +47,7 @@ public class Main {
         GameObject bottom = new Plane();
         bottom.getTransform().setPosition(new Vector3f(0f,-10f,0f));
         bottom.getTransform().setScale(new Vector3f(50,1f,50));
-        bottom.getMesh().getMaterial().getTextures().replace("diffuse",new Texture(new Vector4f(0.2f,0.2f,0.2f,1f)));
+        bottom.getMesh().getMaterial().getTextures().replace("diffuse",new Texture(new Vector4f(1f,0,0,1f)));
 
         int precision = 5;
 

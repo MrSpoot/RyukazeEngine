@@ -97,6 +97,8 @@ public class Window {
 
         glfwSetWindowTitle(windowHandle,this.title);
 
+
+
         return this;
     }
 

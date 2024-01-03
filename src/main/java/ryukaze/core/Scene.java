@@ -61,6 +61,7 @@ public class Scene {
 
         this.postProcessingRenderer.unbindPostProcessingRender();
 
+        shader.useProgram();
         if(this.sceneSkyBox != null){
             this.sceneSkyBox.render();
         }

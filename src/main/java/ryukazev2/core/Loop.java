@@ -3,12 +3,12 @@ package ryukazev2.core;
 import lombok.Getter;
 import lombok.Setter;
 import ryukazev2.Engine;
+import ryukazev2.manager.SystemManager;
+import ryukazev2.utils.ServiceLocator;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Loop {
-
-    private Engine engine;
 
     //With Getter
     @Getter
@@ -25,10 +25,6 @@ public class Loop {
     private long lastGameUpdateTime = System.nanoTime();
     private boolean shouldStop = false;
 
-    public Loop(Engine engine){
-        this.engine = engine;
-    }
-
     public void run(){
         while (!shouldStop) {
             long currentTime = System.nanoTime();
@@ -37,14 +33,14 @@ public class Loop {
 
             if (RENDER_TICKS_PER_SECOND <= 0 || deltaTimeRender >= RENDER_TIME) {
                 //RENDER
-                this.engine.render();
+                ServiceLocator.getService(SystemManager.class).render();
                 lastRenderTime = currentTime;
                 framesRendered++;
             }
 
             if (GAME_TICKS_PER_SECOND <= 0 || deltaTimeGame >= GAME_TIME) {
                 //UPDATE
-                this.engine.update();
+                ServiceLocator.getService(SystemManager.class).update();
                 lastGameUpdateTime = currentTime;
             }
 
