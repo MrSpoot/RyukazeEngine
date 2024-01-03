@@ -15,7 +15,7 @@ public class Engine {
 
     public Engine(){
         this.window = new Window();
-        this.renderManager = new RenderManager();
+        //this.renderManager = new RenderManager();
         this.loop = new Loop(this);
     }
 
@@ -48,17 +48,17 @@ public class Engine {
     }
 
     public Engine build(){
-        LOGGER.info("\033[1;33m[BUILD]\u001B[0m Engine instance");
+        LOGGER.info("\033[1;32m[BUILD]\u001B[0m Engine instance");
         return this;
     }
 
     public void run(){
-        LOGGER.info("\033[1;33m[RUN]\u001B[0m Engine instance");
+        LOGGER.info("\033[1;32m[RUN]\u001B[0m Engine instance");
         this.loop.run();
     }
 
     public void stop(){
-        LOGGER.info("\033[1;33m[STOP]\u001B[0m Engine instance");
+        LOGGER.info("\033[1;32m[STOP]\u001B[0m Engine instance");
         this.loop.stop();
     }
 
