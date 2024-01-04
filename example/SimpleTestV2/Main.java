@@ -1,6 +1,5 @@
 package SimpleTestV2;
 
-import org.joml.Math;
 import org.joml.Vector4f;
 import ryukazev2.Engine;
 import ryukazev2.component.*;
@@ -34,18 +33,18 @@ public class Main {
 
         test.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
 
-        Entity t = new Entity().linkComponent(new TransformComponent().setPosition(0,-0.5f,0).setScale(10,1,10))
+        Entity t = new Entity().linkComponent(new TransformComponent().setPosition(1,-0.5f,0).setScale(10,1,10))
                 .linkComponent(new MeshComponent().setMaterial(test).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build())
-                .linkComponent(new ScriptComponent().linkScript(new RotateScript()).build());
+                .linkComponent(new ScriptComponent().linkScript(new RotateScript(-50f)).build());
 
         Entity c = new Entity().linkComponent(new TransformComponent()
-                        .setPosition(0,0,-5)
+                        .setPosition(0,-1,-6)
                         .setScale(0.1f,0.1f,0.1f)
-                        .setRotation(Math.toRadians(45),Math.toRadians(45),Math.toRadians(45)))
+                        .setRotation(0,0,0))
                 .linkComponent(new MeshComponent().setMaterial(carMat).applyShape(shape).build())
                 .linkComponent(new ShaderComponent().build())
-                .linkComponent(new ScriptComponent().linkScript(new RotateScript()).build())
+                .linkComponent(new ScriptComponent().linkScript(new RotateScript(51f)).build())
                 .linkChildren(t);
 
         new Entity().linkComponent(new TransformComponent().setPosition(-2,0,-15))

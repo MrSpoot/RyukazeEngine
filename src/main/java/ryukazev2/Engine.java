@@ -22,11 +22,11 @@ public class Engine {
         new ScriptManager();
 
         LOGGER.info("\033[1;32m[BUILD]\u001B[0m Engine instance");
+
         return this;
     }
 
     public void run(){
-        LOGGER.info("\033[1;32m[RUN]\u001B[0m Engine instance");
         ServiceLocator.getService(SystemManager.class).run();
     }
 

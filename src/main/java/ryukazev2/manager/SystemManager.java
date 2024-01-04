@@ -56,9 +56,14 @@ public class SystemManager extends Manager {
         ((ScriptManager) this.services.get(ScriptManager.class)).update(deltaTime);
     }
 
-    public void run(){
+    public void initManger(){
+        LOGGER.info("\033[1;32m[INITIALIZE]\u001B[0m Managers");
         ((ScriptManager) this.services.get(ScriptManager.class)).init();
+    }
 
+    public void run(){
+        initManger();
+        LOGGER.info("\033[1;32m[RUN]\u001B[0m Engine instance");
         this.loop.run();
     }
 

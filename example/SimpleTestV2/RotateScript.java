@@ -10,6 +10,11 @@ public class RotateScript implements IScript {
 
     private Entity entity;
     private Vector3f lastRotation;
+    private float rotationSpeed;
+
+    public RotateScript(float rotationSpeed){
+        this.rotationSpeed = rotationSpeed;
+    }
 
     @Override
     public void init(Entity entity) {
@@ -19,7 +24,7 @@ public class RotateScript implements IScript {
     @Override
     public void update(float deltaTime) {
         this.lastRotation = this.entity.getComponent(TransformComponent.class).getRotation();
-        this.entity.getComponent(TransformComponent.class).setRotation(lastRotation.x, lastRotation.y + Math.toRadians(100f*deltaTime),lastRotation.z);
+        this.entity.getComponent(TransformComponent.class).setRotation(lastRotation.x, lastRotation.y + Math.toRadians(rotationSpeed*deltaTime),lastRotation.z);
     }
 
     @Override
