@@ -33,7 +33,7 @@ public class Main {
 
         test.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
 
-        Entity t = new Entity().linkComponent(new TransformComponent().setPosition(1,-0.5f,0).setScale(10,1,10))
+        Entity t = new Entity().linkComponent(new TransformComponent().setPosition(0,-0.5f,0).setScale(10,1,10))
                 .linkComponent(new MeshComponent().setMaterial(test).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build())
                 .linkComponent(new ScriptComponent().linkScript(new RotateScript(-50f)).build());

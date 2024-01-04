@@ -101,7 +101,7 @@ public class CustomShape implements IShape{
             AIVector3D texCoord = texCords.get();
 
             // Ajouter les données de vertex
-            interleavedData.add(vertex.x());
+            interleavedData.add(-1f * vertex.x());
             interleavedData.add(vertex.y());
             interleavedData.add(vertex.z());
 
