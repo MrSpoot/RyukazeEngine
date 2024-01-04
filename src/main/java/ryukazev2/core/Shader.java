@@ -72,14 +72,14 @@ public class Shader {
     private void checkShaderCompilation(int shader) {
         int compiled = glGetShaderi(shader, GL_COMPILE_STATUS);
         if (compiled != GL_TRUE) {
-            LOGGER.warn("Erreur de compilation du shader : " + glGetShaderInfoLog(shader));
+            LOGGER.warn("\033[1;36m[SHADER]\033[0m Erreur de compilation du shader : " + glGetShaderInfoLog(shader));
         }
     }
 
     private void checkShaderProgramLinking(int shaderProgram) {
         int linked = glGetProgrami(shaderProgram, GL_LINK_STATUS);
         if (linked != GL_TRUE) {
-            LOGGER.warn("Erreur de liaison du programme de ryukaze.shaders : " + glGetProgramInfoLog(shaderProgram));
+            LOGGER.warn("\033[1;36m[SHADER]\033[0m Erreur de liaison du programme de ryukaze.shaders : " + glGetProgramInfoLog(shaderProgram));
         }
     }
 
@@ -170,7 +170,7 @@ public class Shader {
                 while (instanceMatcher.find()) {
                     String instanceName = instanceMatcher.group(1);
                     String uniformName = instanceName + "." + fieldName;
-                    LOGGER.debug("Create uniform [" + uniformName + "] for shader [" + program + "]");
+                    LOGGER.debug("\033[1;36m[SHADER]\033[0m Create uniform [" + uniformName + "] for shader [" + program + "]");
                     createUniform(uniformName);
                 }
             }
@@ -181,7 +181,7 @@ public class Shader {
 
         while (uniformMatcher.find()) {
             String uniformName = uniformMatcher.group(1);
-            LOGGER.debug("Create uniform [" + uniformName + "] for shader [" + program + "]");
+            LOGGER.debug("\033[1;36m[SHADER]\033[0m Create uniform [" + uniformName + "] for shader [" + program + "]");
             createUniform(uniformName);
         }
     }

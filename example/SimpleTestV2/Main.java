@@ -29,6 +29,12 @@ public class Main {
         Material red = new Material();
         red.getTextures().replace("diffuse",new Texture(new Vector4f(1.0f,0,0,1.0f)));
 
+        Material green = new Material();
+        green.getTextures().replace("diffuse",new Texture(new Vector4f(0,1.0f,0,1.0f)));
+
+        Material blue = new Material();
+        blue.getTextures().replace("diffuse",new Texture(new Vector4f(0,0,1.0f,1.0f)));
+
         Material test = new Material();
 
         test.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
@@ -49,6 +55,18 @@ public class Main {
 
         new Entity().linkComponent(new TransformComponent().setPosition(-2,0,-15))
                 .linkComponent(new MeshComponent().setMaterial(test).applyShape(new CubeShape()).build())
+                .linkComponent(new ShaderComponent().build());
+
+        new Entity().linkComponent(new TransformComponent().setPosition(3,0,-15))
+                .linkComponent(new MeshComponent().setMaterial(red).applyShape(new CubeShape()).build())
+                .linkComponent(new ShaderComponent().build());
+
+        new Entity().linkComponent(new TransformComponent().setPosition(2,0,-15))
+                .linkComponent(new MeshComponent().setMaterial(green).applyShape(new CubeShape()).build())
+                .linkComponent(new ShaderComponent().build());
+
+        new Entity().linkComponent(new TransformComponent().setPosition(1,0,-15))
+                .linkComponent(new MeshComponent().setMaterial(blue).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build());
 
         engine.run();

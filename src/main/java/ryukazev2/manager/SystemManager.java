@@ -57,7 +57,7 @@ public class SystemManager extends Manager {
     }
 
     public void initManger(){
-        LOGGER.info("\033[1;32m[INITIALIZE]\u001B[0m Managers");
+        LOGGER.info("\033[1;32m[INITIALIZE]\u001B[0m Engine managers");
         ((ScriptManager) this.services.get(ScriptManager.class)).init();
     }
 
