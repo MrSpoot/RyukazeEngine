@@ -9,6 +9,8 @@ import ryukazev2.core.Loop;
 import ryukazev2.core.Window;
 import ryukazev2.utils.ServiceLocator;
 
+import static org.lwjgl.glfw.GLFW.glfwGetTime;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SystemManager extends Manager {
@@ -17,10 +19,12 @@ public class SystemManager extends Manager {
 
     private Window window;
     private Loop loop;
+    private float lastUpdateTime;
 
     public SystemManager() {
         this.window = new Window().build();
         this.loop = new Loop().build();
+        this.lastUpdateTime = 0f;
         ServiceLocator.registerService(SystemManager.class,this);
     }
 
@@ -30,11 +34,12 @@ public class SystemManager extends Manager {
     }
 
     public void render(){
-        if(this.window.shouldClose()){
+        if(this.window.shouldClose() || ((InputManager) this.services.get(InputManager.class)).isPressed("exit_engine")){
             stop();
         }
 
         ((InputManager) this.services.get(InputManager.class)).process();
+        ((ScriptManager) this.services.get(ScriptManager.class)).render();
 
         this.window.preRender();
 
@@ -44,10 +49,16 @@ public class SystemManager extends Manager {
     }
 
     public void update(){
+        float currentFrame = (float)glfwGetTime();
+        float deltaTime = currentFrame - lastUpdateTime;
+        lastUpdateTime = currentFrame;
 
+        ((ScriptManager) this.services.get(ScriptManager.class)).update(deltaTime);
     }
 
     public void run(){
+        ((ScriptManager) this.services.get(ScriptManager.class)).init();
+
         this.loop.run();
     }
 

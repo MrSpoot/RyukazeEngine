@@ -19,6 +19,7 @@ public class Engine {
         new SceneManager();
         new RenderManager();
         new InputManager();
+        new ScriptManager();
 
         LOGGER.info("\033[1;32m[BUILD]\u001B[0m Engine instance");
         return this;

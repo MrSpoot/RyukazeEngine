@@ -33,9 +33,18 @@ public class TransformComponent extends Component{
     }
 
     public Matrix4f getModelMatrix(){
-        return new Matrix4f()
+
+        Matrix4f modelMatrix = new Matrix4f()
                 .translate(this.position)
                 .rotateXYZ(this.rotation)
                 .scale(this.scale);
+
+        if(this.getEntity().getParent() != null){
+            if(this.getEntity().getParent().hasAllComponents(TransformComponent.class)){
+                modelMatrix = new Matrix4f(this.getEntity().getParent().getComponent(TransformComponent.class).getModelMatrix().mul(modelMatrix));
+            }
+        }
+
+        return modelMatrix;
     }
 }
