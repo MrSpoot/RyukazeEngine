@@ -1,6 +1,6 @@
 package ryukazev2.component;
 
-import ryukazev2.core.IScript;
+import ryukazev2.core.interfaces.IScript;
 
 public class ScriptComponent extends Component{
 
@@ -23,8 +23,8 @@ public class ScriptComponent extends Component{
        this.script.init(this.getEntity());
     }
 
-    public void update(float deltaTime) {
-        this.script.update(deltaTime);
+    public void update() {
+        this.script.update();
     }
 
     public void render() {

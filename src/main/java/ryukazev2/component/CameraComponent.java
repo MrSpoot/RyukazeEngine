@@ -1,6 +1,8 @@
 package ryukazev2.component;
 
 import lombok.Getter;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 @Getter
 public class CameraComponent extends Component {
@@ -28,6 +30,13 @@ public class CameraComponent extends Component {
     public CameraComponent setZFar(float zFar){
         this.zFar = zFar;
         return this;
+    }
+
+    public Vector3f getTarget(){
+        Vector3f forward = new Vector3f(0,0,-1);
+        forward.rotate(this.getEntity().getComponent(TransformComponent.class).getRotation());
+
+        return new Vector3f(this.getEntity().getComponent(TransformComponent.class).getPosition()).add(forward);
     }
 
     public CameraComponent build(){

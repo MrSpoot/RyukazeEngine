@@ -1,5 +1,6 @@
 package ryukazev2.manager;
 
+import ryukaze.core.Engine;
 import ryukazev2.core.InputTouch;
 import ryukazev2.utils.ServiceLocator;
 
@@ -9,18 +10,24 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
-import static org.lwjgl.glfw.GLFW.glfwGetKey;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class InputManager extends Manager{
 
     private final Map<String, InputTouch> inputTouchList;
     private final Map<String, InputTouch> pressedTouch;
+    private float lastX = 0f;
+    private float lastY = 0f;
+    private float xAxis = 0f;
+    private float yAxis = 0f;
+    private boolean mouseIsInitiated = false;
 
     public InputManager(){
         this.inputTouchList = new ConcurrentHashMap<>();
         this.pressedTouch = new HashMap<>();
         ServiceLocator.registerService(InputManager.class,this);
+
+        glfwSetCursorPosCallback(ServiceLocator.getService(SystemManager.class).getWindow().getWindowHandle(),(w, x, y) -> processMouseInput((float)x,(float)y));
     }
 
     public void process(){
@@ -35,6 +42,30 @@ public class InputManager extends Manager{
                 }
             }
         });
+    }
+
+    public void processMouseInput(float x, float y){
+        if(!mouseIsInitiated){
+            lastX = x;
+            lastY = y;
+            mouseIsInitiated = true;
+        }
+        this.xAxis = x - this.lastX;
+        this.yAxis = y - this.lastY;
+
+        this.lastX = x;
+        this.lastY = y;
+    }
+
+    public float getXAxisRaw(){
+        float x = this.xAxis;
+        this.xAxis = 0;
+        return x;
+    }
+    public float getYAxisRaw(){
+        float y = this.yAxis;
+        this.yAxis = 0;
+        return y;
     }
 
     public boolean isPressed(String touchName){

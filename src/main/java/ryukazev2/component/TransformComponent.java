@@ -2,19 +2,25 @@ package ryukazev2.component;
 
 import lombok.Getter;
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 @Getter
 public class TransformComponent extends Component{
 
     private Vector3f position;
-    private Vector3f rotation;
+    private Quaternionf  rotation;
     private Vector3f scale;
 
     public TransformComponent() {
-        this.position = new Vector3f(0f);
-        this.rotation = new Vector3f(0f);
+        this.position = new Vector3f();
+        this.rotation = new Quaternionf();
         this.scale = new Vector3f(1f);
+    }
+
+    public void addPositionVector(Vector3f vector){
+        this.position.add(vector);
     }
 
     public TransformComponent setPosition(float x, float y, float z){
@@ -23,7 +29,9 @@ public class TransformComponent extends Component{
     }
 
     public TransformComponent setRotation(float x, float y, float z){
-        this.rotation = new Vector3f(x,y,z);
+        this.rotation = new Quaternionf().rotateXYZ((float) Math.toRadians(x),
+                (float) Math.toRadians(y),
+                (float) Math.toRadians(z));
         return this;
     }
 
@@ -32,11 +40,26 @@ public class TransformComponent extends Component{
         return this;
     }
 
+    public void translate(Vector3f value){
+        this.position.add(value);
+    }
+
+    public void translate(float x, float y, float z){
+        this.position.add(new Vector3f(x,y,z));
+    }
+
+    public void rotate(float x, float y, float z) {
+        Quaternionf deltaRotation = new Quaternionf().rotateXYZ((float) Math.toRadians(x),
+                (float) Math.toRadians(y),
+                (float) Math.toRadians(z));
+        rotation.mul(deltaRotation);
+    }
+
     public Matrix4f getModelMatrix(){
 
         Matrix4f modelMatrix = new Matrix4f()
                 .translate(this.position)
-                .rotateXYZ(this.rotation)
+                .rotate(this.rotation)
                 .scale(this.scale);
 
         if(this.getEntity().getParent() != null){

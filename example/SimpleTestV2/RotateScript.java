@@ -4,7 +4,8 @@ import org.joml.Math;
 import org.joml.Vector3f;
 import ryukazev2.component.TransformComponent;
 import ryukazev2.core.Entity;
-import ryukazev2.core.IScript;
+import ryukazev2.core.Time;
+import ryukazev2.core.interfaces.IScript;
 
 public class RotateScript implements IScript {
 
@@ -22,9 +23,8 @@ public class RotateScript implements IScript {
     }
 
     @Override
-    public void update(float deltaTime) {
-        this.lastRotation = this.entity.getComponent(TransformComponent.class).getRotation();
-        this.entity.getComponent(TransformComponent.class).setRotation(lastRotation.x, lastRotation.y + Math.toRadians(rotationSpeed*deltaTime),lastRotation.z);
+    public void update() {
+        this.entity.getComponent(TransformComponent.class).rotate(0,rotationSpeed * Time.deltaTime,0);
     }
 
     @Override

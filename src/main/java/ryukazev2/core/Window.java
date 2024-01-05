@@ -26,8 +26,8 @@ public class Window {
 
     public Window(){
         this.title = "";
-        this.width = 0;
-        this.height = 0;
+        this.width = 1280;
+        this.height = 720;
     }
 
     public void setEngine(Engine engine){
@@ -109,7 +109,7 @@ public class Window {
 
     public void postRender(){
         glfwSwapBuffers(this.windowHandle);
-        glfwPollEvents();
+        //glfwPollEvents();
     }
 
     private void resize(long windowHandle, int width, int height){

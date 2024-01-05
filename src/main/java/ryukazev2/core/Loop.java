@@ -1,8 +1,6 @@
 package ryukazev2.core;
 
 import lombok.Getter;
-import lombok.Setter;
-import ryukazev2.Engine;
 import ryukazev2.manager.SystemManager;
 import ryukazev2.utils.ServiceLocator;
 
@@ -40,6 +38,7 @@ public class Loop {
 
             if (GAME_TICKS_PER_SECOND <= 0 || deltaTimeGame >= GAME_TIME) {
                 //UPDATE
+                Time.update();
                 ServiceLocator.getService(SystemManager.class).update();
                 lastGameUpdateTime = currentTime;
             }
@@ -51,6 +50,7 @@ public class Loop {
                 framesRendered = 0;
                 lastSecondTime = currentTime;
             }
+
         }
         glfwTerminate();
     }

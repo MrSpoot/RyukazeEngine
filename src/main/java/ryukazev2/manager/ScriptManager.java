@@ -16,9 +16,9 @@ public class ScriptManager extends Manager{
         }
     }
 
-    public void update(float deltaTime){
+    public void update(){
         for(Entity entity : ((EntityManager) this.services.get(EntityManager.class)).getEntityByComponent(ScriptComponent.class)){
-            entity.getComponent(ScriptComponent.class).update(deltaTime);
+            entity.getComponent(ScriptComponent.class).update();
         }
     }
 

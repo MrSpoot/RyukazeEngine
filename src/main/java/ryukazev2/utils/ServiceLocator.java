@@ -10,10 +10,15 @@ public class ServiceLocator {
     private static final Map<Class<?>, Manager> services = new HashMap<>();
 
     public static <T> void registerService(Class<T> klass, Manager service) {
-        services.put(klass, service);
-        for(Manager manager : services.values()){
-            manager.linkServices(services);
+        if(services.containsKey(klass)){
+            services.replace(klass,service);
+        }else{
+            services.put(klass, service);
+            for(Manager manager : services.values()){
+                manager.linkServices(services);
+            }
         }
+
     }
 
     public static <T> T getService(Class<T> klass) {

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import ryukazev2.Engine;
 import ryukazev2.core.Loop;
 import ryukazev2.core.Window;
+import ryukazev2.core.Input;
 import ryukazev2.utils.ServiceLocator;
 
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
@@ -49,20 +50,22 @@ public class SystemManager extends Manager {
     }
 
     public void update(){
-        float currentFrame = (float)glfwGetTime();
-        float deltaTime = currentFrame - lastUpdateTime;
-        lastUpdateTime = currentFrame;
-
-        ((ScriptManager) this.services.get(ScriptManager.class)).update(deltaTime);
+        ((ScriptManager) this.services.get(ScriptManager.class)).update();
     }
 
     public void initManger(){
         LOGGER.info("\033[1;32m[INITIALIZE]\u001B[0m Engine managers");
+
         ((ScriptManager) this.services.get(ScriptManager.class)).init();
+    }
+
+    public void initStatics() {
+        Input.init();
     }
 
     public void run(){
         initManger();
+        initStatics();
         LOGGER.info("\033[1;32m[RUN]\u001B[0m Engine instance");
         this.loop.run();
     }

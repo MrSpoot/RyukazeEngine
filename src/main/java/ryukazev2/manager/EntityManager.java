@@ -3,6 +3,8 @@ package ryukazev2.manager;
 import lombok.Getter;
 import ryukazev2.component.Component;
 import ryukazev2.core.Entity;
+import ryukazev2.core.Scene;
+import ryukazev2.entity.Camera;
 import ryukazev2.utils.ServiceLocator;
 
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.List;
 public class EntityManager extends Manager {
 
     @Getter
-    private final List<Entity> entities;
+    private List<Entity> entities;
 
     public EntityManager() {
         this.entities = new ArrayList<>();

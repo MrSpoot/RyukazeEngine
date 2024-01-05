@@ -26,12 +26,9 @@ public class CameraManager extends Manager {
         Optional<Entity> entity = ServiceLocator.getService(EntityManager.class).getEntityByComponent(TransformComponent.class,CameraComponent.class).stream().findFirst();
         if(entity.isPresent()){
             TransformComponent transform = entity.get().getComponent(TransformComponent.class);
+            CameraComponent camera = entity.get().getComponent(CameraComponent.class);
 
-            Vector3f forward = new Vector3f(0,0,-1);
-
-            forward.normalize();
-
-            return new Matrix4f().lookAt(transform.getPosition(),new Vector3f(transform.getPosition()).add(forward),new Vector3f(0f,1f,0f));
+            return new Matrix4f().lookAt(transform.getPosition(),camera.getTarget(),new Vector3f(0f,1f,0f));
         }
         return new Matrix4f();
     }

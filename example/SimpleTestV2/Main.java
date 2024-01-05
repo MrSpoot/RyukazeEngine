@@ -7,6 +7,7 @@ import ryukazev2.component.shape.CubeShape;
 import ryukazev2.component.shape.CustomShape;
 import ryukazev2.core.Entity;
 import ryukazev2.core.InputTouch;
+import ryukazev2.entity.Camera;
 import ryukazev2.graphics.Material;
 import ryukazev2.graphics.Texture;
 
@@ -24,7 +25,7 @@ public class Main {
         Material carMat = new Material();
         carMat.getTextures().replace("diffuse",new Texture("src/main/resources/model/carText2.png",false));
 
-        new Entity().linkComponent(new CameraComponent()).linkComponent(new TransformComponent());
+        new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
 
         Material red = new Material();
         red.getTextures().replace("diffuse",new Texture(new Vector4f(1.0f,0,0,1.0f)));
@@ -35,8 +36,10 @@ public class Main {
         Material blue = new Material();
         blue.getTextures().replace("diffuse",new Texture(new Vector4f(0,0,1.0f,1.0f)));
 
-        Material test = new Material();
+        Material gray = new Material();
+        gray.getTextures().replace("diffuse", new Texture(new Vector4f(0.2f,0.2f,0.2f,1.0f)));
 
+        Material test = new Material();
         test.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
 
         Entity t = new Entity().linkComponent(new TransformComponent().setPosition(0,-0.5f,0).setScale(10,1,10))
@@ -67,6 +70,11 @@ public class Main {
 
         new Entity().linkComponent(new TransformComponent().setPosition(1,0,-15))
                 .linkComponent(new MeshComponent().setMaterial(blue).applyShape(new CubeShape()).build())
+                .linkComponent(new ShaderComponent().build());
+
+
+        new Entity().linkComponent(new TransformComponent().setPosition(0,-2,0).setScale(50,1,50))
+                .linkComponent(new MeshComponent().setMaterial(gray).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build());
 
         engine.run();
