@@ -38,4 +38,15 @@ public class EntityManager extends Manager {
         }
         return matchingEntities;
     }
+
+    @SafeVarargs
+    public final List<Entity> getEntityByAnyComponent(Class<? extends Component>... componentClasses) {
+        List<Entity> matchingEntities = new ArrayList<>();
+        for (Entity entity : entities) {
+            if (entity.hasAnyComponents(componentClasses)) {
+                matchingEntities.add(entity);
+            }
+        }
+        return matchingEntities;
+    }
 }

@@ -1,6 +1,6 @@
 package SimpleTestV2;
 
-import org.joml.Math;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import ryukazev2.component.TransformComponent;
 import ryukazev2.core.Entity;
@@ -8,18 +8,19 @@ import ryukazev2.core.Input;
 import ryukazev2.core.Time;
 import ryukazev2.core.interfaces.IScript;
 import ryukazev2.core.InputTouch;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Movement implements IScript {
     private Entity entity;
-    private float xSens = 5f;
-    private float ySens = 5f;
-    private float xRotation = 0f;
-    private float yRotation = 0f;
+    private float xSens = 0.1f;
+    private float ySens = 0.1f;
+    private Quaternionf rotation;
 
     @Override
     public void init(Entity entity) {
         this.entity = entity;
+        this.rotation = new Quaternionf();
         initTouch();
     }
 
@@ -32,16 +33,6 @@ public class Movement implements IScript {
     public void render() {
         float mouseX = Input.getXAxisRaw() * Time.deltaTime * xSens;
         float mouseY = Input.getYAxisRaw() * Time.deltaTime * ySens;
-
-        yRotation += mouseX;
-        xRotation -= mouseY;
-
-        xRotation = Math.clamp(-90f,90f,xRotation);
-
-        this.entity.getComponent(TransformComponent.class).rotate(xRotation,yRotation,0);
-
-        yRotation = 0;
-        xRotation = 0;
 
         Vector3f forward = new Vector3f(0, 0, -1).rotate(this.entity.getComponent(TransformComponent.class).getRotation());
         Vector3f right = new Vector3f(forward).cross(new Vector3f(0, 1, 0)).normalize();

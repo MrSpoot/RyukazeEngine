@@ -71,13 +71,14 @@ void main()
     if(texture.a < 0.1)
         discard;
 
-    vec4 result = CalcDirLight(directionalLight,norm,viewDir);
+    vec4 result = vec4(0.1,0.1,0.1,1.0);
 
+    result += CalcDirLight(directionalLight,norm,viewDir);
     result += CalcPointLight(pointLight,norm,FragPos,viewDir);
     result += CalcSpotLight(spotLight,norm,FragPos,viewDir);
 
-    //FragColor = result;
-    FragColor = texture;
+    FragColor = result;
+    //FragColor = texture;
 }
 
 vec4 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir){
@@ -108,7 +109,7 @@ vec4 CalcSpotLight(SpotLight light, vec3 normal,vec3 fragPos, vec3 viewDir){
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     // attenuation
     float distance = length(light.position - fragPos);
-    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+    float attenuation = 1.0 / (1.0 + light.linear * distance + light.quadratic * (distance * distance));
     // spotlight intensity
     float theta = dot(lightDir, normalize(-light.direction));
     float epsilon = light.cutOff - light.outerCutOff;
@@ -132,7 +133,7 @@ vec4 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir){
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     // attenuation
     float distance = length(light.position - fragPos);
-    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+    float attenuation = 1.0 / (1.0 + light.linear * distance + light.quadratic * (distance * distance));
     // combine results
     vec4 ambient = vec4(light.ambient,1.0) * vec4(texture(material.diffuse, TexCoords));
     vec4 diffuse = vec4(light.diffuse,1.0) * diff * vec4(texture(material.diffuse, TexCoords));

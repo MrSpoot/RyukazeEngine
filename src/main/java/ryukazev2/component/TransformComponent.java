@@ -55,6 +55,10 @@ public class TransformComponent extends Component{
         rotation.mul(deltaRotation);
     }
 
+    public void getGlobalPosition(){
+
+    }
+
     public Matrix4f getModelMatrix(){
 
         Matrix4f modelMatrix = new Matrix4f()

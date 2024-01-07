@@ -2,12 +2,15 @@ package ryukazev2.manager;
 
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ryukazev2.component.MeshComponent;
-import ryukazev2.component.ShaderComponent;
-import ryukazev2.component.TransformComponent;
+import ryukaze.core.Engine;
+import ryukaze.objects.light.SpotLight;
+import ryukazev2.component.*;
 import ryukazev2.core.Entity;
+import ryukazev2.core.Shader;
 import ryukazev2.graphics.Material;
 import ryukazev2.graphics.Texture;
 import ryukazev2.utils.ServiceLocator;
@@ -35,6 +38,7 @@ public class RenderManager extends Manager {
         if(((CameraManager) this.services.get(CameraManager.class)).checkCameraExisting()){
             Matrix4f view = ((CameraManager) this.services.get(CameraManager.class)).getViewMatrix();
             Matrix4f projection = ((CameraManager) this.services.get(CameraManager.class)).getProjectionMatrix();
+
             for(Entity entity : ((EntityManager) this.services.get(EntityManager.class)).getEntities()){
                 renderEntity(entity,view,projection);
             }
@@ -49,6 +53,11 @@ public class RenderManager extends Manager {
         if(entity.hasAllComponents(MeshComponent.class)) {
             if (entity.hasAllComponents(ShaderComponent.class,TransformComponent.class)) {
                 entity.getComponent(ShaderComponent.class).getShader().useProgram();
+
+                for(Entity light : ((EntityManager) this.services.get(EntityManager.class)).getEntityByAnyComponent(DirectionalLightComponent.class,SpotLightComponent.class, PointLightComponent.class)){
+                    renderLight(light, entity.getComponent(ShaderComponent.class).getShader());
+                }
+
                 entity.getComponent(ShaderComponent.class).getShader().setUniform("view", viewMatrix);
                 entity.getComponent(ShaderComponent.class).getShader().setUniform("projection", projectionMatrix);
                 entity.getComponent(ShaderComponent.class).getShader().setUniform("model", entity.getComponent(TransformComponent.class).getModelMatrix());
@@ -72,4 +81,47 @@ public class RenderManager extends Manager {
         }
     }
 
+    private void renderLight(Entity entity, Shader shader){
+
+        if(entity.hasAllComponents(DirectionalLightComponent.class, TransformComponent.class)){
+            DirectionalLightComponent light = entity.getComponent(DirectionalLightComponent.class);
+
+            shader.setUniform("directionalLight.intensity", light.getIntensity());
+            shader.setUniform("directionalLight.ambient", light.getAmbient());
+            shader.setUniform("directionalLight.diffuse", light.getDiffuse());
+            shader.setUniform("directionalLight.specular", light.getSpecular());
+            shader.setUniform("directionalLight.direction",light.getDirection());
+        }
+
+        if(entity.hasAllComponents(PointLightComponent.class, TransformComponent.class)){
+            PointLightComponent light = entity.getComponent(PointLightComponent.class);
+            TransformComponent transform = entity.getComponent(TransformComponent.class);
+
+            shader.setUniform("pointLight.intensity", light.getIntensity());
+            shader.setUniform("pointLight.ambient", light.getAmbient());
+            shader.setUniform("pointLight.diffuse", light.getDiffuse());
+            shader.setUniform("pointLight.specular", light.getSpecular());
+            shader.setUniform("pointLight.position",transform.getPosition());
+            shader.setUniform("pointLight.linear",light.getLinear());
+            shader.setUniform("pointLight.quadratic",light.getQuadratic());
+        }
+
+        if(entity.hasAllComponents(SpotLightComponent.class, TransformComponent.class)){
+            SpotLightComponent light = entity.getComponent(SpotLightComponent.class);
+            TransformComponent transform = entity.getComponent(TransformComponent.class);
+
+            shader.setUniform("spotLight.ambient", light.getAmbient());
+            shader.setUniform("spotLight.diffuse", light.getDiffuse());
+            shader.setUniform("spotLight.specular", light.getSpecular());
+            shader.setUniform("spotLight.intensity", light.getIntensity());
+
+            shader.setUniform("spotLight.cutOff",light.getCutOff());
+            shader.setUniform("spotLight.outerCutOff",light.getOutCutOff());
+            shader.setUniform("spotLight.direction",light.getDirection());
+            shader.setUniform("spotLight.position",transform.getPosition());
+
+            shader.setUniform("spotLight.linear",light.getLinear());
+            shader.setUniform("spotLight.quadratic",light.getQuadratic());
+        }
+    }
 }

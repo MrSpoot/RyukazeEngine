@@ -47,6 +47,16 @@ public class Entity {
         return componentClass.cast(components.get(componentClass));
     }
 
+    public <T extends Component> List<T> getComponents(Class<T> componentClass) {
+        List<T> matchedComponents = new ArrayList<>();
+        for (Component comp : components.values()) {
+            if (componentClass.isInstance(comp)) {
+                matchedComponents.add(componentClass.cast(comp));
+            }
+        }
+        return matchedComponents;
+    }
+
     @SafeVarargs
     public final boolean hasAllComponents(Class<? extends Component>... componentClasses) {
         for (Class<? extends Component> cls : componentClasses) {
@@ -56,4 +66,16 @@ public class Entity {
         }
         return true;
     }
+
+    @SafeVarargs
+    public final boolean hasAnyComponents(Class<? extends Component>... componentClasses) {
+        for (Class<? extends Component> cls : componentClasses) {
+            if (components.containsKey(cls)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }

@@ -12,9 +12,11 @@ public class RotateScript implements IScript {
     private Entity entity;
     private Vector3f lastRotation;
     private float rotationSpeed;
+    private Vector3f rotationVector;
 
-    public RotateScript(float rotationSpeed){
+    public RotateScript(float rotationSpeed, Vector3f rotationVector){
         this.rotationSpeed = rotationSpeed;
+        this.rotationVector = rotationVector;
     }
 
     @Override
@@ -24,7 +26,10 @@ public class RotateScript implements IScript {
 
     @Override
     public void update() {
-        this.entity.getComponent(TransformComponent.class).rotate(0,rotationSpeed * Time.deltaTime,0);
+
+        //Vector3f v = new Vector3f(rotationVector.mul(rotationSpeed * Time.deltaTime));
+
+        this.entity.getComponent(TransformComponent.class).rotate(0,0,rotationSpeed * Time.deltaTime);
     }
 
     @Override
