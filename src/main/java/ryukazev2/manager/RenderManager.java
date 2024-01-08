@@ -2,12 +2,16 @@ package ryukazev2.manager;
 
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
+import org.lwjgl.nanovg.NVGColor;
+import org.lwjgl.nanovg.NanoVG;
+import org.lwjgl.system.MemoryStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ryukazev2.component.*;
 import ryukazev2.core.Entity;
 import ryukazev2.core.Shader;
 import ryukazev2.core.UIEntity;
+import ryukazev2.core.Window;
 import ryukazev2.graphics.Material;
 import ryukazev2.graphics.Texture;
 import ryukazev2.utils.ServiceLocator;
@@ -48,15 +52,21 @@ public class RenderManager extends Manager {
             ServiceLocator.getService(SystemManager.class).stop();
         }
 
+        Window window = ServiceLocator.getService(SystemManager.class).getWindow();
+
+        NanoVG.nvgBeginFrame(ServiceLocator.getService(UIManager.class).getVg(), window.getWidth(), window.getHeight(), 1);
+
         for(UIEntity entity : ((UIManager) this.services.get(UIManager.class)).getUiEntities()){
             renderUIEntity(entity);
         }
+
+        NanoVG.nvgEndFrame(ServiceLocator.getService(UIManager.class).getVg());
 
         resetOpenGLConfig();
     }
 
     private void renderUIEntity(UIEntity entity){
-        
+        entity.render();
     }
 
     private void renderEntity(Entity entity, Matrix4f viewMatrix, Matrix4f projectionMatrix) {

@@ -39,6 +39,12 @@ public class UIEntity {
         return matchedComponents;
     }
 
+    public void render(){
+        for(UIComponent component : this.components.values()){
+            component.render();
+        }
+    }
+
     @SafeVarargs
     public final boolean hasAllComponents(Class<? extends UIComponent>... componentClasses) {
         for (Class<? extends UIComponent> cls : componentClasses) {

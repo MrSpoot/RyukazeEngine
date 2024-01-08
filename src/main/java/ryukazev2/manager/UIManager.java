@@ -32,6 +32,11 @@ public class UIManager extends Manager{
         ServiceLocator.registerService(UIManager.class,this);
     }
 
+    public UIManager linkFont(String name, String path){
+        NanoVG.nvgCreateFont(vg, name, path);
+        return this;
+    }
+
     public void subscribe(UIEntity entity){
         this.uiEntities.add(entity);
     }
@@ -39,17 +44,6 @@ public class UIManager extends Manager{
     public void unsubscribe(UIEntity entity){
         this.uiEntities.remove(entity);
     }
-
-    /*public void render(){
-
-        Window window = ServiceLocator.getService(SystemManager.class).getWindow();
-
-        NanoVG.nvgBeginFrame(vg, window.getWidth(), window.getHeight(), 1);
-
-        this.uiComponents.forEach((c) -> c.draw(this.vg));
-
-        NanoVG.nvgEndFrame(vg);
-    }*/
 
     private void initNanoVG(){
         this.vg = nvgCreate(NVG_STENCIL_STROKES);

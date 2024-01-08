@@ -9,6 +9,7 @@ import ryukazev2.component.shape.CubeShape;
 import ryukazev2.component.shape.CustomShape;
 import ryukazev2.core.Entity;
 import ryukazev2.core.InputTouch;
+import ryukazev2.core.UIEntity;
 import ryukazev2.entity.Camera;
 import ryukazev2.entity.DirectionalLight;
 import ryukazev2.entity.PointLight;
@@ -101,7 +102,7 @@ public class Main {
                 .linkComponent(new MeshComponent().setMaterial(gray).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build());
 
-        new UITextComponent().setText("Test de mon Ui component").setSize(20f).setFont("Retro").setPosition(new Vector2f(20,20)).build();
+        new UIEntity().linkUIComponent(new UITextComponent().setText("Test de mon Ui component").setSize(20f).setFont("Retro").setPosition(new Vector2f(20,20)).build());
 
         engine.run();
     }

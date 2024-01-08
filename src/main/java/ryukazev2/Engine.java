@@ -18,7 +18,7 @@ public class Engine {
         new RenderManager();
         new InputManager();
         new ScriptManager();
-        new UIManager();
+        new UIManager().linkFont("Retro","src/main/resources/fonts/retro_gaming.ttf");
 
         LOGGER.info("\033[1;32m[BUILD]\u001B[0m Engine instance");
 
