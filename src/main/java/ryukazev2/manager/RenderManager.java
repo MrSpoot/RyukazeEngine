@@ -25,12 +25,16 @@ public class RenderManager extends Manager {
     private static final Logger LOGGER = LoggerFactory.getLogger(RenderManager.class);
 
     public RenderManager(){
+        resetWindowConfig();
+        ServiceLocator.registerService(RenderManager.class,this);
+    }
+
+    private void resetWindowConfig(){
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_STENCIL_TEST);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_CULL_FACE);
-        ServiceLocator.registerService(RenderManager.class,this);
     }
 
     public void render(){
@@ -46,6 +50,9 @@ public class RenderManager extends Manager {
             LOGGER.error("\033[0;33m[RENDER] \033[0m No camera");
             ServiceLocator.getService(SystemManager.class).stop();
         }
+
+        ServiceLocator.getService(UIManager.class).render();
+        resetWindowConfig();
 
     }
 

@@ -80,6 +80,10 @@
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-nanovg</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-openal</artifactId>
         </dependency>
         <dependency>
@@ -99,6 +103,12 @@
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-assimp</artifactId>
             <classifier>${native.target}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-nanovg</artifactId>
+            <classifier>${native.target}</classifier>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>

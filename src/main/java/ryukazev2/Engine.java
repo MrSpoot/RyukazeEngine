@@ -11,7 +11,7 @@ public class Engine {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Engine.class);
 
-    public Engine build(){
+    public Engine build() {
         //Create manager
         new SystemManager();
         new EntityManager();
@@ -20,6 +20,7 @@ public class Engine {
         new RenderManager();
         new InputManager();
         new ScriptManager();
+        new UIManager();
 
         LOGGER.info("\033[1;32m[BUILD]\u001B[0m Engine instance");
 
