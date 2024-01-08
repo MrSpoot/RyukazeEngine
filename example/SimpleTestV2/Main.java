@@ -1,5 +1,6 @@
 package SimpleTestV2;
 
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import ryukazev2.Engine;
@@ -99,6 +100,8 @@ public class Main {
         new Entity().linkComponent(new TransformComponent().setPosition(0,-2,0).setScale(50,1,50))
                 .linkComponent(new MeshComponent().setMaterial(gray).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build());
+
+        new UITextComponent().setText("Test de mon Ui component").setSize(20f).setFont("Retro").setPosition(new Vector2f(20,20)).build();
 
         engine.run();
     }

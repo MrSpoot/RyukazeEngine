@@ -2,15 +2,12 @@ package ryukazev2.manager;
 
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ryukaze.core.Engine;
-import ryukaze.objects.light.SpotLight;
 import ryukazev2.component.*;
 import ryukazev2.core.Entity;
 import ryukazev2.core.Shader;
+import ryukazev2.core.UIEntity;
 import ryukazev2.graphics.Material;
 import ryukazev2.graphics.Texture;
 import ryukazev2.utils.ServiceLocator;
@@ -25,11 +22,11 @@ public class RenderManager extends Manager {
     private static final Logger LOGGER = LoggerFactory.getLogger(RenderManager.class);
 
     public RenderManager(){
-        resetWindowConfig();
+        resetOpenGLConfig();
         ServiceLocator.registerService(RenderManager.class,this);
     }
 
-    private void resetWindowConfig(){
+    private void resetOpenGLConfig(){
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_STENCIL_TEST);
         glEnable(GL_BLEND);
@@ -51,9 +48,15 @@ public class RenderManager extends Manager {
             ServiceLocator.getService(SystemManager.class).stop();
         }
 
-        ServiceLocator.getService(UIManager.class).render();
-        resetWindowConfig();
+        for(UIEntity entity : ((UIManager) this.services.get(UIManager.class)).getUiEntities()){
+            renderUIEntity(entity);
+        }
 
+        resetOpenGLConfig();
+    }
+
+    private void renderUIEntity(UIEntity entity){
+        
     }
 
     private void renderEntity(Entity entity, Matrix4f viewMatrix, Matrix4f projectionMatrix) {

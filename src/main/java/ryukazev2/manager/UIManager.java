@@ -1,70 +1,61 @@
 package ryukazev2.manager;
 
-import org.lwjgl.nanovg.NVGColor;
+import lombok.Getter;
 import org.lwjgl.nanovg.NanoVG;
-import org.lwjgl.system.MemoryStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ryukazev2.component.UIComponent;
+import ryukazev2.core.UIEntity;
 import ryukazev2.core.Window;
 import ryukazev2.utils.ServiceLocator;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.lwjgl.nanovg.NanoVGGL3.NVG_STENCIL_STROKES;
 import static org.lwjgl.nanovg.NanoVGGL3.nvgCreate;
 
 public class UIManager extends Manager{
 
-    private final long vg;
+    @Getter
+    private long vg;
+    @Getter
+    private List<UIEntity> uiEntities;
+    private List<String> fonts;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UIManager.class);
 
     public UIManager() {
-        this.vg = nvgCreate(NVG_STENCIL_STROKES);
-
-        if(this.vg == 0){
-            LOGGER.error("[NANOVG] Cannot create NanoVG");
-        }
-
-        NanoVG.nvgCreateFont(vg, "retro", "src/main/resources/fonts/retro_gaming.ttf");
-
-
+        initNanoVG();
+        this.uiEntities = new ArrayList<>();
+        this.fonts = new ArrayList<>();
         ServiceLocator.registerService(UIManager.class,this);
     }
 
-    public void render(){
+    public void subscribe(UIEntity entity){
+        this.uiEntities.add(entity);
+    }
+
+    public void unsubscribe(UIEntity entity){
+        this.uiEntities.remove(entity);
+    }
+
+    /*public void render(){
 
         Window window = ServiceLocator.getService(SystemManager.class).getWindow();
 
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            // Couleur et autres propriétés
-            NVGColor color = NVGColor.mallocStack(stack);
-            NanoVG.nvgRGBA((byte) 255, (byte) 255, (byte) 255, (byte) 255, color);
+        NanoVG.nvgBeginFrame(vg, window.getWidth(), window.getHeight(), 1);
 
-            NVGColor color2 = NVGColor.mallocStack(stack);
-            NanoVG.nvgRGBA((byte) 0, (byte) 0, (byte) 0, (byte) 255, color2);
+        this.uiComponents.forEach((c) -> c.draw(this.vg));
 
-            // Commencer le dessin
-            NanoVG.nvgBeginFrame(vg, window.getWidth(), window.getHeight(), 1);
+        NanoVG.nvgEndFrame(vg);
+    }*/
 
-            // Dessiner du texte
-            NanoVG.nvgFontSize(vg, 18.0f);
-            NanoVG.nvgFontFace(vg, "retro");
-            NanoVG.nvgTextAlign(vg, NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_MIDDLE);
-            NanoVG.nvgFillColor(vg, color2);
-            NanoVG.nvgText(vg, 5, 23, "FPS : "+ServiceLocator.getService(SystemManager.class).getLoop().getFps());
+    private void initNanoVG(){
+        this.vg = nvgCreate(NVG_STENCIL_STROKES);
 
-            NanoVG.nvgFontSize(vg, 18.0f);
-            NanoVG.nvgFontFace(vg, "retro");
-            NanoVG.nvgTextAlign(vg, NanoVG.NVG_ALIGN_LEFT | NanoVG.NVG_ALIGN_MIDDLE);
-            NanoVG.nvgFillColor(vg, color2);
-            NanoVG.nvgText(vg, 5, 46, "UPS : "+ServiceLocator.getService(SystemManager.class).getLoop().getUps());
-
-            NanoVG.nvgBeginPath(this.vg);
-            NanoVG.nvgCircle(this.vg, (float) window.getWidth() /2, (float) window.getHeight() /2,2);
-            NanoVG.nvgFillColor(vg, color2);
-            NanoVG.nvgFill(this.vg);
-            // Terminer le dessin
-            NanoVG.nvgEndFrame(vg);
-
-            // Gestion des événements, buffer swapping, etc.
+        if(this.vg == 0){
+            LOGGER.error("[UI] Cannot create NanoVG");
         }
     }
 

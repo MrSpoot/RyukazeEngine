@@ -2,8 +2,6 @@ package ryukazev2;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ryukazev2.core.Loop;
-import ryukazev2.core.Window;
 import ryukazev2.manager.*;
 import ryukazev2.utils.ServiceLocator;
 
