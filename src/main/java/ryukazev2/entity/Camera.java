@@ -1,7 +1,7 @@
 package ryukazev2.entity;
 
-import ryukazev2.component.CameraComponent;
-import ryukazev2.component.TransformComponent;
+import ryukazev2.component.game.CameraComponent;
+import ryukazev2.component.game.TransformComponent;
 import ryukazev2.core.Entity;
 
 public class Camera extends Entity {

@@ -2,13 +2,11 @@ package ryukazev2.manager;
 
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
-import org.lwjgl.nanovg.NanoVG;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ryukazev2.component.*;
+import ryukazev2.component.game.*;
 import ryukazev2.core.Entity;
 import ryukazev2.core.Shader;
-import ryukazev2.core.Window;
 import ryukazev2.graphics.Material;
 import ryukazev2.graphics.Texture;
 import ryukazev2.utils.ServiceLocator;
@@ -55,7 +53,7 @@ public class RenderManager extends Manager {
             if (entity.hasAllComponents(ShaderComponent.class,TransformComponent.class)) {
                 entity.getComponent(ShaderComponent.class).getShader().useProgram();
 
-                for(Entity light : ((EntityManager) this.services.get(EntityManager.class)).getEntityByAnyComponent(DirectionalLightComponent.class,SpotLightComponent.class, PointLightComponent.class)){
+                for(Entity light : ((EntityManager) this.services.get(EntityManager.class)).getEntityByAnyComponent(DirectionalLightComponent.class, SpotLightComponent.class, PointLightComponent.class)){
                     renderLight(light, entity.getComponent(ShaderComponent.class).getShader());
                 }
 

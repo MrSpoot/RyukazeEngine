@@ -1,12 +1,10 @@
 package ryukazev2.manager;
 
 import lombok.Getter;
-import ryukazev2.component.Component;
-import ryukazev2.component.UIComponent;
+import ryukazev2.component.game.Component;
+import ryukazev2.component.ui.UIComponent;
 import ryukazev2.core.Entity;
-import ryukazev2.core.Scene;
 import ryukazev2.core.UIEntity;
-import ryukazev2.entity.Camera;
 import ryukazev2.utils.ServiceLocator;
 
 import java.util.ArrayList;

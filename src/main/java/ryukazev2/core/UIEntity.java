@@ -1,7 +1,7 @@
 package ryukazev2.core;
 
 import lombok.Getter;
-import ryukazev2.component.UIComponent;
+import ryukazev2.component.ui.UIComponent;
 import ryukazev2.manager.EntityManager;
 import ryukazev2.utils.ServiceLocator;
 import ryukazev2.utils.UniqueIdGenerator;

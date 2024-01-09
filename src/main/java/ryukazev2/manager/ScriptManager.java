@@ -1,7 +1,7 @@
 package ryukazev2.manager;
 
-import ryukazev2.component.ScriptComponent;
-import ryukazev2.component.UIScriptComponent;
+import ryukazev2.component.game.ScriptComponent;
+import ryukazev2.component.ui.UIScriptComponent;
 import ryukazev2.core.Entity;
 import ryukazev2.core.UIEntity;
 import ryukazev2.utils.ServiceLocator;

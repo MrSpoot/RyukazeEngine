@@ -1,10 +1,9 @@
-package ryukazev2.component;
+package ryukazev2.component.game;
 
 import lombok.Getter;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import org.joml.Vector4f;
 
 @Getter
 public class TransformComponent extends Component{
@@ -17,10 +16,6 @@ public class TransformComponent extends Component{
         this.position = new Vector3f();
         this.rotation = new Quaternionf();
         this.scale = new Vector3f(1f);
-    }
-
-    public void addPositionVector(Vector3f vector){
-        this.position.add(vector);
     }
 
     public TransformComponent setPosition(float x, float y, float z){
@@ -42,10 +37,6 @@ public class TransformComponent extends Component{
 
     public void translate(Vector3f value){
         this.position.add(value);
-    }
-
-    public void translate(float x, float y, float z){
-        this.position.add(new Vector3f(x,y,z));
     }
 
     public void rotate(float x, float y, float z) {

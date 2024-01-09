@@ -1,7 +1,6 @@
-package ryukazev2.component;
+package ryukazev2.component.game;
 
 import lombok.Getter;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 @Getter

@@ -1,4 +1,4 @@
-package ryukazev2.component;
+package ryukazev2.component.game;
 
 import ryukazev2.core.interfaces.IScript;
 

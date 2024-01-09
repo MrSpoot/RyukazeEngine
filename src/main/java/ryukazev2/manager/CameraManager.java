@@ -1,10 +1,9 @@
 package ryukazev2.manager;
 
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import ryukazev2.component.CameraComponent;
-import ryukazev2.component.TransformComponent;
+import ryukazev2.component.game.CameraComponent;
+import ryukazev2.component.game.TransformComponent;
 import ryukazev2.core.Entity;
 import ryukazev2.core.Window;
 import ryukazev2.utils.ServiceLocator;

@@ -1,8 +1,7 @@
 package ryukazev2.entity;
 
-import ryukazev2.component.PointLightComponent;
-import ryukazev2.component.SpotLightComponent;
-import ryukazev2.component.TransformComponent;
+import ryukazev2.component.game.PointLightComponent;
+import ryukazev2.component.game.TransformComponent;
 import ryukazev2.core.Entity;
 
 public class PointLight extends Entity {

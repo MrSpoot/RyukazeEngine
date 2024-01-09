@@ -1,13 +1,14 @@
-package ryukazev2.component;
+package ryukazev2.component.ui;
 
 import org.joml.Vector2f;
 import org.lwjgl.nanovg.NVGColor;
 import org.lwjgl.nanovg.NanoVG;
 import org.lwjgl.system.MemoryStack;
+import ryukazev2.core.enumerations.Anchor;
 
 import java.awt.*;
 
-public class UITextComponent extends UIComponent{
+public class UITextComponent extends UIComponent {
 
     private String text;
     private float size;
@@ -21,7 +22,7 @@ public class UITextComponent extends UIComponent{
         this.size = 15f;
         this.color = Color.white;
         this.font = "Arial";
-        this.position = new Vector2f(0,0);
+        this.position = new Vector2f(0, 0);
     }
 
     public UITextComponent setText(String text) {
@@ -49,15 +50,13 @@ public class UITextComponent extends UIComponent{
         return this;
     }
 
-    public UITextComponent build(){
+    public UITextComponent build() {
         return this;
     }
 
     @Override
     public void render() {
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-
-            NVGColor nvColor = NVGColor.mallocStack(stack);
+        try (NVGColor nvColor = NVGColor.calloc()) {
             NanoVG.nvgRGBA((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue(), (byte) color.getAlpha(), nvColor);
 
             NanoVG.nvgFontSize(this.vg, size);
@@ -66,7 +65,7 @@ public class UITextComponent extends UIComponent{
             NanoVG.nvgFillColor(this.vg, nvColor);
             NanoVG.nvgText(this.vg, position.x, position.y, text);
         }
-
-
     }
+
+
 }

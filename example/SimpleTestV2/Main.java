@@ -4,18 +4,26 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import ryukazev2.Engine;
-import ryukazev2.component.*;
+import ryukazev2.component.game.MeshComponent;
+import ryukazev2.component.game.ScriptComponent;
+import ryukazev2.component.game.ShaderComponent;
+import ryukazev2.component.game.TransformComponent;
 import ryukazev2.component.shape.CubeShape;
 import ryukazev2.component.shape.CustomShape;
+import ryukazev2.component.ui.UIRectComponent;
+import ryukazev2.component.ui.UIScriptComponent;
+import ryukazev2.component.ui.UITextComponent;
 import ryukazev2.core.Entity;
 import ryukazev2.core.InputTouch;
 import ryukazev2.core.UIEntity;
+import ryukazev2.core.enumerations.Anchor;
 import ryukazev2.entity.Camera;
 import ryukazev2.entity.DirectionalLight;
 import ryukazev2.entity.PointLight;
 import ryukazev2.entity.SpotLight;
 import ryukazev2.graphics.Material;
 import ryukazev2.graphics.Texture;
+import ryukazev2.utils.FileReader;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
@@ -33,22 +41,19 @@ public class Main {
         new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
         Entity dirLight =  new DirectionalLight()
                 .linkComponent(new ShaderComponent().build())
-                .linkComponent(new MeshComponent().applyShape(new CubeShape()).build())
-                .linkComponent(new ScriptComponent().linkScript(new RotateScript(-5f, new Vector3f(1,0,0))).build());
-
-        dirLight.getComponent(TransformComponent.class).setPosition(0,5,0f).setRotation(0,0,0);
+                .linkComponent(new MeshComponent().applyShape(new CubeShape()).build());
+        dirLight.getComponent(TransformComponent.class).setPosition(0,5,0f);
 
         Entity spotLight =  new SpotLight()
                 .linkComponent(new ShaderComponent().build())
                 .linkComponent(new MeshComponent().applyShape(new CubeShape()).build());
-
-        spotLight.getComponent(TransformComponent.class).setPosition(5,5,0f).setRotation(0,0,0);
+        spotLight.getComponent(TransformComponent.class).setPosition(5,2,0f);
 
         Entity pointLight =  new PointLight()
                 .linkComponent(new ShaderComponent().build())
                 .linkComponent(new MeshComponent().applyShape(new CubeShape()).build());
 
-        pointLight.getComponent(TransformComponent.class).setPosition(-5,2,0f).setRotation(0,0,0);
+        pointLight.getComponent(TransformComponent.class).setPosition(-5,2,0f);
 
         Material red = new Material();
         red.getTextures().replace("diffuse",new Texture(new Vector4f(1.0f,0,0,1.0f)));
@@ -106,7 +111,13 @@ public class Main {
                 .linkComponent(new UITextComponent("frame").setSize(10f).setFont("Retro").setPosition(new Vector2f(500,10)).build())
                 .linkComponent(new UITextComponent("ups").setSize(10f).setFont("Retro").setPosition(new Vector2f(5,20)).build())
                 .linkComponent(new UITextComponent("position").setSize(10f).setFont("Retro").setPosition(new Vector2f(5,30)).build())
-                .linkComponent(new UITextComponent("rotation").setSize(10f).setFont("Retro").setPosition(new Vector2f(5,40)).build())
+                .linkComponent(new UIRectComponent("rectangle")
+                        .setPosition(new Vector2f(640,360))
+                        .setAnchor(Anchor.CENTER)
+                        .setscale(new Vector2f(0.1f,0.1f))
+                        .setImage(FileReader.readImage("src/main/resources/texture/wall.jpg",false))
+                        .build())
+
                 .linkComponent(new UIScriptComponent().linkScript(new UIScript()).build());
 
         engine.run();

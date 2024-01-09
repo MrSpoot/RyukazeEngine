@@ -1,8 +1,7 @@
 package SimpleTestV2;
 
-import org.joml.Math;
-import ryukazev2.component.TransformComponent;
-import ryukazev2.component.UITextComponent;
+import ryukazev2.component.game.TransformComponent;
+import ryukazev2.component.ui.UITextComponent;
 import ryukazev2.core.Entity;
 import ryukazev2.core.Statistics;
 import ryukazev2.core.UIEntity;
@@ -10,7 +9,6 @@ import ryukazev2.core.interfaces.IUIScript;
 import ryukazev2.manager.CameraManager;
 import ryukazev2.utils.ServiceLocator;
 
-import java.util.List;
 import java.util.Map;
 
 public class UIScript implements IUIScript {
@@ -41,7 +39,6 @@ public class UIScript implements IUIScript {
         TransformComponent transform = camera.getComponent(TransformComponent.class);
 
         texts.get("position").setText("Position : { X : " + transform.getPosition().x + " | Y : " + transform.getPosition().y + " | Z : " + transform.getPosition().z + " }");
-        texts.get("rotation").setText("Rotation : { X : " + Math.toDegrees(transform.getRotation().x) + " | Y : " + Math.toDegrees(transform.getRotation().y) + " | Z : " + Math.toDegrees(transform.getRotation().z) + " }");
 
     }
 

@@ -1,8 +1,7 @@
 package SimpleTestV2;
 
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import ryukazev2.component.TransformComponent;
+import ryukazev2.component.game.TransformComponent;
 import ryukazev2.core.Entity;
 import ryukazev2.core.Input;
 import ryukazev2.core.Time;

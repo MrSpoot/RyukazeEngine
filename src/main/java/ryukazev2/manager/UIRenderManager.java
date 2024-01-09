@@ -4,9 +4,7 @@ import lombok.Getter;
 import org.lwjgl.nanovg.NanoVG;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ryukazev2.component.UIComponent;
-import ryukazev2.component.UITextComponent;
-import ryukazev2.core.Entity;
+import ryukazev2.component.ui.UIComponent;
 import ryukazev2.core.UIEntity;
 import ryukazev2.core.Window;
 import ryukazev2.utils.ServiceLocator;
@@ -14,8 +12,7 @@ import ryukazev2.utils.ServiceLocator;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.lwjgl.nanovg.NanoVGGL3.NVG_STENCIL_STROKES;
-import static org.lwjgl.nanovg.NanoVGGL3.nvgCreate;
+import static org.lwjgl.nanovg.NanoVGGL3.*;
 
 public class UIRenderManager extends Manager{
 
@@ -38,7 +35,7 @@ public class UIRenderManager extends Manager{
     }
 
     private void initNanoVG(){
-        this.vg = nvgCreate(NVG_STENCIL_STROKES);
+        this.vg = nvgCreate(NVG_ANTIALIAS  | NVG_STENCIL_STROKES);
 
         if(this.vg == 0){
             LOGGER.error("[UI] Cannot create NanoVG");
