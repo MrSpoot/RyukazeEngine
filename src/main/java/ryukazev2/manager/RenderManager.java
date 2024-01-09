@@ -12,9 +12,9 @@ import ryukazev2.graphics.Texture;
 import ryukazev2.utils.ServiceLocator;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.glActiveTexture;
+import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
+import static org.lwjgl.opengl.GL32.GL_PROGRAM_POINT_SIZE;
 
 public class RenderManager extends Manager {
 
@@ -31,6 +31,7 @@ public class RenderManager extends Manager {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_CULL_FACE);
+        glEnable(GL_MULTISAMPLE);
     }
 
     public void render(){

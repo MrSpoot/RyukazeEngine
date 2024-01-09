@@ -61,6 +61,8 @@ public class Window {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 
+        glfwWindowHint(GLFW_SAMPLES, 4);
+
         if (this.width > 0 && this.height > 0) {
             this.width = this.width;
             this.height = this.height;
