@@ -9,10 +9,6 @@ import static org.lwjgl.glfw.GLFW.*;
 public class Loop {
 
     //With Getter
-    @Getter
-    private int fps = 0;
-    @Getter
-    private int ups = 0;
     
     private int RENDER_TICKS_PER_SECOND = 60;
     private double RENDER_TIME = 1.0 / RENDER_TICKS_PER_SECOND;
@@ -28,6 +24,9 @@ public class Loop {
     private boolean shouldStop = false;
 
     public void run(){
+
+        Statistics.updateStats("framesRendered",0);
+
         while (!shouldStop) {
             long currentTime = System.nanoTime();
             double deltaTimeRender = (currentTime - lastRenderTime) / 1e9;
@@ -37,6 +36,7 @@ public class Loop {
                 //RENDER
                 ServiceLocator.getService(SystemManager.class).render();
                 lastRenderTime = currentTime;
+                Statistics.updateStats("framesRendered",Integer.valueOf(Statistics.getStats("framesRendered"))+framesRendered);
                 framesRendered++;
             }
 
@@ -51,8 +51,9 @@ public class Loop {
             glfwPollEvents();
 
             if (currentTime - lastSecondTime >= 1e9) {
-                fps = framesRendered;
-                ups = updateRendered;
+                Statistics.updateStats("fps",framesRendered);
+                Statistics.updateStats("ups",updateRendered);
+
                 framesRendered = 0;
                 updateRendered = 0;
                 lastSecondTime = currentTime;

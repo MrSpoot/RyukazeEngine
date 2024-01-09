@@ -17,6 +17,11 @@ public class CameraManager extends Manager {
         ServiceLocator.registerService(CameraManager.class,this);
     }
 
+    public Entity getActiveCamera(){
+        Optional<Entity> entity = ServiceLocator.getService(EntityManager.class).getEntityByComponent(TransformComponent.class,CameraComponent.class).stream().findFirst();
+        return entity.get();
+    }
+
     public boolean checkCameraExisting(){
         Optional<Entity> entity = ServiceLocator.getService(EntityManager.class).getEntityByComponent(TransformComponent.class,CameraComponent.class).stream().findFirst();
         return entity.isPresent();

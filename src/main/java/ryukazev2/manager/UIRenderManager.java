@@ -5,6 +5,8 @@ import org.lwjgl.nanovg.NanoVG;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ryukazev2.component.UIComponent;
+import ryukazev2.component.UITextComponent;
+import ryukazev2.core.Entity;
 import ryukazev2.core.UIEntity;
 import ryukazev2.core.Window;
 import ryukazev2.utils.ServiceLocator;
@@ -15,34 +17,24 @@ import java.util.List;
 import static org.lwjgl.nanovg.NanoVGGL3.NVG_STENCIL_STROKES;
 import static org.lwjgl.nanovg.NanoVGGL3.nvgCreate;
 
-public class UIManager extends Manager{
+public class UIRenderManager extends Manager{
 
     @Getter
     private long vg;
     @Getter
-    private List<UIEntity> uiEntities;
     private List<String> fonts;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UIManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UIRenderManager.class);
 
-    public UIManager() {
+    public UIRenderManager() {
         initNanoVG();
-        this.uiEntities = new ArrayList<>();
         this.fonts = new ArrayList<>();
-        ServiceLocator.registerService(UIManager.class,this);
+        ServiceLocator.registerService(UIRenderManager.class,this);
     }
 
-    public UIManager linkFont(String name, String path){
+    public UIRenderManager linkFont(String name, String path){
         NanoVG.nvgCreateFont(vg, name, path);
         return this;
-    }
-
-    public void subscribe(UIEntity entity){
-        this.uiEntities.add(entity);
-    }
-
-    public void unsubscribe(UIEntity entity){
-        this.uiEntities.remove(entity);
     }
 
     private void initNanoVG(){
@@ -51,6 +43,18 @@ public class UIManager extends Manager{
         if(this.vg == 0){
             LOGGER.error("[UI] Cannot create NanoVG");
         }
+    }
+
+    public void render(){
+        Window window = ServiceLocator.getService(SystemManager.class).getWindow();
+
+        NanoVG.nvgBeginFrame(this.vg, window.getWidth(), window.getHeight(), 1);
+
+        for(UIEntity entity : ServiceLocator.getService(EntityManager.class).getUiEntities()){
+            entity.getComponents().values().forEach((i) -> i.values().forEach(UIComponent::render));
+        }
+
+        NanoVG.nvgEndFrame(this.vg);
     }
 
 }

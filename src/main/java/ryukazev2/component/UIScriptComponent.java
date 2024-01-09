@@ -1,17 +1,21 @@
 package ryukazev2.component;
 
-import ryukazev2.core.interfaces.IScript;
+import ryukazev2.core.interfaces.IUIScript;
 
-public class ScriptComponent extends Component{
+public class UIScriptComponent extends UIComponent{
 
-    private IScript script;
+    private IUIScript script;
 
-    public ScriptComponent linkScript(IScript script){
+    public UIScriptComponent() {
+        super("");
+    }
+
+    public UIScriptComponent linkScript(IUIScript script){
         this.script = script;
         return this;
     }
 
-    public ScriptComponent build(){
+    public UIScriptComponent build(){
         return this;
     }
 

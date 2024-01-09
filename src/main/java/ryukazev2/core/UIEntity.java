@@ -1,48 +1,58 @@
 package ryukazev2.core;
 
+import lombok.Getter;
 import ryukazev2.component.UIComponent;
 import ryukazev2.manager.EntityManager;
-import ryukazev2.manager.UIManager;
 import ryukazev2.utils.ServiceLocator;
+import ryukazev2.utils.UniqueIdGenerator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+@Getter
 public class UIEntity {
 
-    private final Map<Class<? extends UIComponent>, UIComponent> components;
+    private final String id;
+    private final Map<Class<? extends UIComponent>, Map<String,UIComponent>> components;
 
     public UIEntity() {
+        this.id = UniqueIdGenerator.generateUniqueID(15);
         this.components = new HashMap<>();
-        ServiceLocator.getService(UIManager.class).subscribe(this);
+        ServiceLocator.getService(EntityManager.class).subscribe(this);
     }
 
-    public UIEntity linkUIComponent(UIComponent component) {
+    public UIEntity linkComponent(UIComponent component) {
         component.linkEntity(this);
-        components.put(component.getClass(), component);
+
+        if(components.containsKey(component.getClass())){
+            components.get(component.getClass()).put(component.getLabel(),component);
+        }else{
+            components.put(component.getClass(),new HashMap<>());
+            components.get(component.getClass()).put(component.getLabel(),component);
+        }
         return this;
     }
 
-    public <T extends UIComponent> T getComponent(Class<T> componentClass) {
-        return componentClass.cast(components.get(componentClass));
+    public <T extends UIComponent> T getComponent(String label, Class<T> componentClass) {
+        return componentClass.cast(components.get(componentClass).get(label));
     }
 
-    public <T extends UIComponent> List<T> getComponents(Class<T> componentClass) {
-        List<T> matchedComponents = new ArrayList<>();
-        for (UIComponent comp : components.values()) {
-            if (componentClass.isInstance(comp)) {
-                matchedComponents.add(componentClass.cast(comp));
+    public <T extends UIComponent> List<T> getComponentsByClass(Class<T> componentClass) {
+        Map<String, UIComponent> componentMap = components.get(componentClass);
+
+        ArrayList<T> matched = new ArrayList<>();
+
+        if(componentClass != null){
+            for(UIComponent cpl : componentMap.values()){
+                matched.add((T) cpl);
             }
+            return matched;
+        }else{
+            return Collections.emptyList();
         }
-        return matchedComponents;
     }
 
-    public void render(){
-        for(UIComponent component : this.components.values()){
-            component.render();
-        }
+    public <T extends UIComponent> Map<String,T> getComponents(Class<T> componentClass) {
+        return (Map<String, T>) components.get(componentClass);
     }
 
     @SafeVarargs

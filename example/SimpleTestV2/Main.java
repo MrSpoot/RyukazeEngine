@@ -22,7 +22,6 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 public class Main {
 
     public static void main(String[] args) {
-
         Engine engine = new Engine().build();
 
         new InputTouch("exit_engine",GLFW_KEY_ESCAPE);
@@ -102,7 +101,13 @@ public class Main {
                 .linkComponent(new MeshComponent().setMaterial(gray).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build());
 
-        new UIEntity().linkUIComponent(new UITextComponent().setText("Test de mon Ui component").setSize(20f).setFont("Retro").setPosition(new Vector2f(20,20)).build());
+        new UIEntity()
+                .linkComponent(new UITextComponent("fps").setSize(10f).setFont("Retro").setPosition(new Vector2f(5,10)).build())
+                .linkComponent(new UITextComponent("frame").setSize(10f).setFont("Retro").setPosition(new Vector2f(500,10)).build())
+                .linkComponent(new UITextComponent("ups").setSize(10f).setFont("Retro").setPosition(new Vector2f(5,20)).build())
+                .linkComponent(new UITextComponent("position").setSize(10f).setFont("Retro").setPosition(new Vector2f(5,30)).build())
+                .linkComponent(new UITextComponent("rotation").setSize(10f).setFont("Retro").setPosition(new Vector2f(5,40)).build())
+                .linkComponent(new UIScriptComponent().linkScript(new UIScript()).build());
 
         engine.run();
     }

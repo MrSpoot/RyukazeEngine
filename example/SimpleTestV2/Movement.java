@@ -13,14 +13,12 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Movement implements IScript {
     private Entity entity;
-    private float xSens = 0.1f;
-    private float ySens = 0.1f;
-    private Quaternionf rotation;
+    private float xSens = 5f;
+    private float ySens = 5f;
 
     @Override
     public void init(Entity entity) {
         this.entity = entity;
-        this.rotation = new Quaternionf();
         initTouch();
     }
 
@@ -33,6 +31,8 @@ public class Movement implements IScript {
     public void render() {
         float mouseX = Input.getXAxisRaw() * Time.deltaTime * xSens;
         float mouseY = Input.getYAxisRaw() * Time.deltaTime * ySens;
+
+        this.entity.getComponent(TransformComponent.class).rotate(-mouseY,mouseX,0);
 
         Vector3f forward = new Vector3f(0, 0, -1).rotate(this.entity.getComponent(TransformComponent.class).getRotation());
         Vector3f right = new Vector3f(forward).cross(new Vector3f(0, 1, 0)).normalize();
@@ -56,6 +56,10 @@ public class Movement implements IScript {
         if (Input.isPressed("left")) {
             velocity.add(right);
         }
+        if(Input.isPressed("reset")){
+            this.entity.getComponent(TransformComponent.class).setPosition(0,0,0);
+            this.entity.getComponent(TransformComponent.class).setRotation(0,0,0);
+        }
 
         velocity.mul(cameraSpeed);
 
@@ -74,6 +78,7 @@ public class Movement implements IScript {
         new InputTouch("left",GLFW_KEY_A);
         new InputTouch("right",GLFW_KEY_D);
         new InputTouch("sprint",GLFW_KEY_LEFT_SHIFT);
+        new InputTouch("reset",GLFW_KEY_B);
 
     }
 }

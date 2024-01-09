@@ -10,8 +10,6 @@ import ryukazev2.core.Window;
 import ryukazev2.core.Input;
 import ryukazev2.utils.ServiceLocator;
 
-import static org.lwjgl.glfw.GLFW.glfwGetTime;
-
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SystemManager extends Manager {
@@ -45,6 +43,7 @@ public class SystemManager extends Manager {
         this.window.preRender();
 
         ((RenderManager) this.services.get(RenderManager.class)).render();
+        ((UIRenderManager) this.services.get(UIRenderManager.class)).render();
 
         this.window.postRender();
     }

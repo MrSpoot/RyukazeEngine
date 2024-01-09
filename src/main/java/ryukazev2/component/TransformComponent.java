@@ -49,14 +49,9 @@ public class TransformComponent extends Component{
     }
 
     public void rotate(float x, float y, float z) {
-        Quaternionf deltaRotation = new Quaternionf().rotateXYZ((float) Math.toRadians(x),
-                (float) Math.toRadians(y),
-                (float) Math.toRadians(z));
-        rotation.mul(deltaRotation);
-    }
-
-    public void getGlobalPosition(){
-
+        rotation.rotateX((float) Math.toRadians(x));
+        rotation.rotateLocalY((float) Math.toRadians(y));
+        rotation.rotateZ((float) Math.toRadians(z));
     }
 
     public Matrix4f getModelMatrix(){
