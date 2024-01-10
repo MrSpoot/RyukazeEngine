@@ -36,7 +36,28 @@ public class Main {
 
         new InputTouch("exit_engine",GLFW_KEY_ESCAPE);
 
-        CustomShape shape = new CustomShape("src/main/resources/model/car_2.fbx");
+        new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
+
+        new Entity().linkComponent(new ScriptComponent().linkScript(new TestScript()).build());
+
+        new DirectionalLight();
+
+        /*int width = 10;
+        int length = 10;
+
+        Material mat = new Material();
+        mat.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
+
+
+        for(int x = -(width/2); x < (width/2); x++){
+            for(int z = -(length/2); z < (length/2); z++){
+                new Entity().linkComponent(new TransformComponent().setPosition(x,-2,z))
+                        .linkComponent(new MeshComponent().setMaterial(mat).applyShape(new CubeShape()).build())
+                        .linkComponent(new ShaderComponent().build());
+            }
+        }*/
+
+        /*CustomShape shape = new CustomShape("src/main/resources/model/car_2.fbx");
         Material carMat = new Material();
         carMat.getTextures().replace("diffuse",new Texture("src/main/resources/model/carText2.png",false));
 
@@ -106,7 +127,7 @@ public class Main {
 
         new Entity().linkComponent(new TransformComponent().setPosition(0,-2,0).setScale(50,1,50))
                 .linkComponent(new MeshComponent().setMaterial(gray).applyShape(new CubeShape()).build())
-                .linkComponent(new ShaderComponent().build());
+                .linkComponent(new ShaderComponent().build());*/
 
         new UIEntity()
                 .linkComponent(new UITextComponent("fps").setSize(10f).setFont("Retro").setPosition(new Vector2f(5,10)).build())

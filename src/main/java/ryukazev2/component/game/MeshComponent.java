@@ -1,9 +1,9 @@
 package ryukazev2.component.game;
 
 import lombok.Getter;
-import org.joml.Matrix4f;
 import ryukazev2.component.shape.IShape;
 import ryukazev2.core.Cache;
+import ryukazev2.core.MeshOpenGLData;
 import ryukazev2.graphics.Material;
 
 import java.util.HashMap;
@@ -18,14 +18,14 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 public class MeshComponent extends Component{
 
     @Getter
-    private int vao;
+    private MeshOpenGLData data;
     private float[] vertices;
     private int[] indices;
     @Getter
     private Material material;
 
     public MeshComponent(){
-        this.vao = 0;
+        this.data = new MeshOpenGLData(0,0,0);
         this.vertices = new float[0];
         this.indices = new int[0];
         this.material = new Material();
@@ -60,14 +60,17 @@ public class MeshComponent extends Component{
         attributes.put("indices",this.indices);
 
         if(Cache.isObjectCached(attributes)){
-            this.vao = Cache.getCacheObject(attributes);
+            MeshOpenGLData _data = Cache.getCacheObject(attributes);
+            _data.setMeshCount(_data.getMeshCount() + 1);
+            this.data = _data;
+            Cache.putCacheObject(attributes,_data);
         }else{
 
-            this.vao = glGenVertexArrays();
+            this.data.setVao(glGenVertexArrays());
             int vbo = glGenBuffers();
             int ibo = glGenBuffers();
 
-            glBindVertexArray(vao);
+            glBindVertexArray(this.data.getVao());
 
             glBindBuffer(GL_ARRAY_BUFFER, vbo);
             glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
@@ -85,10 +88,16 @@ public class MeshComponent extends Component{
             glVertexAttribPointer(2, 2, GL_FLOAT, false, 32, 24);
             glEnableVertexAttribArray(2);
 
+            int instanceVbo = glGenBuffers();
+            glBindBuffer(GL_ARRAY_BUFFER, instanceVbo);
+
             glBindBuffer(GL_ARRAY_BUFFER, 0);
             glBindVertexArray(0);
 
-            Cache.putCacheObject(attributes,this.vao);
+            this.data.setMeshCount(1);
+            this.data.setVbo(instanceVbo);
+
+            Cache.putCacheObject(attributes,this.data);
         }
 
         return this;

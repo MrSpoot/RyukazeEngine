@@ -2,6 +2,7 @@ package ryukazev2.manager;
 
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ryukazev2.component.game.*;
@@ -11,10 +12,19 @@ import ryukazev2.graphics.Material;
 import ryukazev2.graphics.Texture;
 import ryukazev2.utils.ServiceLocator;
 
+import java.nio.FloatBuffer;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
+import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL15.glBindBuffer;
+import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.opengl.GL32.GL_PROGRAM_POINT_SIZE;
+import static org.lwjgl.opengl.GL33.glVertexAttribDivisor;
 
 public class RenderManager extends Manager {
 
@@ -37,12 +47,29 @@ public class RenderManager extends Manager {
     public void render(){
         resetOpenGLConfig();
         if(((CameraManager) this.services.get(CameraManager.class)).checkCameraExisting()){
-            Matrix4f view = ((CameraManager) this.services.get(CameraManager.class)).getViewMatrix();
-            Matrix4f projection = ((CameraManager) this.services.get(CameraManager.class)).getProjectionMatrix();
 
-            for(Entity entity : ((EntityManager) this.services.get(EntityManager.class)).getEntities()){
-                renderEntity(entity,view,projection);
+            CameraManager camera = ((CameraManager) this.services.get(CameraManager.class));
+
+            Matrix4f view = camera.getViewMatrix();
+            Matrix4f projection = camera.getProjectionMatrix();
+
+            List<Entity> entities = ((EntityManager) this.services.get(EntityManager.class)).getEntities();
+
+            /*Collections.sort(entities, (e1, e2) -> {
+
+                TransformComponent tc1 = e1.getComponent(TransformComponent.class);
+                TransformComponent tc2 = e2.getComponent(TransformComponent.class);
+
+                float distance1 = camera.getActiveCamera().getComponent(TransformComponent.class).getPosition().distance(tc1.getPosition());
+                float distance2 = camera.getActiveCamera().getComponent(TransformComponent.class).getPosition().distance(tc2.getPosition());
+
+                return Float.compare(distance1,distance2);
+            });*/
+
+            for(Entity entity : entities){
+                renderEntity(entity, view,projection);
             }
+
         }else{
             LOGGER.error("\033[0;33m[RENDER] \033[0m No camera");
             ServiceLocator.getService(SystemManager.class).stop();
@@ -73,7 +100,7 @@ public class RenderManager extends Manager {
                     index++;
                 }
 
-                glBindVertexArray(entity.getComponent(MeshComponent.class).getVao());
+                glBindVertexArray(entity.getComponent(MeshComponent.class).getData().getVao());
                 glDrawElements(GL_TRIANGLES, entity.getComponent(MeshComponent.class).getIndicesCount(), GL_UNSIGNED_INT, 0);
             } else {
                 LOGGER.warn("\033[0;33m[Entity] \033[0m" + entity.getId() + " | Missing Component");
@@ -124,4 +151,28 @@ public class RenderManager extends Manager {
             shader.setUniform("spotLight.quadratic",light.getQuadratic());
         }
     }
+
+    private void prepareInstanceData(List<Entity> entities){
+
+
+
+        FloatBuffer instanceDataBuffer = BufferUtils.createFloatBuffer(entities.size());
+        instanceDataBuffer.put(instanceData).flip();
+
+        glBindBuffer(GL_ARRAY_BUFFER, instanceVbo);
+        glBufferData(GL_ARRAY_BUFFER, instanceDataBuffer, GL_STATIC_DRAW);
+
+        int stride = 16 * Float.BYTES;
+        int offset = 0;
+
+        for (int i = 0; i < 4; i++) {
+            glEnableVertexAttribArray(3 + i);
+            glVertexAttribPointer(3 + i, 4, GL_FLOAT, false, stride, offset);
+            glVertexAttribDivisor(3 + i, 1);
+            offset += 4 * 4;
+        }
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+
 }
