@@ -1,8 +1,12 @@
 package ryukazev2.component.game;
 
 import lombok.Getter;
+import org.joml.Matrix4f;
 import ryukazev2.component.shape.IShape;
+import ryukazev2.core.Cache;
 import ryukazev2.graphics.Material;
+
+import java.util.HashMap;
 
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.*;
@@ -15,8 +19,6 @@ public class MeshComponent extends Component{
 
     @Getter
     private int vao;
-    private int vbo;
-    private int ibo;
     private float[] vertices;
     private int[] indices;
     @Getter
@@ -24,8 +26,6 @@ public class MeshComponent extends Component{
 
     public MeshComponent(){
         this.vao = 0;
-        this.vbo = 0;
-        this.ibo = 0;
         this.vertices = new float[0];
         this.indices = new int[0];
         this.material = new Material();
@@ -54,30 +54,42 @@ public class MeshComponent extends Component{
 
     public MeshComponent build(){
 
-        this.vao = glGenVertexArrays();
-        this.vbo = glGenBuffers();
-        this.ibo = glGenBuffers();
+        HashMap<String,Object> attributes = new HashMap<>();
 
-        glBindVertexArray(vao);
+        attributes.put("vertices",this.vertices);
+        attributes.put("indices",this.indices);
 
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
+        if(Cache.isObjectCached(attributes)){
+            this.vao = Cache.getCacheObject(attributes);
+        }else{
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
+            this.vao = glGenVertexArrays();
+            int vbo = glGenBuffers();
+            int ibo = glGenBuffers();
+
+            glBindVertexArray(vao);
+
+            glBindBuffer(GL_ARRAY_BUFFER, vbo);
+            glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
+
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
 
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 32, 0);
-        glEnableVertexAttribArray(0);
+            glVertexAttribPointer(0, 3, GL_FLOAT, false, 32, 0);
+            glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 3, GL_FLOAT, false, 32, 12);
-        glEnableVertexAttribArray(1);
+            glVertexAttribPointer(1, 3, GL_FLOAT, false, 32, 12);
+            glEnableVertexAttribArray(1);
 
-        glVertexAttribPointer(2, 2, GL_FLOAT, false, 32, 24);
-        glEnableVertexAttribArray(2);
+            glVertexAttribPointer(2, 2, GL_FLOAT, false, 32, 24);
+            glEnableVertexAttribArray(2);
 
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            glBindVertexArray(0);
+
+            Cache.putCacheObject(attributes,this.vao);
+        }
 
         return this;
     }

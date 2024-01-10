@@ -3,6 +3,7 @@ package SimpleTestV2;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+import ryukaze.graphics.Image;
 import ryukazev2.Engine;
 import ryukazev2.component.game.MeshComponent;
 import ryukazev2.component.game.ScriptComponent;
@@ -10,6 +11,7 @@ import ryukazev2.component.game.ShaderComponent;
 import ryukazev2.component.game.TransformComponent;
 import ryukazev2.component.shape.CubeShape;
 import ryukazev2.component.shape.CustomShape;
+import ryukazev2.component.ui.UICircleComponent;
 import ryukazev2.component.ui.UIRectComponent;
 import ryukazev2.component.ui.UIScriptComponent;
 import ryukazev2.component.ui.UITextComponent;
@@ -111,11 +113,11 @@ public class Main {
                 .linkComponent(new UITextComponent("frame").setSize(10f).setFont("Retro").setPosition(new Vector2f(500,10)).build())
                 .linkComponent(new UITextComponent("ups").setSize(10f).setFont("Retro").setPosition(new Vector2f(5,20)).build())
                 .linkComponent(new UITextComponent("position").setSize(10f).setFont("Retro").setPosition(new Vector2f(5,30)).build())
-                .linkComponent(new UIRectComponent("rectangle")
+                .linkComponent(new UICircleComponent("center-pointer")
                         .setPosition(new Vector2f(640,360))
                         .setAnchor(Anchor.CENTER)
-                        .setscale(new Vector2f(0.1f,0.1f))
-                        .setImage(FileReader.readImage("src/main/resources/texture/wall.jpg",false))
+                        .setscale(new Vector2f(0.02f,0.02f))
+                        .setImage(new Image(new Vector4f(0f,0f,0f,1f)))
                         .build())
 
                 .linkComponent(new UIScriptComponent().linkScript(new UIScript()).build());

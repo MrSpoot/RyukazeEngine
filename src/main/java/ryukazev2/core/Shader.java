@@ -27,30 +27,20 @@ public class Shader {
     private String vertexCode;
     private String fragmentCode;
 
-    public Shader() {
+    public Shader(String vertexPath, String fragmentPath) {
         vertex = glCreateShader(GL_VERTEX_SHADER);
         fragment = glCreateShader(GL_FRAGMENT_SHADER);
         program = glCreateProgram();
-    }
 
-    public Shader setVertex(String path){
-        this.vertexCode = FileReader.readFile(path);
-        return this;
-    }
+        this.vertexCode = FileReader.readFile(vertexPath);
+        this.fragmentCode = FileReader.readFile(fragmentPath);
 
-    public Shader setFragment(String path){
-        this.fragmentCode = FileReader.readFile(path);
-        return this;
-    }
-
-    public Shader build(){
         compileShader(vertex, vertexCode);
         compileShader(fragment, fragmentCode);
         compileProgram(program);
 
         extractUniforms(vertexCode);
         extractUniforms(fragmentCode);
-        return this;
     }
 
     private void compileProgram(int programId) {
