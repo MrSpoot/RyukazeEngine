@@ -27,13 +27,12 @@ public class Shader {
     private String vertexCode;
     private String fragmentCode;
 
-    public Shader(String vertexPath, String fragmentPath) {
+    public Shader(String path) {
         vertex = glCreateShader(GL_VERTEX_SHADER);
         fragment = glCreateShader(GL_FRAGMENT_SHADER);
         program = glCreateProgram();
 
-        this.vertexCode = FileReader.readFile(vertexPath);
-        this.fragmentCode = FileReader.readFile(fragmentPath);
+        loadShader(path);
 
         compileShader(vertex, vertexCode);
         compileShader(fragment, fragmentCode);
@@ -173,6 +172,36 @@ public class Shader {
             String uniformName = uniformMatcher.group(1);
             LOGGER.debug("\033[1;36m[SHADER]\033[0m Create uniform [" + uniformName + "] for shader [" + program + "]");
             createUniform(uniformName);
+        }
+    }
+
+    private void loadShader(String path){
+        LOGGER.info("\033[1;32m[SHADER]\u001B[0m Load shader - ["+path+"]");
+        String file = FileReader.readFile(path);
+
+        Pattern vertexPattern = Pattern.compile("@vs(.*?)@endvs", Pattern.DOTALL);
+        Matcher vertexMatcher = vertexPattern.matcher(file);
+
+        StringBuilder vertex = new StringBuilder();
+
+        while (vertexMatcher.find()){
+            vertex.append(vertexMatcher.group(1)).append(" ");
+        }
+
+        Pattern fragmentPattern = Pattern.compile("@fs(.*?)@endfs", Pattern.DOTALL);
+        Matcher fragmentMatcher = fragmentPattern.matcher(file);
+
+        StringBuilder fragment = new StringBuilder();
+
+        while (fragmentMatcher.find()){
+            fragment.append(fragmentMatcher.group(1)).append(" ");
+        }
+
+        if(vertex.isEmpty() || fragment.isEmpty()){
+            LOGGER.error("\033[1;36m[SHADER]\033[0m Shader cannot be compile");
+        }else{
+            this.vertexCode = vertex.toString().trim();
+            this.fragmentCode = fragment.toString().trim();
         }
     }
 

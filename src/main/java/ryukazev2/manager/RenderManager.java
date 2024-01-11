@@ -157,10 +157,10 @@ public class RenderManager extends Manager {
 
 
         FloatBuffer instanceDataBuffer = BufferUtils.createFloatBuffer(entities.size());
-        instanceDataBuffer.put(instanceData).flip();
+        /*instanceDataBuffer.put(instanceData).flip();
 
         glBindBuffer(GL_ARRAY_BUFFER, instanceVbo);
-        glBufferData(GL_ARRAY_BUFFER, instanceDataBuffer, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, instanceDataBuffer, GL_STATIC_DRAW);*/
 
         int stride = 16 * Float.BYTES;
         int offset = 0;

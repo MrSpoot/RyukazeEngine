@@ -16,13 +16,12 @@ public class ShaderComponent extends Component{
 
         Map<String, Object> shaderAttributeForCache = new HashMap<>();
 
-        shaderAttributeForCache.put("vertexPath","src/main/resources/shader/default.scene.vert");
-        shaderAttributeForCache.put("fragmentPath","src/main/resources/shader/default.scene.frag");
+        shaderAttributeForCache.put("shaderPath","src/main/resources/shader/default.scene.glsl");
 
         if(Cache.isObjectCached(shaderAttributeForCache)){
             this.shader = Cache.getCacheObject(shaderAttributeForCache);
         }else{
-            this.shader = new Shader((String) shaderAttributeForCache.get("vertexPath"), (String) shaderAttributeForCache.get("fragmentPath"));
+            this.shader = new Shader((String) shaderAttributeForCache.get("shaderPath"));
             Cache.putCacheObject(shaderAttributeForCache,this.shader);
         }
 
