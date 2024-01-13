@@ -2,11 +2,10 @@ package SimpleTest;
 
 import org.joml.Math;
 import org.joml.Vector3f;
-import ryukaze.core.Engine;
-import ryukaze.input.InputManager;
-import ryukaze.input.InputTouch;
-import ryukaze.objects.controller.CharacterController;
-import ryukaze.objects.mesh.CubeMesh;
+import org.spoot.ryukaze.core.Engine;
+import org.spoot.ryukaze.input.InputManager;
+import org.spoot.ryukaze.input.InputTouch;
+import org.spoot.ryukaze.objects.controller.CharacterController;
 
 import static org.joml.Math.cos;
 import static org.joml.Math.sin;

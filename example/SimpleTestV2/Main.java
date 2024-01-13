@@ -1,31 +1,25 @@
 package SimpleTestV2;
 
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 import org.joml.Vector4f;
-import ryukaze.graphics.Image;
-import ryukazev2.Engine;
-import ryukazev2.component.game.MeshComponent;
-import ryukazev2.component.game.ScriptComponent;
-import ryukazev2.component.game.ShaderComponent;
-import ryukazev2.component.game.TransformComponent;
-import ryukazev2.component.shape.CubeShape;
-import ryukazev2.component.shape.CustomShape;
-import ryukazev2.component.ui.UICircleComponent;
-import ryukazev2.component.ui.UIRectComponent;
-import ryukazev2.component.ui.UIScriptComponent;
-import ryukazev2.component.ui.UITextComponent;
-import ryukazev2.core.Entity;
-import ryukazev2.core.InputTouch;
-import ryukazev2.core.UIEntity;
-import ryukazev2.core.enumerations.Anchor;
-import ryukazev2.entity.Camera;
-import ryukazev2.entity.DirectionalLight;
-import ryukazev2.entity.PointLight;
-import ryukazev2.entity.SpotLight;
-import ryukazev2.graphics.Material;
-import ryukazev2.graphics.Texture;
-import ryukazev2.utils.FileReader;
+import org.spoot.SimpleTestV2.Movement;
+import org.spoot.SimpleTestV2.UIScript;
+import org.spoot.ryukaze.graphics.Image;
+import org.spoot.ryukazev2.Engine;
+import org.spoot.ryukazev2.component.game.MeshComponent;
+import org.spoot.ryukazev2.component.game.ScriptComponent;
+import org.spoot.ryukazev2.component.game.ShaderComponent;
+import org.spoot.ryukazev2.component.game.TransformComponent;
+import org.spoot.ryukazev2.component.game.shape.CubeShape;
+import org.spoot.ryukazev2.component.ui.UICircleComponent;
+import org.spoot.ryukazev2.component.ui.UIScriptComponent;
+import org.spoot.ryukazev2.component.ui.UITextComponent;
+import org.spoot.ryukazev2.core.Entity;
+import org.spoot.ryukazev2.core.InputTouch;
+import org.spoot.ryukazev2.core.UIEntity;
+import org.spoot.ryukazev2.core.enumerations.Anchor;
+import org.spoot.ryukazev2.entity.Camera;
+import org.spoot.ryukazev2.entity.DirectionalLight;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
@@ -38,7 +32,10 @@ public class Main {
 
         new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
 
-        new Entity().linkComponent(new ScriptComponent().linkScript(new TestScript()).build());
+        //new Entity().linkComponent(new ScriptComponent().linkScript(new TestScript()).build());
+
+        new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
+        //new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
 
         new DirectionalLight();
 

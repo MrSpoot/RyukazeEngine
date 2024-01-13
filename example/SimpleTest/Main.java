@@ -3,14 +3,16 @@ package SimpleTest;
 import org.joml.Math;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-import ryukaze.core.Engine;
-import ryukaze.core.Options;
-import ryukaze.core.Scene;
-import ryukaze.graphics.Camera;
-import ryukaze.objects.GameObject;
-import ryukaze.objects.light.*;
-import ryukaze.objects.material.Texture;
-import ryukaze.objects.model.*;
+import org.spoot.ryukaze.core.Engine;
+import org.spoot.ryukaze.core.Options;
+import org.spoot.ryukaze.core.Scene;
+import org.spoot.ryukaze.graphics.Camera;
+import org.spoot.ryukaze.objects.GameObject;
+import org.spoot.ryukaze.objects.light.DirectionalLight;
+import org.spoot.ryukaze.objects.light.PointLight;
+import org.spoot.ryukaze.objects.light.SpotLight;
+import org.spoot.ryukaze.objects.model.*;
+import org.spoot.ryukaze.objects.material.Texture;
 
 public class Main {
 

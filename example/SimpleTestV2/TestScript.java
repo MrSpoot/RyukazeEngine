@@ -1,13 +1,13 @@
 package SimpleTestV2;
 
-import ryukazev2.component.game.MeshComponent;
-import ryukazev2.component.game.ShaderComponent;
-import ryukazev2.component.game.TransformComponent;
-import ryukazev2.component.shape.CubeShape;
-import ryukazev2.core.Entity;
-import ryukazev2.core.interfaces.IScript;
-import ryukazev2.graphics.Material;
-import ryukazev2.graphics.Texture;
+import org.spoot.ryukazev2.component.game.MeshComponent;
+import org.spoot.ryukazev2.component.game.ShaderComponent;
+import org.spoot.ryukazev2.component.game.TransformComponent;
+import org.spoot.ryukazev2.component.game.shape.CubeShape;
+import org.spoot.ryukazev2.core.Entity;
+import org.spoot.ryukazev2.core.interfaces.IScript;
+import org.spoot.ryukazev2.graphics.Material;
+import org.spoot.ryukazev2.graphics.Texture;
 
 public class TestScript implements IScript {
 

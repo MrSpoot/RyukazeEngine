@@ -4,16 +4,27 @@ layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aNormal;
 layout (location = 2) in vec2 aTexCoords;
 
+layout (location = 3) in vec4 modelMatrixCol0;
+layout (location = 4) in vec4 modelMatrixCol1;
+layout (location = 5) in vec4 modelMatrixCol2;
+layout (location = 6) in vec4 modelMatrixCol3;
+
+layout (location = 7) in vec3 normalMatrixCol0;
+layout (location = 8) in vec3 normalMatrixCol1;
+layout (location = 9) in vec3 normalMatrixCol2;
+
 uniform mat4 view;
 uniform mat4 projection;
-uniform mat3 normalMatrix;
-uniform mat4 model;
 
 out vec3 FragPos;
 out vec3 Normal;
 out vec2 TexCoords;
 
 void main(){
+
+    mat4 model = mat4(modelMatrixCol0, modelMatrixCol1, modelMatrixCol2, modelMatrixCol3);
+    mat3 normalMatrix = mat3(normalMatrixCol0, normalMatrixCol1, normalMatrixCol2);
+
     gl_Position = projection * view * model * vec4(aPos, 1.0);
     FragPos = vec3(model * vec4(aPos, 1.0));
     Normal = normalize(normalMatrix * aNormal);

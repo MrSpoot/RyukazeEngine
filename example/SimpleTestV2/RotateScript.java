@@ -1,10 +1,10 @@
 package SimpleTestV2;
 
 import org.joml.Vector3f;
-import ryukazev2.component.game.TransformComponent;
-import ryukazev2.core.Entity;
-import ryukazev2.core.Time;
-import ryukazev2.core.interfaces.IScript;
+import org.spoot.ryukazev2.component.game.TransformComponent;
+import org.spoot.ryukazev2.core.Entity;
+import org.spoot.ryukazev2.core.Time;
+import org.spoot.ryukazev2.core.interfaces.IScript;
 
 public class RotateScript implements IScript {
 
