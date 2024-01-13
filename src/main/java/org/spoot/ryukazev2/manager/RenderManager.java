@@ -28,8 +28,6 @@ public class RenderManager extends Manager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RenderManager.class);
 
-    private boolean test = false;
-
     public RenderManager() {
         resetOpenGLConfig();
         ServiceLocator.registerService(RenderManager.class, this);
@@ -174,12 +172,6 @@ public class RenderManager extends Manager {
                     index++;
                 }
             }
-
-            /*modelMatrix.get(data);
-            normalMatrix.get(data);
-
-            modelMatrix.get(instanceDataBuffer);
-            normalMatrix.get(instanceDataBuffer);*/
         }
 
         instanceDataBuffer.flip();

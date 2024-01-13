@@ -27,8 +27,7 @@ public class MeshComponent extends Component{
     public MeshComponent(){
         this.vertices = new float[0];
         this.indices = new int[0];
-        this.material = new Material();
-        this.data = new MeshOpenGLData(0,0,material);
+        this.data = new MeshOpenGLData();
     }
 
     public MeshComponent applyShape(IShape shape){
@@ -54,6 +53,10 @@ public class MeshComponent extends Component{
 
     public MeshComponent build(){
 
+        if(this.material == null){
+            this.material = new Material();
+        }
+
         HashMap<String,Object> attributes = new HashMap<>();
 
         attributes.put("vertices",this.vertices);
@@ -62,7 +65,6 @@ public class MeshComponent extends Component{
 
         if(Cache.isObjectCached(attributes)){
             this.data = Cache.getCacheObject(attributes);
-            System.out.println("Is cached");
         }else{
 
             this.data.setVao(glGenVertexArrays());

@@ -20,8 +20,12 @@ import org.spoot.ryukazev2.core.InputTouch;
 import org.spoot.ryukazev2.core.enumerations.Anchor;
 import org.spoot.ryukazev2.entity.Camera;
 import org.spoot.ryukazev2.entity.DirectionalLight;
+import org.spoot.ryukazev2.entity.PointLight;
+import org.spoot.ryukazev2.entity.SpotLight;
 import org.spoot.ryukazev2.graphics.Material;
 import org.spoot.ryukazev2.graphics.Texture;
+
+import java.awt.*;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
@@ -33,29 +37,8 @@ public class Main2 {
         new InputTouch("exit_engine",GLFW_KEY_ESCAPE);
 
         new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
-
-        Material mat = new Material();
-        mat.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
-
         //new Entity().linkComponent(new ScriptComponent().linkScript(new TestScript()).build());
-
         new DirectionalLight();
-
-        new Entity().linkComponent(new MeshComponent().setMaterial(mat).applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent().setPosition(0,0,0));
-        new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent().setPosition(2,0,0));
-        /*CustomShape shape = new CustomShape("src/main/resources/model/car_2.fbx");
-        Material carMat = new Material();
-        carMat.getTextures().replace("diffuse",new Texture("src/main/resources/model/carText2.png",false));
-
-        Entity c = new Entity().linkComponent(new TransformComponent()
-                        .setPosition(0,-1,-6)
-                        .setScale(0.1f,0.1f,0.1f)
-                        .setRotation(0,0,0))
-                .linkComponent(new MeshComponent().setMaterial(carMat).applyShape(shape).build())
-                .linkComponent(new ShaderComponent().build())
-                .linkComponent(new ScriptComponent().linkScript(new RotateScript(51f,new Vector3f(0,1,0))).build());*/
-
-        /*new DirectionalLight();
 
         int width = 100;
         int length = 100;
@@ -63,7 +46,6 @@ public class Main2 {
         Material mat = new Material();
         mat.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
 
-        int index = 0;
 
         for(int x = -(width/2); x < (width/2); x++){
             for(int z = -(length/2); z < (length/2); z++){
@@ -71,9 +53,10 @@ public class Main2 {
                         .linkComponent(new MeshComponent().setMaterial(mat).applyShape(new CubeShape()).build())
                         .linkComponent(new ShaderComponent().build());
             }
-        }*/
+        }
 
-        /*
+        /*Material mat = new Material();
+        mat.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
 
         new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
         Entity dirLight =  new DirectionalLight()
@@ -108,6 +91,11 @@ public class Main2 {
         Material test = new Material();
         test.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
 
+        CustomShape custom = new CustomShape("src/main/resources/model/car_2.fbx");
+
+        Material carMat = new Material();
+        carMat.getTextures().replace("diffuse",new Texture("src/main/resources/model/carText2.png",false));
+
         Entity t = new Entity().linkComponent(new TransformComponent().setPosition(0,-0.5f,0).setScale(10,1,10))
                 .linkComponent(new MeshComponent().setMaterial(test).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build())
@@ -117,7 +105,7 @@ public class Main2 {
                         .setPosition(0,-1,-6)
                         .setScale(0.1f,0.1f,0.1f)
                         .setRotation(0,0,0))
-                .linkComponent(new MeshComponent().setMaterial(carMat).applyShape(shape).build())
+                .linkComponent(new MeshComponent().setMaterial(carMat).applyShape(custom).build())
                 .linkComponent(new ShaderComponent().build())
                 .linkComponent(new ScriptComponent().linkScript(new RotateScript(51f,new Vector3f(0,1,0))).build())
                 .linkChildren(t);

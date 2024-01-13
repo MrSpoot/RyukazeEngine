@@ -20,6 +20,8 @@ import org.spoot.ryukazev2.core.UIEntity;
 import org.spoot.ryukazev2.core.enumerations.Anchor;
 import org.spoot.ryukazev2.entity.Camera;
 import org.spoot.ryukazev2.entity.DirectionalLight;
+import org.spoot.ryukazev2.graphics.Material;
+import org.spoot.ryukazev2.graphics.Texture;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
@@ -36,6 +38,21 @@ public class Main {
 
         new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
         //new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
+
+        int width = 1000;
+        int length = 1000;
+
+        Material mat = new Material();
+        mat.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
+
+
+        for(int x = -(width/2); x < (width/2); x++){
+            for(int z = -(length/2); z < (length/2); z++){
+                new Entity().linkComponent(new TransformComponent().setPosition(x,-2,z))
+                        .linkComponent(new MeshComponent().setMaterial(mat).applyShape(new CubeShape()).build())
+                        .linkComponent(new ShaderComponent().build());
+            }
+        }
 
         new DirectionalLight();
 

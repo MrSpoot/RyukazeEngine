@@ -39,6 +39,7 @@ public class Texture {
     }
 
     private void loadTexture(Image image) {
+        LOGGER.debug("[TEXTURE] Load texture");
         texture = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, texture);
 
