@@ -1,6 +1,7 @@
 package SimpleTestV2;
 
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.spoot.SimpleTestV2.Movement;
 import org.spoot.SimpleTestV2.UIScript;
@@ -11,6 +12,7 @@ import org.spoot.ryukazev2.component.game.ScriptComponent;
 import org.spoot.ryukazev2.component.game.ShaderComponent;
 import org.spoot.ryukazev2.component.game.TransformComponent;
 import org.spoot.ryukazev2.component.game.shape.CubeShape;
+import org.spoot.ryukazev2.component.game.shape.CustomShape;
 import org.spoot.ryukazev2.component.ui.UICircleComponent;
 import org.spoot.ryukazev2.component.ui.UIScriptComponent;
 import org.spoot.ryukazev2.component.ui.UITextComponent;

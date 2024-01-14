@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.spoot.ryukazev2.component.game.*;
 import org.spoot.ryukazev2.core.Entity;
 import org.spoot.ryukazev2.core.Shader;
+import org.spoot.ryukazev2.core.SkyBox;
 import org.spoot.ryukazev2.graphics.Material;
 import org.spoot.ryukazev2.graphics.Texture;
 import org.spoot.ryukazev2.utils.ServiceLocator;
@@ -27,6 +28,7 @@ import static org.lwjgl.opengl.GL33.glVertexAttribDivisor;
 public class RenderManager extends Manager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RenderManager.class);
+    private SkyBox skyBox = new SkyBox();
 
     public RenderManager() {
         resetOpenGLConfig();
@@ -43,6 +45,7 @@ public class RenderManager extends Manager {
     }
 
     public void render() {
+        skyBox.render();
         resetOpenGLConfig();
         if (((CameraManager) this.services.get(CameraManager.class)).checkCameraExisting()) {
             Map<Integer, List<Entity>> entitiesByVao = new HashMap<>();

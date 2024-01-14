@@ -1,7 +1,6 @@
 package org.spoot.SimpleTestV2;
 
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.spoot.ryukazev2.component.game.shape.CubeShape;
 import org.spoot.ryukazev2.component.game.shape.CustomShape;
@@ -20,12 +19,8 @@ import org.spoot.ryukazev2.core.InputTouch;
 import org.spoot.ryukazev2.core.enumerations.Anchor;
 import org.spoot.ryukazev2.entity.Camera;
 import org.spoot.ryukazev2.entity.DirectionalLight;
-import org.spoot.ryukazev2.entity.PointLight;
-import org.spoot.ryukazev2.entity.SpotLight;
 import org.spoot.ryukazev2.graphics.Material;
 import org.spoot.ryukazev2.graphics.Texture;
-
-import java.awt.*;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
@@ -54,6 +49,16 @@ public class Main2 {
                         .linkComponent(new ShaderComponent().build());
             }
         }
+
+        CustomShape shape = new CustomShape("src/main/resources/model/car_2.fbx");
+        Material carMat = new Material();
+        carMat.getTextures().replace("diffuse",new Texture("src/main/resources/model/carText2.png",false));
+
+        Entity c = new Entity().linkComponent(new TransformComponent()
+                        .setPosition(0,0,0)
+                        .setRotation(0,0,0))
+                .linkComponent(new MeshComponent().setMaterial(carMat).applyShape(shape).build())
+                .linkComponent(new ShaderComponent().build());
 
         /*Material mat = new Material();
         mat.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
