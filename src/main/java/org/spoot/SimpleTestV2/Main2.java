@@ -1,9 +1,13 @@
 package org.spoot.SimpleTestV2;
 
+import org.joml.Math;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
+import org.spoot.ryukaze.objects.model.Plane;
 import org.spoot.ryukazev2.component.game.shape.CubeShape;
 import org.spoot.ryukazev2.component.game.shape.CustomShape;
+import org.spoot.ryukazev2.component.game.shape.PlaneShape;
 import org.spoot.ryukazev2.core.UIEntity;
 import org.spoot.ryukaze.graphics.Image;
 import org.spoot.ryukazev2.Engine;
@@ -34,13 +38,13 @@ public class Main2 {
 
         new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
         //new Entity().linkComponent(new ScriptComponent().linkScript(new TestScript()).build());
-        // new DirectionalLight();
+        new DirectionalLight();
 
-        int width = 100;
-        int length = 100;
+        int width = 6;
+        int length = 6;
 
         Material mat = new Material();
-        mat.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
+        mat.setDiffuse(new Texture("src/main/resources/texture/container2.png",false));
 
 
         for(int x = -(width/2); x < (width/2); x++){
@@ -55,13 +59,39 @@ public class Main2 {
 
         CustomShape shape = new CustomShape("src/main/resources/model/car_2.fbx");
         Material carMat = new Material();
-        carMat.getTextures().replace("diffuse",new Texture("src/main/resources/model/carText2.png",false));
+        carMat.setDiffuse(new Texture("src/main/resources/model/carText2.png",false));
+
+        Material windowMat = new Material();
+        windowMat.setDiffuse(new Texture("src/main/resources/texture/blending_transparent_window.png",false));
 
         Entity c = new Entity().linkComponent(new TransformComponent()
                         .setPosition(0,0,0)
                         .setRotation(0,0,0))
                 .linkComponent(new MeshComponent().setMaterial(carMat).applyShape(shape).build())
                 .linkComponent(new ShaderComponent().build());
+
+        new Entity().linkComponent(new TransformComponent()
+                        .setPosition(5,1,0)
+                        .setRotation(0,180,90)
+                        .setScale(2,2,2))
+                .linkComponent(new MeshComponent().setMaterial(windowMat).applyShape(new PlaneShape()).build())
+                .linkComponent(new ShaderComponent().build());
+
+        new Entity().linkComponent(new TransformComponent()
+                        .setPosition(8,1,0)
+                        .setRotation(0,180,90)
+                        .setScale(2,2,2))
+                .linkComponent(new MeshComponent().setMaterial(windowMat).applyShape(new PlaneShape()).build())
+                .linkComponent(new ShaderComponent().build());
+
+        new Entity().linkComponent(new TransformComponent()
+                        .setPosition(10,2,0)
+                        .setRotation(0,180,90)
+                        .setScale(2,2,2))
+                .linkComponent(new MeshComponent().setMaterial(windowMat).applyShape(new PlaneShape()).build())
+                .linkComponent(new ShaderComponent().build());
+
+
 
         /*Material mat = new Material();
         mat.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));

@@ -45,7 +45,7 @@ public class Main {
         int length = 100;
 
         Material mat = new Material();
-        mat.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
+        mat.setDiffuse(new Texture("src/main/resources/texture/container2.png",false));
 
 
         for(int x = -(width/2); x < (width/2); x++){

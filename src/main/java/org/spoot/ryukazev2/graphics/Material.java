@@ -13,13 +13,13 @@ import java.util.Map;
 public class Material {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Material.class);
-    private Map<String, Texture> textures;
+    private Texture diffuse;
+    private Texture specular;
     private float shininess;
 
     public Material() {
-        this.textures = new LinkedHashMap<>();
-        this.textures.put("diffuse",new Texture(new Vector4f(1.0f,1.0f,1.0f,1.0f)));
-        this.textures.put("specular",new Texture(new Vector4f(1.0f,1.0f,1.0f,1.0f)));
+        this.diffuse = new Texture(new Vector4f(1.0f,1.0f,1.0f,1.0f));
+        this.specular = new Texture(new Vector4f(1.0f,1.0f,1.0f,1.0f));
         this.shininess = 32f;
     }
 

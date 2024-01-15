@@ -103,17 +103,23 @@ void main()
 
     vec4 texture = texture(material.diffuse,TexCoords);
 
-    if(texture.a < 0.1)
-    discard;
+    if(texture.a < 0.1){
+        discard;
+    }
 
-    vec4 result = vec4(0.1,0.1,0.1,1.0);
+    if(texture.a > 0.1 && texture.a < 0.9){
+        FragColor = texture;
+    }
 
-    result += CalcDirLight(directionalLight,norm,viewDir);
-    result += CalcPointLight(pointLight,norm,FragPos,viewDir);
-    result += CalcSpotLight(spotLight,norm,FragPos,viewDir);
+    if(texture.a > 0.9){
+        vec4 result = vec4(0.1,0.1,0.1,1.0);
 
-    FragColor = result;
-    //FragColor = texture;
+        result += CalcDirLight(directionalLight,norm,viewDir);
+        result += CalcPointLight(pointLight,norm,FragPos,viewDir);
+        result += CalcSpotLight(spotLight,norm,FragPos,viewDir);
+
+        FragColor = result;
+    }
 }
 
 vec4 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir){

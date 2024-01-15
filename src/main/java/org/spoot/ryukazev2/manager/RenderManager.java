@@ -66,7 +66,25 @@ public class RenderManager extends Manager {
 
             for (Map.Entry<Integer, List<Entity>> entry : entitiesByVao.entrySet()) {
                 glBindVertexArray(entry.getKey());
-                prepareInstanceData(entry.getValue(), null);
+
+                if(entry.getValue().get(0).getComponent(MeshComponent.class).getMaterial().getDiffuse().isTransparent()){
+                    prepareInstanceData(entry.getValue(), new Comparator<Entity>() {
+                        @Override
+                        public int compare(Entity o1, Entity o2) {
+                            TransformComponent cameraTransform = camera.getActiveCamera().getComponent(TransformComponent.class);
+
+                            TransformComponent transformO1 = o1.getComponent(TransformComponent.class);
+                            TransformComponent transformO2 = o2.getComponent(TransformComponent.class);
+
+                            float distanceToCameraO1 = cameraTransform.getPosition().distance(transformO1.getPosition());
+                            float distanceToCameraO2 = cameraTransform.getPosition().distance(transformO2.getPosition());
+
+                            return -Float.compare(distanceToCameraO1, distanceToCameraO2);
+                        }
+                    });
+                }else{
+                    prepareInstanceData(entry.getValue(), null);
+                }
 
                 entry.getValue().get(0).getComponent(ShaderComponent.class).getShader().useProgram();
                 for (Entity light : lights) {
@@ -90,12 +108,11 @@ public class RenderManager extends Manager {
         Material material = entity.getComponent(MeshComponent.class).getMaterial();
         entity.getComponent(ShaderComponent.class).getShader().setUniform("material.shininess", material.getShininess());
 
-        int index = 0;
-        for (Texture texture : material.getTextures().values()) {
-            glActiveTexture(GL_TEXTURE0 + index);
-            glBindTexture(GL_TEXTURE_2D, texture.getTexture());
-            index++;
-        }
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, material.getDiffuse().getTexture());
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, material.getSpecular().getTexture());
+
         glDrawElementsInstanced(GL_TRIANGLES, entity.getComponent(MeshComponent.class).getIndicesCount(), GL_UNSIGNED_INT, 0,amount);
     }
 

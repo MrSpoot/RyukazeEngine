@@ -19,13 +19,13 @@ public class Texture {
     private int texture;
     private int width;
     private int height;
-    private boolean hasTransparency;
+    private boolean transparent;
 
     public Texture(int textureId){
         this.texture = textureId;
         this.width = 1280;
         this.height = 720;
-        this.hasTransparency = false;
+        this.transparent = false;
     }
 
     public Texture(Vector4f color) {
@@ -45,7 +45,7 @@ public class Texture {
 
         if (image != null) {
 
-            this.hasTransparency = hasTransparency(image.getByteBuffer());
+            this.transparent = hasTransparency(image.getByteBuffer());
 
             this.width = image.getWidth();
             this.height = image.getHeight();

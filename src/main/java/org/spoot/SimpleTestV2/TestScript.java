@@ -27,7 +27,7 @@ public class TestScript implements IScript {
     @Override
     public void init(Entity entity) {
         mat = new Material();
-        mat.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
+        mat.setDiffuse(new Texture("src/main/resources/texture/container2.png",false));
 
         new InputTouch("stop_gen",GLFW_KEY_T);
     }
