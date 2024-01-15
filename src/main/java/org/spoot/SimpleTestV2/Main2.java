@@ -19,6 +19,7 @@ import org.spoot.ryukazev2.core.InputTouch;
 import org.spoot.ryukazev2.core.enumerations.Anchor;
 import org.spoot.ryukazev2.entity.Camera;
 import org.spoot.ryukazev2.entity.DirectionalLight;
+import org.spoot.ryukazev2.entity.SpotLight;
 import org.spoot.ryukazev2.graphics.Material;
 import org.spoot.ryukazev2.graphics.Texture;
 
@@ -33,7 +34,7 @@ public class Main2 {
 
         new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
         //new Entity().linkComponent(new ScriptComponent().linkScript(new TestScript()).build());
-        new DirectionalLight();
+        // new DirectionalLight();
 
         int width = 100;
         int length = 100;
@@ -44,11 +45,13 @@ public class Main2 {
 
         for(int x = -(width/2); x < (width/2); x++){
             for(int z = -(length/2); z < (length/2); z++){
-                new Entity().linkComponent(new TransformComponent().setPosition(x,-2,z))
+                new Entity().linkComponent(new TransformComponent().setPosition(x,-0.5f,z))
                         .linkComponent(new MeshComponent().setMaterial(mat).applyShape(new CubeShape()).build())
                         .linkComponent(new ShaderComponent().build());
             }
         }
+
+        new SpotLight().getComponent(TransformComponent.class).setPosition(0,8,0);
 
         CustomShape shape = new CustomShape("src/main/resources/model/car_2.fbx");
         Material carMat = new Material();

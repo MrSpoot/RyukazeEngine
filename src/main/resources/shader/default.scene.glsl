@@ -121,18 +121,18 @@ vec4 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir){
     // diffuse shading
     float diff = max(dot(normal, lightDir), 0.0);
     // specular shading
-    vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    //vec3 reflectDir = reflect(-lightDir, normal);
+    //float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     // combine results
     vec4 ambient = vec4(light.ambient,1.0) * vec4(texture(material.diffuse, TexCoords));
     vec4 diffuse = vec4(light.diffuse,1.0) * diff * vec4(texture(material.diffuse, TexCoords));
-    vec4 specular = vec4(light.specular,1.0) * spec * vec4(texture(material.specular, TexCoords));
+    //vec4 specular = vec4(light.specular,1.0) * spec * vec4(texture(material.specular, TexCoords));
 
     ambient *= light.intensity;
     diffuse *= light.intensity;
-    specular *= light.intensity;
+    //specular *= light.intensity;
 
-    return (ambient + diffuse + specular);
+    return (ambient + diffuse);
 }
 
 vec4 CalcSpotLight(SpotLight light, vec3 normal,vec3 fragPos, vec3 viewDir){

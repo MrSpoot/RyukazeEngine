@@ -57,9 +57,6 @@ public class RenderManager extends Manager {
 
             List<Entity> entities = ((EntityManager) this.services.get(EntityManager.class)).getEntityByComponent(TransformComponent.class, MeshComponent.class, ShaderComponent.class);
 
-            entities.sort(Comparator.comparingInt(entity -> entity.getComponent(MeshComponent.class).getData().getVao()
-            ));
-
             List<Entity> lights = ((EntityManager) this.services.get(EntityManager.class)).getEntityByAnyComponent(DirectionalLightComponent.class, SpotLightComponent.class, PointLightComponent.class);
 
             for (Entity entity : entities) {
@@ -69,7 +66,7 @@ public class RenderManager extends Manager {
 
             for (Map.Entry<Integer, List<Entity>> entry : entitiesByVao.entrySet()) {
                 glBindVertexArray(entry.getKey());
-                prepareInstanceData(entry.getValue());
+                prepareInstanceData(entry.getValue(), null);
 
                 entry.getValue().get(0).getComponent(ShaderComponent.class).getShader().useProgram();
                 for (Entity light : lights) {
@@ -146,7 +143,7 @@ public class RenderManager extends Manager {
         }
     }
 
-    private void prepareInstanceData(List<Entity> entities) {
+    private void prepareInstanceData(List<Entity> entities, Comparator<Entity> comparator) {
         int matrix4fSize = 16 * Float.BYTES; // 16 floats pour une Matrix4f
         int matrix3fSize = 9 * Float.BYTES; // 9 floats pour une Matrix3f
         int totalSizePerInstance = matrix4fSize + matrix3fSize;
@@ -157,6 +154,10 @@ public class RenderManager extends Manager {
         float[] data = new float[totalBufferSize/4];
 
         int index = 0;
+
+        if(comparator != null){
+            entities.sort(comparator);
+        }
 
         for (Entity entity : entities) {
             Matrix4f modelMatrix = entity.getComponent(TransformComponent.class).getModelMatrix();
