@@ -63,10 +63,7 @@ public class Window {
 
         glfwWindowHint(GLFW_SAMPLES, 4);
 
-        if (this.width > 0 && this.height > 0) {
-            this.width = this.width;
-            this.height = this.height;
-        } else {
+        if (this.width == 0 && this.height == 0) {
             glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
             GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
             assert vidMode != null;
@@ -92,6 +89,8 @@ public class Window {
         } else {
             glfwSwapInterval(1);
         }*/
+
+        glfwSwapInterval(0);
 
         glViewport(0,0,width,height);
 

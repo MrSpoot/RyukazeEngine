@@ -7,7 +7,7 @@ import org.spoot.ryukazev2.component.game.TransformComponent;
 public class DirectionalLight extends Entity {
 
     public DirectionalLight(){
-        this.linkComponent(new DirectionalLightComponent()).linkComponent(new TransformComponent());
+        this.linkComponent(new DirectionalLightComponent().setIntensity(0.8f)).linkComponent(new TransformComponent());
     }
 
 }

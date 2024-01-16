@@ -8,6 +8,7 @@ import org.spoot.ryukaze.objects.model.Plane;
 import org.spoot.ryukazev2.component.game.shape.CubeShape;
 import org.spoot.ryukazev2.component.game.shape.CustomShape;
 import org.spoot.ryukazev2.component.game.shape.PlaneShape;
+import org.spoot.ryukazev2.component.game.shape.SphereShape;
 import org.spoot.ryukazev2.core.UIEntity;
 import org.spoot.ryukaze.graphics.Image;
 import org.spoot.ryukazev2.Engine;
@@ -40,8 +41,8 @@ public class Main2 {
         //new Entity().linkComponent(new ScriptComponent().linkScript(new TestScript()).build());
         new DirectionalLight();
 
-        int width = 6;
-        int length = 6;
+        int width = 500;
+        int length = 100;
 
         Material mat = new Material();
         mat.setDiffuse(new Texture("src/main/resources/texture/container2.png",false));
@@ -55,20 +56,30 @@ public class Main2 {
             }
         }
 
-        new SpotLight().getComponent(TransformComponent.class).setPosition(0,8,0);
+        //new SpotLight().getComponent(TransformComponent.class).setPosition(0,8,0);
 
         CustomShape shape = new CustomShape("src/main/resources/model/car_2.fbx");
         Material carMat = new Material();
         carMat.setDiffuse(new Texture("src/main/resources/model/carText2.png",false));
-
-        Material windowMat = new Material();
-        windowMat.setDiffuse(new Texture("src/main/resources/texture/blending_transparent_window.png",false));
 
         Entity c = new Entity().linkComponent(new TransformComponent()
                         .setPosition(0,0,0)
                         .setRotation(0,0,0))
                 .linkComponent(new MeshComponent().setMaterial(carMat).applyShape(shape).build())
                 .linkComponent(new ShaderComponent().build());
+
+        new Entity().linkComponent(new TransformComponent()
+                        .setPosition(0,5,0)
+                        .setRotation(0,0,0))
+                .linkComponent(new MeshComponent().applyShape(new SphereShape(15)).build())
+                .linkComponent(new ShaderComponent().build());
+
+
+        Material windowMat = new Material();
+        windowMat.setDiffuse(new Texture("src/main/resources/texture/blending_transparent_window.png",false));
+
+        Material greenMat = new Material();
+        greenMat.setDiffuse(new Texture("src/main/resources/texture/blending_green_transparent_window.png",false));
 
         new Entity().linkComponent(new TransformComponent()
                         .setPosition(5,1,0)
@@ -90,7 +101,6 @@ public class Main2 {
                         .setScale(2,2,2))
                 .linkComponent(new MeshComponent().setMaterial(windowMat).applyShape(new PlaneShape()).build())
                 .linkComponent(new ShaderComponent().build());
-
 
 
         /*Material mat = new Material();
