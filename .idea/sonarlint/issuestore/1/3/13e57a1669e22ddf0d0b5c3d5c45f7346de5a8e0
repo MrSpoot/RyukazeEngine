@@ -1,0 +1,10 @@
+
+`	java:S112'"FDefine and throw a dedicated exception instead of using a generic one.(âÕòøÿÿÿÿ
+k	java:S117f"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ìû¶”øÿÿÿÿ
+k	java:S117k"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÑäŒĞıÿÿÿÿ
+W
+java:S3457"AFormat specifiers should be used instead of string concatenation.(üæå
+B
+java:S11729",Remove this unused method parameter "scene".(ü×ÔÙ
+B
+java:S1068|",Remove this unused "vertices" private field.(Ç€é 
