@@ -3,14 +3,13 @@ package org.spoot.ryukazev2.component.game.shape;
 import org.lwjgl.assimp.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spoot.ryukaze.objects.mesh.CustomMesh;
 
 import java.nio.IntBuffer;
 import java.util.*;
 
 public class CustomShape implements IShape{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomMesh.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomShape.class);
     private float[] vertices;
     private int[] indices;
 

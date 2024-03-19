@@ -4,13 +4,11 @@ import org.joml.Math;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-import org.spoot.ryukaze.objects.model.Plane;
 import org.spoot.ryukazev2.component.game.shape.CubeShape;
 import org.spoot.ryukazev2.component.game.shape.CustomShape;
 import org.spoot.ryukazev2.component.game.shape.PlaneShape;
 import org.spoot.ryukazev2.component.game.shape.SphereShape;
 import org.spoot.ryukazev2.core.UIEntity;
-import org.spoot.ryukaze.graphics.Image;
 import org.spoot.ryukazev2.Engine;
 import org.spoot.ryukazev2.component.game.MeshComponent;
 import org.spoot.ryukazev2.component.game.ScriptComponent;
@@ -24,9 +22,9 @@ import org.spoot.ryukazev2.core.InputTouch;
 import org.spoot.ryukazev2.core.enumerations.Anchor;
 import org.spoot.ryukazev2.entity.Camera;
 import org.spoot.ryukazev2.entity.DirectionalLight;
-import org.spoot.ryukazev2.entity.SpotLight;
 import org.spoot.ryukazev2.graphics.Material;
 import org.spoot.ryukazev2.graphics.Texture;
+import org.spoot.ryukazev2.graphics.Image;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 

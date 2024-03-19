@@ -4,7 +4,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spoot.ryukaze.graphics.Image;
+import org.spoot.ryukazev2.graphics.Image;
 
 import java.io.IOException;
 import java.io.InputStream;

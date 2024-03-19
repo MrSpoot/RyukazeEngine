@@ -4,8 +4,7 @@ import lombok.Getter;
 import org.joml.Vector4f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spoot.ryukaze.utils.FileReader;
-import org.spoot.ryukaze.graphics.Image;
+import org.spoot.ryukazev2.utils.FileReader;
 
 import java.nio.ByteBuffer;
 

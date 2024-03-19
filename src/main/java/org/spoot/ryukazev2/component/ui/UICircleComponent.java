@@ -3,8 +3,8 @@ package org.spoot.ryukazev2.component.ui;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import org.lwjgl.nanovg.NVGPaint;
-import org.spoot.ryukaze.graphics.Image;
 import org.spoot.ryukazev2.core.enumerations.Anchor;
+import org.spoot.ryukazev2.graphics.Image;
 
 import static org.lwjgl.nanovg.NanoVG.*;
 

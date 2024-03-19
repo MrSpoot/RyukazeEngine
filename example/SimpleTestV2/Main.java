@@ -5,7 +5,6 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.spoot.SimpleTestV2.Movement;
 import org.spoot.SimpleTestV2.UIScript;
-import org.spoot.ryukaze.graphics.Image;
 import org.spoot.ryukazev2.Engine;
 import org.spoot.ryukazev2.component.game.MeshComponent;
 import org.spoot.ryukazev2.component.game.ScriptComponent;
@@ -26,6 +25,7 @@ import org.spoot.ryukazev2.entity.PointLight;
 import org.spoot.ryukazev2.entity.SpotLight;
 import org.spoot.ryukazev2.graphics.Material;
 import org.spoot.ryukazev2.graphics.Texture;
+import org.spoot.ryukazev2.graphics.Image;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 

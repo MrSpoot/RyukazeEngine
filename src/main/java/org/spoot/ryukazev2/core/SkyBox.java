@@ -1,7 +1,7 @@
 package org.spoot.ryukazev2.core;
 
 import org.joml.Matrix4f;
-import org.spoot.ryukaze.graphics.Image;
+import org.spoot.ryukazev2.graphics.Image;
 import org.spoot.ryukazev2.manager.CameraManager;
 import org.spoot.ryukazev2.utils.FileReader;
 import org.spoot.ryukazev2.utils.ServiceLocator;
