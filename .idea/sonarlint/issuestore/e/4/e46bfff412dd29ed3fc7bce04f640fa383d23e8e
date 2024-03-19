@@ -1,0 +1,11 @@
+
+ƒ
+java:S1192µ"FDefine a constant instead of duplicating this literal "Retro" 4 times.(êì…ÙJ$ff6c32d5-95e6-4d0d-9286-6582aa04c603
+•	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(îÞŠ×J$3c73f5e4-df9d-407b-8e38-4b860bccc74e
+v
+java:S1854?"5Remove this useless assignment to local variable "c".(óáž¬ûÿÿÿÿJ$2a3dabc5-c95b-4ea2-a5c2-fcea2a7985d3
+w	java:S125'"<This block of commented-out lines of code should be removed.(°ûâîJ$d98fe3a0-42dc-4a4e-b11f-d790873ec13d
+v	java:S1259"<This block of commented-out lines of code should be removed.(™ÎÃJ$b0f02a43-dd31-4143-ad0e-1487fb031ff4
+g
+java:S1481?"&Remove this unused "c" local variable.(óáž¬ûÿÿÿÿJ$a768e428-65cf-42f9-a593-bbd9903942b1
+w	java:S125h"<This block of commented-out lines of code should be removed.(€îºöJ$00efb81a-02a6-4e79-bce3-bf3822fcd263
