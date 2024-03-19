@@ -22,6 +22,8 @@ import org.spoot.ryukazev2.core.UIEntity;
 import org.spoot.ryukazev2.core.enumerations.Anchor;
 import org.spoot.ryukazev2.entity.Camera;
 import org.spoot.ryukazev2.entity.DirectionalLight;
+import org.spoot.ryukazev2.entity.PointLight;
+import org.spoot.ryukazev2.entity.SpotLight;
 import org.spoot.ryukazev2.graphics.Material;
 import org.spoot.ryukazev2.graphics.Texture;
 
@@ -41,8 +43,8 @@ public class Main {
         new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
         //new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
 
-        int width = 500;
-        int length = 100;
+        int width = 20;
+        int length = 20;
 
         Material mat = new Material();
         mat.setDiffuse(new Texture("src/main/resources/texture/container2.png",false));
@@ -50,7 +52,7 @@ public class Main {
 
         for(int x = -(width/2); x < (width/2); x++){
             for(int z = -(length/2); z < (length/2); z++){
-                new Entity().linkComponent(new TransformComponent().setPosition(x,0,z))
+                new Entity().linkComponent(new TransformComponent().setPosition(x,-5,z))
                         .linkComponent(new MeshComponent().setMaterial(mat).applyShape(new CubeShape()).build())
                         .linkComponent(new ShaderComponent().build());
             }
@@ -73,9 +75,9 @@ public class Main {
             }
         }*/
 
-        /*CustomShape shape = new CustomShape("src/main/resources/model/car_2.fbx");
+        CustomShape shape = new CustomShape("src/main/resources/model/car_2.fbx");
         Material carMat = new Material();
-        carMat.getTextures().replace("diffuse",new Texture("src/main/resources/model/carText2.png",false));
+        carMat.setDiffuse(new Texture("src/main/resources/model/carText2.png",false));
 
         new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
         Entity dirLight =  new DirectionalLight()
@@ -95,20 +97,20 @@ public class Main {
         pointLight.getComponent(TransformComponent.class).setPosition(-5,2,0f);
 
         Material red = new Material();
-        red.getTextures().replace("diffuse",new Texture(new Vector4f(1.0f,0,0,1.0f)));
+        red.setDiffuse(new Texture(new Vector4f(1.0f,0,0,1.0f)));
 
         Material green = new Material();
-        green.getTextures().replace("diffuse",new Texture(new Vector4f(0,1.0f,0,1.0f)));
+        green.setDiffuse(new Texture(new Vector4f(0,1.0f,0,1.0f)));
 
         Material blue = new Material();
-        blue.getTextures().replace("diffuse",new Texture(new Vector4f(0,0,1.0f,1.0f)));
+        blue.setDiffuse(new Texture(new Vector4f(0,0,1.0f,1.0f)));
 
         Material gray = new Material();
-        gray.getTextures().replace("diffuse", new Texture(new Vector4f(0.2f,0.2f,0.2f,1.0f)));
-        gray.getTextures().replace("specular ", new Texture(new Vector4f(0.2f,0.2f,0.2f,1.0f)));
+        gray.setDiffuse(new Texture(new Vector4f(0.2f,0.2f,0.2f,1.0f)));
+        gray.setDiffuse( new Texture(new Vector4f(0.2f,0.2f,0.2f,1.0f)));
 
         Material test = new Material();
-        test.getTextures().replace("diffuse", new Texture("src/main/resources/texture/container2.png",false));
+        test.setDiffuse( new Texture("src/main/resources/texture/container2.png",false));
 
         Entity t = new Entity().linkComponent(new TransformComponent().setPosition(0,-0.5f,0).setScale(10,1,10))
                 .linkComponent(new MeshComponent().setMaterial(test).applyShape(new CubeShape()).build())
@@ -143,7 +145,7 @@ public class Main {
 
         new Entity().linkComponent(new TransformComponent().setPosition(0,-2,0).setScale(50,1,50))
                 .linkComponent(new MeshComponent().setMaterial(gray).applyShape(new CubeShape()).build())
-                .linkComponent(new ShaderComponent().build());*/
+                .linkComponent(new ShaderComponent().build());
 
         new UIEntity()
                 .linkComponent(new UITextComponent("fps").setSize(10f).setFont("Retro").setPosition(new Vector2f(5,10)).build())

@@ -9,13 +9,13 @@ public class ColliderComponent extends Component {
     private Collider collider;
     private TransformComponent transform;
 
-    private boolean detectCollision(Collider collider){
+    /*private boolean detectCollision(Collider collider){
         if(this.collider instanceof SphereCollider sphere1 && collider instanceof SphereCollider sphere2){
             float distance = sphere1.position.distance(sphere2.position);
             return distance < (sphere1.getRadius() + sphere2.getRadius());
         }
 
         return false;
-    }
+    }*/
 
 }
