@@ -1,7 +1,5 @@
-package org.spoot.ryukazev2.graphic.core;
+package org.spoot.ryukazev2.core;
 
-import org.spoot.ryukazev2.core.Statistics;
-import org.spoot.ryukazev2.core.Time;
 import org.spoot.ryukazev2.manager.SystemManager;
 import org.spoot.ryukazev2.utils.ServiceLocator;
 

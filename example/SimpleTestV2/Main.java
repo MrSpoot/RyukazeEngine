@@ -3,6 +3,7 @@ package SimpleTestV2;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+import org.spoot.ryukazev2.Engine;
 import org.spoot.ryukazev2.graphic.GraphicsEngine;
 import org.spoot.ryukazev2.graphic.component.game.MeshComponent;
 import org.spoot.ryukazev2.component.ScriptComponent;
@@ -24,13 +25,14 @@ import org.spoot.ryukazev2.graphic.entity.SpotLight;
 import org.spoot.ryukazev2.graphic.graphics.Material;
 import org.spoot.ryukazev2.graphic.graphics.Texture;
 import org.spoot.ryukazev2.graphic.graphics.Image;
+import org.spoot.ryukazev2.physic.component.body.Rigidbody;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
 public class Main {
 
     public static void main(String[] args) {
-        GraphicsEngine graphicsEngine = new GraphicsEngine().build();
+        Engine engine = new Engine().build();
 
         new InputTouch("exit_engine",GLFW_KEY_ESCAPE);
 
@@ -38,7 +40,7 @@ public class Main {
 
         //new Entity().linkComponent(new ScriptComponent().linkScript(new TestScript()).build());
 
-        new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
+        new Entity().linkComponent(new Rigidbody()).linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
         //new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
 
         int width = 20;
@@ -159,7 +161,7 @@ public class Main {
 
                 .linkComponent(new UIScriptComponent().linkScript(new UIScript()).build());
 
-        graphicsEngine.run();
+        engine.run();
     }
 
 }

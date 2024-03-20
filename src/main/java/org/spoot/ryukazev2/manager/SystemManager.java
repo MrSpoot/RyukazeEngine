@@ -5,12 +5,13 @@ import lombok.EqualsAndHashCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spoot.ryukazev2.graphic.GraphicsEngine;
-import org.spoot.ryukazev2.graphic.core.Loop;
+import org.spoot.ryukazev2.core.Loop;
 import org.spoot.ryukazev2.graphic.core.Window;
 import org.spoot.ryukazev2.graphic.core.Input;
 import org.spoot.ryukazev2.graphic.manager.InputManager;
 import org.spoot.ryukazev2.graphic.manager.RenderManager;
 import org.spoot.ryukazev2.graphic.manager.UIRenderManager;
+import org.spoot.ryukazev2.physic.manager.BodyManager;
 import org.spoot.ryukazev2.utils.ServiceLocator;
 
 @EqualsAndHashCode(callSuper = true)
@@ -51,6 +52,8 @@ public class SystemManager extends Manager {
     }
 
     public void update(){
+
+        ((BodyManager) this.services.get(BodyManager.class)).processEntityPhysics();
         ((ScriptManager) this.services.get(ScriptManager.class)).update();
     }
 

@@ -20,13 +20,9 @@ public class GraphicsEngine {
         new InputManager();
         new UIRenderManager().linkFont("Retro","src/main/resources/fonts/retro_gaming.ttf");
 
-        LOGGER.info("\033[1;32m[BUILD]\u001B[0m Engine instance");
+        LOGGER.info("\033[1;32m[BUILD]\u001B[0m Graphic Engine instance");
 
         return this;
-    }
-
-    public void run(){
-        ServiceLocator.getService(SystemManager.class).run();
     }
 
 }
