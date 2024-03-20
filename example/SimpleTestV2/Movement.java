@@ -1,12 +1,12 @@
 package SimpleTestV2;
 
 import org.joml.Vector3f;
-import org.spoot.ryukazev2.component.game.TransformComponent;
-import org.spoot.ryukazev2.core.Entity;
-import org.spoot.ryukazev2.core.Input;
-import org.spoot.ryukazev2.core.Time;
-import org.spoot.ryukazev2.core.interfaces.IScript;
-import org.spoot.ryukazev2.core.InputTouch;
+import org.spoot.ryukazev2.graphic.component.game.TransformComponent;
+import org.spoot.ryukazev2.graphic.core.Entity;
+import org.spoot.ryukazev2.graphic.core.Input;
+import org.spoot.ryukazev2.graphic.core.Time;
+import org.spoot.ryukazev2.graphic.core.interfaces.IScript;
+import org.spoot.ryukazev2.graphic.core.InputTouch;
 
 import static org.lwjgl.glfw.GLFW.*;
 
