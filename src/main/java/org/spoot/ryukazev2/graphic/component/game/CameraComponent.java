@@ -2,6 +2,8 @@ package org.spoot.ryukazev2.graphic.component.game;
 
 import lombok.Getter;
 import org.joml.Vector3f;
+import org.spoot.ryukazev2.component.Component;
+import org.spoot.ryukazev2.component.TransformComponent;
 
 @Getter
 public class CameraComponent extends Component {

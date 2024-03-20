@@ -1,4 +1,4 @@
-package org.spoot.ryukazev2.graphic.utils;
+package org.spoot.ryukazev2.utils;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;

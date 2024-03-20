@@ -1,6 +1,6 @@
-package org.spoot.ryukazev2.graphic.utils;
+package org.spoot.ryukazev2.utils;
 
-import org.spoot.ryukazev2.graphic.manager.Manager;
+import org.spoot.ryukazev2.manager.Manager;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,7 @@
 package org.spoot.ryukazev2.graphic.core;
 
 import org.spoot.ryukazev2.graphic.manager.EntityManager;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
 public class Scene {
 

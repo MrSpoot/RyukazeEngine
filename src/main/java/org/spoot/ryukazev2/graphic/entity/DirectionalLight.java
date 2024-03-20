@@ -2,7 +2,7 @@ package org.spoot.ryukazev2.graphic.entity;
 
 import org.spoot.ryukazev2.graphic.core.Entity;
 import org.spoot.ryukazev2.graphic.component.game.DirectionalLightComponent;
-import org.spoot.ryukazev2.graphic.component.game.TransformComponent;
+import org.spoot.ryukazev2.component.TransformComponent;
 
 public class DirectionalLight extends Entity {
 

@@ -1,13 +1,13 @@
 package SimpleTestV2;
 
-import org.spoot.ryukazev2.graphic.component.game.TransformComponent;
+import org.spoot.ryukazev2.component.TransformComponent;
 import org.spoot.ryukazev2.graphic.component.ui.UITextComponent;
 import org.spoot.ryukazev2.graphic.core.Entity;
-import org.spoot.ryukazev2.graphic.core.Statistics;
+import org.spoot.ryukazev2.core.Statistics;
 import org.spoot.ryukazev2.graphic.core.UIEntity;
-import org.spoot.ryukazev2.graphic.core.interfaces.IUIScript;
+import org.spoot.ryukazev2.core.interfaces.IUIScript;
 import org.spoot.ryukazev2.graphic.manager.CameraManager;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
 import java.util.Map;
 

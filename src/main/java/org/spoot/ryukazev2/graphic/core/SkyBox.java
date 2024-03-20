@@ -3,8 +3,8 @@ package org.spoot.ryukazev2.graphic.core;
 import org.joml.Matrix4f;
 import org.spoot.ryukazev2.graphic.graphics.Image;
 import org.spoot.ryukazev2.graphic.manager.CameraManager;
-import org.spoot.ryukazev2.graphic.utils.FileReader;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.utils.FileReader;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;

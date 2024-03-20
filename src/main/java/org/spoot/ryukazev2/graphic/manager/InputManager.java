@@ -1,6 +1,8 @@
 package org.spoot.ryukazev2.graphic.manager;
 
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.manager.Manager;
+import org.spoot.ryukazev2.manager.SystemManager;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 import org.spoot.ryukazev2.graphic.core.InputTouch;
 
 import java.util.HashMap;
@@ -9,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class InputManager extends Manager{
+public class InputManager extends Manager {
 
     private final Map<String, InputTouch> inputTouchList;
     private final Map<String, InputTouch> pressedTouch;

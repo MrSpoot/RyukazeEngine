@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.spoot.ryukazev2.graphic.core.UIEntity;
 import org.spoot.ryukazev2.graphic.core.enumerations.Anchor;
 import org.spoot.ryukazev2.graphic.manager.UIRenderManager;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
 public abstract class UIComponent {
 

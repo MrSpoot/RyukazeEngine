@@ -1,14 +1,15 @@
 package org.spoot.ryukazev2.graphic.component.game;
 
 import lombok.Getter;
-import org.spoot.ryukazev2.graphic.core.Cache;
+import org.spoot.ryukazev2.component.Component;
+import org.spoot.ryukazev2.core.Cache;
 import org.spoot.ryukazev2.graphic.core.Shader;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-public class ShaderComponent extends Component{
+public class ShaderComponent extends Component {
 
     private final Shader shader;
 

@@ -1,12 +1,13 @@
-package org.spoot.ryukazev2.graphic.manager;
+package org.spoot.ryukazev2.manager;
 
 import org.spoot.ryukazev2.graphic.core.Entity;
 import org.spoot.ryukazev2.graphic.core.UIEntity;
-import org.spoot.ryukazev2.graphic.component.game.ScriptComponent;
+import org.spoot.ryukazev2.component.ScriptComponent;
 import org.spoot.ryukazev2.graphic.component.ui.UIScriptComponent;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.graphic.manager.EntityManager;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
-public class ScriptManager extends Manager{
+public class ScriptManager extends Manager {
 
     public ScriptManager() {
         ServiceLocator.registerService(ScriptManager.class,this);

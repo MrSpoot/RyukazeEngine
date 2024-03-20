@@ -1,10 +1,10 @@
 package org.spoot.ryukazev2.graphic.core;
 
 import lombok.Getter;
-import org.spoot.ryukazev2.graphic.component.game.Component;
+import org.spoot.ryukazev2.component.Component;
 import org.spoot.ryukazev2.graphic.manager.EntityManager;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
-import org.spoot.ryukazev2.graphic.utils.UniqueIdGenerator;
+import org.spoot.ryukazev2.utils.ServiceLocator;
+import org.spoot.ryukazev2.utils.UniqueIdGenerator;
 
 import java.util.ArrayList;
 import java.util.HashMap;

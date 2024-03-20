@@ -1,4 +1,4 @@
-package org.spoot.ryukazev2.graphic.component.game;
+package org.spoot.ryukazev2.component;
 
 import lombok.Getter;
 import org.joml.Matrix4f;
@@ -6,7 +6,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 @Getter
-public class TransformComponent extends Component{
+public class TransformComponent extends Component {
 
     private Vector3f position;
     private Quaternionf  rotation;

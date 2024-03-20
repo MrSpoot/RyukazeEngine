@@ -5,7 +5,7 @@ import org.joml.*;
 import org.lwjgl.system.MemoryStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spoot.ryukazev2.graphic.utils.FileReader;
+import org.spoot.ryukazev2.utils.FileReader;
 
 import java.util.HashMap;
 import java.util.Map;

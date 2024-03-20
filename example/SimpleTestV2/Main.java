@@ -3,13 +3,11 @@ package SimpleTestV2;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-import org.spoot.SimpleTestV2.Movement;
-import org.spoot.SimpleTestV2.UIScript;
-import org.spoot.ryukazev2.graphic.Engine;
+import org.spoot.ryukazev2.graphic.GraphicsEngine;
 import org.spoot.ryukazev2.graphic.component.game.MeshComponent;
-import org.spoot.ryukazev2.graphic.component.game.ScriptComponent;
+import org.spoot.ryukazev2.component.ScriptComponent;
 import org.spoot.ryukazev2.graphic.component.game.ShaderComponent;
-import org.spoot.ryukazev2.graphic.component.game.TransformComponent;
+import org.spoot.ryukazev2.component.TransformComponent;
 import org.spoot.ryukazev2.graphic.component.game.shape.CubeShape;
 import org.spoot.ryukazev2.graphic.component.game.shape.CustomShape;
 import org.spoot.ryukazev2.graphic.component.ui.UICircleComponent;
@@ -32,7 +30,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 public class Main {
 
     public static void main(String[] args) {
-        Engine engine = new Engine().build();
+        GraphicsEngine graphicsEngine = new GraphicsEngine().build();
 
         new InputTouch("exit_engine",GLFW_KEY_ESCAPE);
 
@@ -161,7 +159,7 @@ public class Main {
 
                 .linkComponent(new UIScriptComponent().linkScript(new UIScript()).build());
 
-        engine.run();
+        graphicsEngine.run();
     }
 
 }

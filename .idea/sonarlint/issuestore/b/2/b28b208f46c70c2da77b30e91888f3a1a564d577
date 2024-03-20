@@ -1,11 +1,11 @@
 
 ƒ
-java:S1192—"FDefine a constant instead of duplicating this literal "Retro" 4 times.(êì…ÙJ$7700c01b-bece-47a7-88bc-83f015e33dc0
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(éïç²ùÿÿÿÿJ$f1b0a9c3-821c-45dc-b37f-b6ee53c78956
+java:S1192•"FDefine a constant instead of duplicating this literal "Retro" 4 times.(êì…ÙJ$95855b8c-7a5d-4980-aac5-e8791751fc45
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(éïç²ùÿÿÿÿJ$9cd943d0-cd89-457e-8fac-141285f29cef
 v
-java:S1854x"5Remove this useless assignment to local variable "c".(óáž¬ûÿÿÿÿJ$c08d39fb-2c09-46a3-8753-8030c2e8316a
-w	java:S125)"<This block of commented-out lines of code should be removed.(°ûâîJ$bbdcb43d-b296-4c26-909f-546e527a93aa
-|	java:S125,"<This block of commented-out lines of code should be removed.(å¹ÜÙøÿÿÿÿJ$9128fad1-2a0e-4111-992e-4f0c12d2831d
-w	java:S125?"<This block of commented-out lines of code should be removed.(Ö‹ëíJ$c6a379f1-92a6-4da2-b2a2-0012f83bd6bc
+java:S1854v"5Remove this useless assignment to local variable "c".(óáž¬ûÿÿÿÿJ$2c0aca73-d0ae-4b8b-8b1d-b647ce1d862d
+w	java:S125'"<This block of commented-out lines of code should be removed.(°ûâîJ$cc1937fd-4b92-461b-98b7-ef3fe28b6e64
+|	java:S125*"<This block of commented-out lines of code should be removed.(å¹ÜÙøÿÿÿÿJ$80f872b0-7627-4ab5-8ed4-4ce49c9ba8ce
+w	java:S125="<This block of commented-out lines of code should be removed.(Ö‹ëíJ$780e97ed-c9d8-4771-85a9-c82891ec5f03
 g
-java:S1481x"&Remove this unused "c" local variable.(óáž¬ûÿÿÿÿJ$7b5688f3-b113-4431-a9a1-d91207b30f40
+java:S1481v"&Remove this unused "c" local variable.(óáž¬ûÿÿÿÿJ$6dcb02b5-a5c7-4999-b4c2-840c0af65dc4

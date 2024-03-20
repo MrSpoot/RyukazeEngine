@@ -2,7 +2,7 @@ package org.spoot.ryukazev2.graphic.core;
 
 import lombok.Data;
 import org.spoot.ryukazev2.graphic.manager.InputManager;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
 @Data
 public class InputTouch {

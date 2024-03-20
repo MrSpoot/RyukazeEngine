@@ -1,8 +1,9 @@
 package org.spoot.ryukazev2.graphic.component.game;
 
 import lombok.Getter;
+import org.spoot.ryukazev2.component.Component;
 import org.spoot.ryukazev2.graphic.component.game.shape.IShape;
-import org.spoot.ryukazev2.graphic.core.Cache;
+import org.spoot.ryukazev2.core.Cache;
 import org.spoot.ryukazev2.graphic.core.MeshOpenGLData;
 import org.spoot.ryukazev2.graphic.graphics.Material;
 
@@ -15,7 +16,7 @@ import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class MeshComponent extends Component{
+public class MeshComponent extends Component {
 
     @Getter
     private MeshOpenGLData data;

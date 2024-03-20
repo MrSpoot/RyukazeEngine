@@ -1,8 +1,8 @@
-package org.spoot.ryukazev2.graphic.component.game;
+package org.spoot.ryukazev2.component;
 
-import org.spoot.ryukazev2.graphic.core.interfaces.IScript;
+import org.spoot.ryukazev2.core.interfaces.IScript;
 
-public class ScriptComponent extends Component{
+public class ScriptComponent extends Component {
 
     private IScript script;
 

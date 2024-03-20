@@ -7,14 +7,16 @@ import org.slf4j.LoggerFactory;
 import org.spoot.ryukazev2.graphic.component.ui.UIComponent;
 import org.spoot.ryukazev2.graphic.core.UIEntity;
 import org.spoot.ryukazev2.graphic.core.Window;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.manager.Manager;
+import org.spoot.ryukazev2.manager.SystemManager;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.lwjgl.nanovg.NanoVGGL3.*;
 
-public class UIRenderManager extends Manager{
+public class UIRenderManager extends Manager {
 
     @Getter
     private long vg;

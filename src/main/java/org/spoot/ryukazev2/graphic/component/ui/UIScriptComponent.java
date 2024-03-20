@@ -1,6 +1,6 @@
 package org.spoot.ryukazev2.graphic.component.ui;
 
-import org.spoot.ryukazev2.graphic.core.interfaces.IUIScript;
+import org.spoot.ryukazev2.core.interfaces.IUIScript;
 
 public class UIScriptComponent extends UIComponent{
 

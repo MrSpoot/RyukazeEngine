@@ -5,12 +5,15 @@ import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spoot.ryukazev2.component.TransformComponent;
 import org.spoot.ryukazev2.graphic.component.game.*;
 import org.spoot.ryukazev2.graphic.core.Entity;
 import org.spoot.ryukazev2.graphic.core.Shader;
 import org.spoot.ryukazev2.graphic.core.SkyBox;
 import org.spoot.ryukazev2.graphic.graphics.Material;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.manager.Manager;
+import org.spoot.ryukazev2.manager.SystemManager;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
 import java.nio.FloatBuffer;
 import java.util.*;
@@ -44,7 +47,7 @@ public class RenderManager extends Manager {
     }
 
     public void render() {
-        //skyBox.render();
+        skyBox.render();
         resetOpenGLConfig();
         if (((CameraManager) this.services.get(CameraManager.class)).checkCameraExisting()) {
             Map<Integer, List<Entity>> entitiesByVao = new HashMap<>();

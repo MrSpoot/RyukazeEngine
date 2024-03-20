@@ -1,4 +1,4 @@
-package org.spoot.ryukazev2.graphic.core;
+package org.spoot.ryukazev2.core;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

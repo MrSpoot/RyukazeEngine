@@ -1,20 +1,23 @@
-package org.spoot.ryukazev2.graphic.manager;
+package org.spoot.ryukazev2.manager;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spoot.ryukazev2.graphic.Engine;
+import org.spoot.ryukazev2.graphic.GraphicsEngine;
 import org.spoot.ryukazev2.graphic.core.Loop;
 import org.spoot.ryukazev2.graphic.core.Window;
 import org.spoot.ryukazev2.graphic.core.Input;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.graphic.manager.InputManager;
+import org.spoot.ryukazev2.graphic.manager.RenderManager;
+import org.spoot.ryukazev2.graphic.manager.UIRenderManager;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SystemManager extends Manager {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Engine.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GraphicsEngine.class);
 
     private Window window;
     private Loop loop;

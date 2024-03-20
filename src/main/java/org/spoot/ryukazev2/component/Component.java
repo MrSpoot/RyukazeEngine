@@ -1,4 +1,4 @@
-package org.spoot.ryukazev2.graphic.component.game;
+package org.spoot.ryukazev2.component;
 
 import lombok.Getter;
 import org.spoot.ryukazev2.graphic.core.Entity;

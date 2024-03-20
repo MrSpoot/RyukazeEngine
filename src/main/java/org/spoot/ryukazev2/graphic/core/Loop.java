@@ -1,7 +1,9 @@
 package org.spoot.ryukazev2.graphic.core;
 
-import org.spoot.ryukazev2.graphic.manager.SystemManager;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.core.Statistics;
+import org.spoot.ryukazev2.core.Time;
+import org.spoot.ryukazev2.manager.SystemManager;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
 import static org.lwjgl.glfw.GLFW.*;
 

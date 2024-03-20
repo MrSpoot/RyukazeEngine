@@ -3,9 +3,10 @@ package org.spoot.ryukazev2.graphic.manager;
 import lombok.Getter;
 import org.spoot.ryukazev2.graphic.core.Entity;
 import org.spoot.ryukazev2.graphic.core.UIEntity;
-import org.spoot.ryukazev2.graphic.component.game.Component;
+import org.spoot.ryukazev2.component.Component;
 import org.spoot.ryukazev2.graphic.component.ui.UIComponent;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.manager.Manager;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
 import java.util.ArrayList;
 import java.util.List;

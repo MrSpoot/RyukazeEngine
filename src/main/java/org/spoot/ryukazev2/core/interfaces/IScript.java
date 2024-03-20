@@ -1,4 +1,4 @@
-package org.spoot.ryukazev2.graphic.core.interfaces;
+package org.spoot.ryukazev2.core.interfaces;
 
 import org.spoot.ryukazev2.graphic.core.Entity;
 

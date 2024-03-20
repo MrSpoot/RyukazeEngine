@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spoot.ryukazev2.graphic.Engine;
+import org.spoot.ryukazev2.graphic.GraphicsEngine;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MAJOR;
@@ -22,7 +22,7 @@ public class Window {
     private String title;
     private int width;
     private int height;
-    private Engine engine;
+    private GraphicsEngine graphicsEngine;
 
     public Window(){
         this.title = "";
@@ -30,8 +30,8 @@ public class Window {
         this.height = 720;
     }
 
-    public void setEngine(Engine engine){
-        this.engine = engine;
+    public void setGraphicsEngine(GraphicsEngine graphicsEngine){
+        this.graphicsEngine = graphicsEngine;
     }
 
     public Window setHeight(int height){

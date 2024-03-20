@@ -5,8 +5,10 @@ import org.joml.Vector3f;
 import org.spoot.ryukazev2.graphic.core.Entity;
 import org.spoot.ryukazev2.graphic.core.Window;
 import org.spoot.ryukazev2.graphic.component.game.CameraComponent;
-import org.spoot.ryukazev2.graphic.component.game.TransformComponent;
-import org.spoot.ryukazev2.graphic.utils.ServiceLocator;
+import org.spoot.ryukazev2.component.TransformComponent;
+import org.spoot.ryukazev2.manager.Manager;
+import org.spoot.ryukazev2.manager.SystemManager;
+import org.spoot.ryukazev2.utils.ServiceLocator;
 
 import java.util.Optional;
 

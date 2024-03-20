@@ -2,6 +2,7 @@ package org.spoot.ryukazev2.graphic.component.game;
 
 import lombok.Getter;
 import org.joml.Vector3f;
+import org.spoot.ryukazev2.component.Component;
 
 @Getter
 public class PointLightComponent extends Component {
