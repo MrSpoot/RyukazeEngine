@@ -26,11 +26,16 @@ public class BodyManager extends Manager {
         for(Entity entity : entities){
 
             Rigidbody rigidbody = entity.getComponent(Rigidbody.class);
+
+            rigidbody.getForce().add(new Vector3f(0,-9.81f,0).mul(rigidbody.getMass()));
+            rigidbody.getVelocity().add((rigidbody.getForce().div(rigidbody.getMass())).mul(Time.deltaTime));
+
+            System.out.println("Velocity : "+ rigidbody.getVelocity());
+
             TransformComponent transformComponent = entity.getComponent(TransformComponent.class);
+            transformComponent.getPosition().add(rigidbody.getVelocity().mul(Time.deltaTime));
 
-            float velocity = 1.81f * Time.deltaTime;
-
-            transformComponent.getPosition().y -= velocity * Time.deltaTime;
+            rigidbody.getForce().set(0,0,0);
 
         }
     }

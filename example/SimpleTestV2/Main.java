@@ -40,7 +40,7 @@ public class Main {
 
         //new Entity().linkComponent(new ScriptComponent().linkScript(new TestScript()).build());
 
-        new Entity().linkComponent(new Rigidbody()).linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
+        new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
         //new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
 
         int width = 20;
@@ -138,7 +138,8 @@ public class Main {
                 .linkComponent(new MeshComponent().setMaterial(green).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build());
 
-        new Entity().linkComponent(new TransformComponent().setPosition(1,0,-15))
+        new Entity().linkComponent(new TransformComponent().setPosition(1,5,-15))
+                .linkComponent(new Rigidbody().setVelocity(new Vector3f(10,0,0)).setMass(100000f))
                 .linkComponent(new MeshComponent().setMaterial(blue).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build());
 

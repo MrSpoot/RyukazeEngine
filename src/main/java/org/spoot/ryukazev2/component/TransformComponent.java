@@ -60,4 +60,9 @@ public class TransformComponent extends Component {
 
         return modelMatrix;
     }
+
+    @Override
+    public String toString() {
+        return "X : "+position.x+" Y : "+position.y+" Z : "+position.z;
+    }
 }
