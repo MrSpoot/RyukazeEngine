@@ -9,9 +9,9 @@ public class Loop {
 
     //With Getter
     
-    private int RENDER_TICKS_PER_SECOND = 500;
+    private int RENDER_TICKS_PER_SECOND = 120;
     private double RENDER_TIME = 1.0 / RENDER_TICKS_PER_SECOND;
-    private int GAME_TICKS_PER_SECOND = 20;
+    private int GAME_TICKS_PER_SECOND = 120;
     private double GAME_TIME = 1.0 / GAME_TICKS_PER_SECOND;
 
     //Without Getter

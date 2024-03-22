@@ -44,7 +44,21 @@ public class EntityManager extends Manager {
     public final List<Entity> getEntityByComponent(Class<? extends Component>... componentClasses) {
         List<Entity> matchingEntities = new ArrayList<>();
         for (Entity entity : entities) {
-            if (entity.hasAllComponents(componentClasses)) {
+            boolean allMatch = true;
+            for (Class<? extends Component> componentClass : componentClasses) {
+                boolean hasComponent = false;
+                for (Component component : entity.getComponents().values()) {
+                    if (componentClass.isAssignableFrom(component.getClass())) {
+                        hasComponent = true;
+                        break; // Sort de la boucle si un composant correspondant est trouvé
+                    }
+                }
+                if (!hasComponent) {
+                    allMatch = false;
+                    break; // Sort de la boucle si un composant nécessaire est manquant
+                }
+            }
+            if (allMatch) {
                 matchingEntities.add(entity);
             }
         }

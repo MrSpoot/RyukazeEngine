@@ -11,6 +11,7 @@ import org.spoot.ryukazev2.graphic.component.game.ShaderComponent;
 import org.spoot.ryukazev2.component.TransformComponent;
 import org.spoot.ryukazev2.graphic.component.game.shape.CubeShape;
 import org.spoot.ryukazev2.graphic.component.game.shape.CustomShape;
+import org.spoot.ryukazev2.graphic.component.game.shape.SphereShape;
 import org.spoot.ryukazev2.graphic.component.ui.UICircleComponent;
 import org.spoot.ryukazev2.graphic.component.ui.UIScriptComponent;
 import org.spoot.ryukazev2.graphic.component.ui.UITextComponent;
@@ -26,6 +27,7 @@ import org.spoot.ryukazev2.graphic.graphics.Material;
 import org.spoot.ryukazev2.graphic.graphics.Texture;
 import org.spoot.ryukazev2.graphic.graphics.Image;
 import org.spoot.ryukazev2.physic.component.body.Rigidbody;
+import org.spoot.ryukazev2.physic.component.collider.BoxCollider;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
@@ -38,12 +40,7 @@ public class Main {
 
         new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
 
-        //new Entity().linkComponent(new ScriptComponent().linkScript(new TestScript()).build());
-
-        new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
-        //new Entity().linkComponent(new MeshComponent().applyShape(new CubeShape()).build()).linkComponent(new ShaderComponent().build()).linkComponent(new TransformComponent());
-
-        int width = 20;
+        /*int width = 20;
         int length = 20;
 
         Material mat = new Material();
@@ -75,15 +72,17 @@ public class Main {
             }
         }*/
 
-        CustomShape shape = new CustomShape("src/main/resources/model/car_2.fbx");
+        Entity cam = new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
+
+        cam.getComponent(TransformComponent.class).setPosition(0,25f,150f);
+
+        Entity dirLight =  new DirectionalLight()
+                .linkComponent(new ShaderComponent().build());
+        dirLight.getComponent(TransformComponent.class).setPosition(0,5,0f);
+
+        /*CustomShape shape = new CustomShape("src/main/resources/model/car_2.fbx");
         Material carMat = new Material();
         carMat.setDiffuse(new Texture("src/main/resources/model/carText2.png",false));
-
-        new Camera().linkComponent(new ScriptComponent().linkScript(new Movement()).build());
-        Entity dirLight =  new DirectionalLight()
-                .linkComponent(new ShaderComponent().build())
-                .linkComponent(new MeshComponent().applyShape(new CubeShape()).build());
-        dirLight.getComponent(TransformComponent.class).setPosition(0,5,0f);
 
         Entity spotLight =  new SpotLight()
                 .linkComponent(new ShaderComponent().build())
@@ -104,10 +103,6 @@ public class Main {
 
         Material blue = new Material();
         blue.setDiffuse(new Texture(new Vector4f(0,0,1.0f,1.0f)));
-
-        Material gray = new Material();
-        gray.setDiffuse(new Texture(new Vector4f(0.2f,0.2f,0.2f,1.0f)));
-        gray.setDiffuse( new Texture(new Vector4f(0.2f,0.2f,0.2f,1.0f)));
 
         Material test = new Material();
         test.setDiffuse( new Texture("src/main/resources/texture/container2.png",false));
@@ -138,13 +133,16 @@ public class Main {
                 .linkComponent(new MeshComponent().setMaterial(green).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build());
 
-        new Entity().linkComponent(new TransformComponent().setPosition(1,5,-15))
-                .linkComponent(new Rigidbody().setVelocity(new Vector3f(10,0,0)).setMass(100000f))
+        new Entity().linkComponent(new TransformComponent().setPosition(1,50,-15).setScale(2f,2f,2f))
+                .linkComponent(new Rigidbody().setVelocity(new Vector3f(10f,25f,0)).setMass(1f))
                 .linkComponent(new MeshComponent().setMaterial(blue).applyShape(new CubeShape()).build())
-                .linkComponent(new ShaderComponent().build());
+                .linkComponent(new ShaderComponent().build());*/
 
+        Material gray = new Material();
+        gray.setDiffuse( new Texture(new Vector4f(0.3f,0.3f,0.3f,1.0f)));
 
-        new Entity().linkComponent(new TransformComponent().setPosition(0,-2,0).setScale(50,1,50))
+        new Entity().linkComponent(new TransformComponent().setPosition(0,-2,0).setScale(100,1,100))
+                .linkComponent(new BoxCollider().setTransform(0,-2,0).setScale(100,1,100))
                 .linkComponent(new MeshComponent().setMaterial(gray).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build());
 

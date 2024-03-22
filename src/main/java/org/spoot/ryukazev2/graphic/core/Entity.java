@@ -6,10 +6,7 @@ import org.spoot.ryukazev2.graphic.manager.EntityManager;
 import org.spoot.ryukazev2.utils.ServiceLocator;
 import org.spoot.ryukazev2.utils.UniqueIdGenerator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 public class Entity {
@@ -44,7 +41,12 @@ public class Entity {
     }
 
     public <T extends Component> T getComponent(Class<T> componentClass) {
-        return componentClass.cast(components.get(componentClass));
+        for (Component component : components.values()) {
+            if (componentClass.isAssignableFrom(component.getClass())) {
+                return componentClass.cast(component);
+            }
+        }
+        return null;
     }
 
     public <T extends Component> List<T> getComponents(Class<T> componentClass) {
@@ -77,5 +79,20 @@ public class Entity {
         return false;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Entity other = (Entity) obj;
+        return Objects.equals(this.id, other.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return this.id != null ? this.id.hashCode() : 0;
+    }
 }

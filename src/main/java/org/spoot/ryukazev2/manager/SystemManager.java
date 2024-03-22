@@ -12,6 +12,7 @@ import org.spoot.ryukazev2.graphic.manager.InputManager;
 import org.spoot.ryukazev2.graphic.manager.RenderManager;
 import org.spoot.ryukazev2.graphic.manager.UIRenderManager;
 import org.spoot.ryukazev2.physic.manager.BodyManager;
+import org.spoot.ryukazev2.physic.manager.ColliderManager;
 import org.spoot.ryukazev2.utils.ServiceLocator;
 
 @EqualsAndHashCode(callSuper = true)
@@ -53,7 +54,9 @@ public class SystemManager extends Manager {
 
     public void update(){
 
-        ((BodyManager) this.services.get(BodyManager.class)).processEntityPhysics();
+        ((BodyManager) this.services.get(BodyManager.class)).processVelocity();
+        ((ColliderManager) this.services.get(ColliderManager.class)).processCollision();
+        ((BodyManager) this.services.get(BodyManager.class)).applyVelocity();
         ((ScriptManager) this.services.get(ScriptManager.class)).update();
     }
 
