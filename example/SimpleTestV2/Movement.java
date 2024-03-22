@@ -24,6 +24,7 @@ public class Movement implements IScript {
     private float ySens = 30f;
 
     private double lastSpawn = 0;
+    private Entity sphere = null;
 
     @Override
     public void init(Entity entity) {
@@ -42,7 +43,7 @@ public class Movement implements IScript {
         float mouseX = Input.getXAxisRaw() * Time.deltaTime * xSens;
         float mouseY = Input.getYAxisRaw() * Time.deltaTime * ySens;
 
-        //this.entity.getComponent(TransformComponent.class).rotate(-mouseY,mouseX,0);
+        this.entity.getComponent(TransformComponent.class).rotate(-mouseY,mouseX,0);
 
         Vector3f forward = new Vector3f(0, 0, -1).rotate(this.entity.getComponent(TransformComponent.class).getRotation());
         Vector3f right = new Vector3f(forward).cross(new Vector3f(0, 1, 0)).normalize();
@@ -68,13 +69,21 @@ public class Movement implements IScript {
         }
         if(Input.isPressed("reset")){
             if(glfwGetTime() - lastSpawn > 1){
-                Material blue = new Material();
-                blue.setDiffuse( new Texture(new Vector4f(0,0,1f,1.0f)));
-                new Entity().linkComponent(new TransformComponent().setPosition(0,30f,0).setScale(3f,3f,3f))
-                        .linkComponent(new Rigidbody())
-                        .linkComponent(new SphereCollider().setScale(1.5f))
-                        .linkComponent(new MeshComponent().setMaterial(blue).applyShape(new SphereShape(15)).build())
-                        .linkComponent(new ShaderComponent().build());
+
+                if(sphere == null){
+                    Material blue = new Material();
+                    blue.setDiffuse( new Texture(new Vector4f(0,0,1f,1.0f)));
+                    sphere = new Entity().linkComponent(new TransformComponent().setPosition(0,30f,0).setScale(3f,3f,3f))
+                            .linkComponent(new Rigidbody())
+                            .linkComponent(new SphereCollider().setScale(1.5f))
+                            .linkComponent(new MeshComponent().setMaterial(blue).applyShape(new SphereShape(15)).build())
+                            .linkComponent(new ShaderComponent().build());
+                }else{
+                    TransformComponent transformComponent = sphere.getComponent(TransformComponent.class);
+                    transformComponent.setPosition(0f,30f,0f);
+                }
+
+
 
                 lastSpawn = glfwGetTime();
             }

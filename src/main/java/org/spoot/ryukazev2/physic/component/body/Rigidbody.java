@@ -51,6 +51,7 @@ public class Rigidbody extends Component {
     }
 
     public void apply(){
+        System.out.println("Apply velocity : "+velocity.y);
         TransformComponent transform = this.getEntity().getComponent(TransformComponent.class);
         if(transform != null){
             transform.getPosition().add(new Vector3f(velocity).mul(Time.deltaTime));
