@@ -1,5 +1,6 @@
 package SimpleTestV2;
 
+import org.joml.Vector3f;
 import org.spoot.ryukazev2.graphic.component.game.MeshComponent;
 import org.spoot.ryukazev2.graphic.component.game.ShaderComponent;
 import org.spoot.ryukazev2.component.TransformComponent;
@@ -11,34 +12,28 @@ import org.spoot.ryukazev2.graphic.graphics.Texture;
 
 public class TestScript implements IScript {
 
-    private int count = 0;
+    private Entity entity;
 
-    private int t = 0;
-    private Material mat;
+    private boolean direction = false;
 
     @Override
     public void init(Entity entity) {
-        mat = new Material();
-        mat.setDiffuse(new Texture("src/main/resources/texture/container2.png",false));
+        this.entity = entity;
     }
 
     @Override
     public void update() {
-        if(t > 50){
-
-            for(int x = 0; x < 25; x++){
-                new Entity().linkComponent(new TransformComponent().setPosition(x,-2,count))
-                        .linkComponent(new MeshComponent().setMaterial(mat).applyShape(new CubeShape()).build())
-                        .linkComponent(new ShaderComponent().build());
-            }
-            count++;
-            t = 0;
+        if(direction){
+            this.entity.getComponent(TransformComponent.class).translate(new Vector3f(0.05f,0,0));
         }else{
-            t++;
+            this.entity.getComponent(TransformComponent.class).translate(new Vector3f(-0.05f,0,0));
         }
 
-
-
+        if(this.entity.getComponent(TransformComponent.class).getPosition().x > 10f){
+            direction = false;
+        }else if(this.entity.getComponent(TransformComponent.class).getPosition().x < -10f){
+            direction = true;
+        }
     }
 
     @Override

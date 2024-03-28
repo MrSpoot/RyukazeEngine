@@ -8,7 +8,7 @@ import org.spoot.ryukazev2.core.Time;
 
 public class Rigidbody extends Component {
 
-    private final float DEFAULT_MASS = 0.0000000000000000000000001f;
+    private final float DEFAULT_MASS = 0.0000000001f;
 
     @Getter
     private Vector3f velocity;
@@ -51,7 +51,6 @@ public class Rigidbody extends Component {
     }
 
     public void apply(){
-        System.out.println("Apply velocity : "+velocity.y);
         TransformComponent transform = this.getEntity().getComponent(TransformComponent.class);
         if(transform != null){
             transform.getPosition().add(new Vector3f(velocity).mul(Time.deltaTime));

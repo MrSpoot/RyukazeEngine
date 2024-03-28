@@ -73,9 +73,9 @@ public class Movement implements IScript {
                 if(sphere == null){
                     Material blue = new Material();
                     blue.setDiffuse( new Texture(new Vector4f(0,0,1f,1.0f)));
-                    sphere = new Entity().linkComponent(new TransformComponent().setPosition(0,30f,0).setScale(3f,3f,3f))
-                            .linkComponent(new Rigidbody())
-                            .linkComponent(new SphereCollider().setScale(1.5f))
+                    sphere = new Entity().linkComponent(new TransformComponent().setPosition(0,30f,0).setScale(2f,2f,2f))
+                            .linkComponent(new Rigidbody().setForce(new Vector3f(5f,0,0)))
+                            .linkComponent(new SphereCollider())
                             .linkComponent(new MeshComponent().setMaterial(blue).applyShape(new SphereShape(15)).build())
                             .linkComponent(new ShaderComponent().build());
                 }else{

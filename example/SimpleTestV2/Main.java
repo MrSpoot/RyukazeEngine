@@ -1,17 +1,13 @@
 package SimpleTestV2;
 
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.spoot.ryukazev2.Engine;
-import org.spoot.ryukazev2.graphic.GraphicsEngine;
 import org.spoot.ryukazev2.graphic.component.game.MeshComponent;
 import org.spoot.ryukazev2.component.ScriptComponent;
 import org.spoot.ryukazev2.graphic.component.game.ShaderComponent;
 import org.spoot.ryukazev2.component.TransformComponent;
 import org.spoot.ryukazev2.graphic.component.game.shape.CubeShape;
-import org.spoot.ryukazev2.graphic.component.game.shape.CustomShape;
-import org.spoot.ryukazev2.graphic.component.game.shape.SphereShape;
 import org.spoot.ryukazev2.graphic.component.ui.UICircleComponent;
 import org.spoot.ryukazev2.graphic.component.ui.UIScriptComponent;
 import org.spoot.ryukazev2.graphic.component.ui.UITextComponent;
@@ -21,13 +17,10 @@ import org.spoot.ryukazev2.graphic.core.UIEntity;
 import org.spoot.ryukazev2.graphic.core.enumerations.Anchor;
 import org.spoot.ryukazev2.graphic.entity.Camera;
 import org.spoot.ryukazev2.graphic.entity.DirectionalLight;
-import org.spoot.ryukazev2.graphic.entity.PointLight;
-import org.spoot.ryukazev2.graphic.entity.SpotLight;
 import org.spoot.ryukazev2.graphic.graphics.Material;
 import org.spoot.ryukazev2.graphic.graphics.Texture;
 import org.spoot.ryukazev2.graphic.graphics.Image;
-import org.spoot.ryukazev2.physic.component.body.Rigidbody;
-import org.spoot.ryukazev2.physic.component.collider.BoxCollider;
+import org.spoot.ryukazev2.physic.component.collider.AABBCollider;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
@@ -141,8 +134,34 @@ public class Main {
         Material gray = new Material();
         gray.setDiffuse( new Texture(new Vector4f(0.3f,0.3f,0.3f,1.0f)));
 
-        new Entity().linkComponent(new TransformComponent().setPosition(0,-2,0).setScale(100,1,100))
-                .linkComponent(new BoxCollider().setTransform(0,-2,0).setScale(100,1,100))
+        Material green = new Material();
+        green.setDiffuse(new Texture(new Vector4f(0,1.0f,0,1.0f)));
+
+        Material red = new Material();
+        red.setDiffuse(new Texture(new Vector4f(1f,0,0,1.0f)));
+
+        Entity entity1 = new Entity().linkComponent(new TransformComponent().setPosition(1,0,0))
+                .linkComponent(new MeshComponent().setMaterial(red).applyShape(new CubeShape()).build())
+                .linkComponent(new ShaderComponent().build());
+
+        Entity entity2 = new Entity().linkComponent(new TransformComponent().setPosition(0,0,1))
+                .linkComponent(new MeshComponent().setMaterial(green).applyShape(new CubeShape()).build())
+                .linkComponent(new ShaderComponent().build());
+
+        Entity entity3 = new Entity().linkComponent(new TransformComponent().setPosition(-1,0,0))
+                .linkComponent(new MeshComponent().setMaterial(green).applyShape(new CubeShape()).build())
+                .linkComponent(new ShaderComponent().build());
+
+        Entity entity4 = new Entity().linkComponent(new TransformComponent().setPosition(0,0,-1))
+                .linkComponent(new MeshComponent().setMaterial(red).applyShape(new CubeShape()).build())
+                .linkComponent(new ShaderComponent().build());
+
+        new Entity().linkComponent(new TransformComponent().setPosition(0,5,0))
+                .linkComponent(new ScriptComponent().linkScript(new TestScript()).build())
+                .linkChildren(entity1).linkChildren(entity2).linkChildren(entity3).linkChildren(entity4);
+
+        new Entity().linkComponent(new TransformComponent().setPosition(50,-2,0).setScale(100,1,100))
+                .linkComponent(new AABBCollider().setCenter(0,0,0).setScale(100,1,100))
                 .linkComponent(new MeshComponent().setMaterial(gray).applyShape(new CubeShape()).build())
                 .linkComponent(new ShaderComponent().build());
 
