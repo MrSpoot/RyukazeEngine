@@ -38,14 +38,14 @@ public class Rigidbody extends Component {
     }
 
     public float getMass(){
-        return mass > 0 ? mass : DEFAULT_MASS;
+        return this.mass > 0 ? this.mass : DEFAULT_MASS;
     }
 
     public Vector3f processVelocity(Vector3f... forces){
         for(Vector3f f : forces){
             this.force.add(f);
         }
-        this.velocity.add((new Vector3f(force.div(this.mass > 0 ? this.mass : DEFAULT_MASS)).mul(Time.deltaTime)));
+        this.velocity.add((new Vector3f(force.div(getMass())).mul(Time.deltaTime)));
         this.force.set(0,0,0);
         return this.velocity;
     }

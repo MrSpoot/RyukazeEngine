@@ -13,7 +13,7 @@ public class CameraComponent extends Component {
     private float zFar;
 
     public CameraComponent(){
-        this.fov = 75f;
+        this.fov = 80f;
         this.zNear = 0.1f;
         this.zFar = 1000f;
     }

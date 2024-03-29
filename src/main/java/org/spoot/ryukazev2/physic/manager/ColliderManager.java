@@ -64,20 +64,7 @@ public class ColliderManager extends Manager {
                     Collider collider2 = entity2.getComponent(Collider.class);
 
                     if(CollisionDetector.checkCollision(collider1,collider2)){
-
-                        Rigidbody entity1Rigidbody = entity1.getComponent(Rigidbody.class);
-
-                        if(entity1Rigidbody != null){
-                            CollisionResolver.resolveCollision(entity1Rigidbody);
-                        }
-
-                        Rigidbody entity2Rigidbody = entity2.getComponent(Rigidbody.class);
-
-                        if(entity2Rigidbody != null){
-                            CollisionResolver.resolveCollision(entity2Rigidbody);
-                        }
-
-
+                        CollisionResolver.resolveCollision(collider1,collider2);
                     }
 
                 }

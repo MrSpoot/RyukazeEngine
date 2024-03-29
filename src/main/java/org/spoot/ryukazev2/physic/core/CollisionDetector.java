@@ -17,7 +17,7 @@ public class CollisionDetector {
 
         //Sphere-Sphere
         if(collider2 instanceof SphereCollider sphere1 && collider1 instanceof SphereCollider sphere2){
-            //return checkCollision(sphere1,sphere2);
+            return checkCollision(sphere1,sphere2);
         }
 
         //OBB-OBB
@@ -40,7 +40,7 @@ public class CollisionDetector {
     private static boolean checkCollision(SphereCollider sphere1, SphereCollider sphere2){
         float distanceSquared = sphere1.getCenter().sub(sphere2.getCenter()).lengthSquared();
         //TODO Change x usage
-        float radiusSum = sphere1.getScale().x + sphere2.getScale().x;
+        float radiusSum = sphere1.getRadius() + sphere2.getRadius();
         return distanceSquared <= (radiusSum * radiusSum);
     }
 
@@ -89,7 +89,7 @@ public class CollisionDetector {
         Vector3f closestPoint = clamp(sphere.getCenter(),aabb.getMin(), aabb.getMax());
         float distanceSquared = closestPoint.sub(sphere.getCenter()).lengthSquared();
         //TODO Change x usage
-        return distanceSquared <= (sphere.getScale().x / 2);
+        return distanceSquared <= (sphere.getRadius());
     }
 
     private static Vector3f clamp(Vector3f vector, Vector3f min, Vector3f max){

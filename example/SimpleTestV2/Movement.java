@@ -16,6 +16,10 @@ import org.spoot.ryukazev2.graphic.graphics.Texture;
 import org.spoot.ryukazev2.physic.component.body.Rigidbody;
 import org.spoot.ryukazev2.physic.component.collider.SphereCollider;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Movement implements IScript {
@@ -24,12 +28,15 @@ public class Movement implements IScript {
     private float ySens = 30f;
 
     private double lastSpawn = 0;
-    private Entity sphere = null;
+    private List<Entity> spheres = null;
+
+
 
     @Override
     public void init(Entity entity) {
         this.entity = entity;
         this.entity.getComponent(TransformComponent.class).setPosition(0,2,150);
+        this.spheres = new ArrayList<>();
         initTouch();
     }
 
@@ -53,7 +60,7 @@ public class Movement implements IScript {
         float cameraSpeed = 30f * Time.deltaTime;
 
         if(Input.isPressed("sprint")){
-            cameraSpeed *= 30f;
+            cameraSpeed *= 5f;
         }
         if (Input.isPressed("forward")) {
             velocity.add(forward);
@@ -70,17 +77,32 @@ public class Movement implements IScript {
         if(Input.isPressed("reset")){
             if(glfwGetTime() - lastSpawn > 1){
 
-                if(sphere == null){
-                    Material blue = new Material();
-                    blue.setDiffuse( new Texture(new Vector4f(0,0,1f,1.0f)));
-                    sphere = new Entity().linkComponent(new TransformComponent().setPosition(0,30f,0).setScale(2f,2f,2f))
-                            .linkComponent(new Rigidbody().setForce(new Vector3f(5f,0,0)))
-                            .linkComponent(new SphereCollider())
-                            .linkComponent(new MeshComponent().setMaterial(blue).applyShape(new SphereShape(15)).build())
-                            .linkComponent(new ShaderComponent().build());
+
+
+
+                if(spheres.isEmpty()){
+
+                    for(int i = 0; i < 50; i++){
+
+                        Material mat = new Material();
+                        mat.setDiffuse( new Texture(new Vector4f(getRandomFloat(0f,1f),getRandomFloat(0f,1f),getRandomFloat(0f,1f),1.0f)));
+
+                        spheres.add(new Entity().linkComponent(new TransformComponent().setPosition(0,getRandomFloat(20f,50f),0).setScale(2f,2f,2f))
+                                .linkComponent(new Rigidbody().setForce(new Vector3f(getRandomFloat(-100f,100f),0,getRandomFloat(-100f,100f))))
+                                .linkComponent(new SphereCollider())
+                                .linkComponent(new MeshComponent().setMaterial(mat).applyShape(new SphereShape(15)).build())
+                                .linkComponent(new ShaderComponent().build()));
+
+                    }
+
+
                 }else{
-                    TransformComponent transformComponent = sphere.getComponent(TransformComponent.class);
-                    transformComponent.setPosition(0f,30f,0f);
+                    for(Entity entity1 : spheres){
+                        entity1.getComponent(Rigidbody.class).setVelocity(new Vector3f(0f)).setForce(new Vector3f(getRandomFloat(-100f,100f),0,getRandomFloat(-100f,100f)));
+                        TransformComponent transformComponent = entity1.getComponent(TransformComponent.class);
+                        transformComponent.setPosition(0f,getRandomFloat(20f,50f),0f);
+                    }
+
                 }
 
 
@@ -103,6 +125,11 @@ public class Movement implements IScript {
     @Override
     public void cleanup() {
 
+    }
+
+    private float getRandomFloat(float min, float max){
+        Random random = new Random();
+        return min + random.nextFloat() * (max - min);
     }
 
     private void initTouch(){

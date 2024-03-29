@@ -27,6 +27,7 @@ public class BodyManager extends Manager {
         for(Entity entity : entities){
             Rigidbody rigidbody = entity.getComponent(Rigidbody.class);
             Vector3f gravity = new Vector3f(0,-9.81f,0).mul(rigidbody.getMass());
+            //rigidbody.processVelocity();
             rigidbody.processVelocity(gravity);
             rigidbody.apply();
         }
