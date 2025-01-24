@@ -1,7 +1,5 @@
 # Ryukaze Engine
 
-![Logo](C:\Users\Betterfly\Documents\GitHub\RyukazeEngine\logo.png)
-
 A simple efficient game engine. Can be used to create video games
 
 # Development
